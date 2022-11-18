@@ -1,5 +1,7 @@
 Create Database DuAn1
+go
 Use DuAn1
+go
 
 Create Table VaiTro(
 	MaVaiTro varchar(10) primary key,
@@ -16,15 +18,15 @@ Create Table NhanVien(
 	DiaChi nvarchar(100) not null,
 	Email nvarchar(100) not null,
 	TinhTrang bit,
+	MatKhau varchar(Max),
 	MaVaiTro varchar(10) foreign key references VaiTro(MaVaiTro),
 )
 go
 
-Create table BoNho(
-	MaBoNho varchar(10) primary key,
-	TenBoNho nvarchar(100) not null,
-	NgaySanXuat date,
-	QuocGia nvarchar(100),
+Create table RAM(
+	MaRAM varchar(10) primary key,
+	TenRAM nvarchar(100) not null,
+	DungLuong varchar(100),
 	MoTa nvarchar(100)
 )
 go
@@ -44,8 +46,6 @@ go
 Create table CPU(
 	MaCPU varchar(10) primary key,
 	TenCPU nvarchar(100) not null,
-	NgaySanXuat date,
-	QuocGia nvarchar(100),
 	MoTa nvarchar(100)
 )
 go
@@ -55,8 +55,6 @@ Create table ManHinh(
 	TenManHinh nvarchar(100) not null,
 	DoPhanGiai nvarchar(50) not null,
 	KichThuoc nvarchar(50) not null,
-	NgaySanXuat date,
-	QuocGia nvarchar(100),
 	MoTa nvarchar(100)
 )
 go
@@ -66,10 +64,23 @@ Create table SanPham(
 	TenSP nvarchar(100) not null,
 	MauSac nvarchar(30),
 	HeDieuHanh nvarchar(30),
-	Model varchar(30),
 	NamBH int, 
 	TrongLuong decimal(20, 0),
+	XuatXu nvarchar(100),
+	TrangThai bit,
 	MoTa nvarchar(100)
+)
+go
+
+Create table ThanhToan(
+	MaThanhToan varchar(10) primary key,
+	TenThanhToan nvarchar(100) not null,	
+)
+go
+
+Create table AnhSP(
+	MaAnh varchar(10) primary key,
+	TenAnh nvarchar(100) not null,	
 )
 go
 
@@ -80,7 +91,8 @@ Create table KhuyenMai(
 	GiamGia nvarchar(50),
 	NgayBatDau date,
 	NgayKetThuc date,
-	TrangThai bit
+	TrangThai bit,
+	MaThanhToan varchar(10) foreign key references ThanhToan(MaThanhToan)
 )
 go
 
@@ -90,7 +102,7 @@ Create table ChiTietSP(
 	MaNSX varchar(10) foreign key references NSX(MaNSX),
 	MaKM varchar(10) foreign key references KhuyenMai(MaKM),
 	MaCPU varchar(10) foreign key references CPU(MaCPU),
-	MaBoNho varchar(10) foreign key references BoNho(MaBoNho),
+	MaRAM varchar(10) foreign key references RAM(MaRAM),
 	MaManHinh varchar(10) foreign key references ManHinh(MaManHinh),
 	GiaNhap decimal(20, 0),
 	GiaBan decimal(20, 0),
@@ -116,7 +128,8 @@ Create table HoaDon(
 	NgayThanhToan date,
 	TinhTrang bit,
 	MaKH varchar(10) foreign key references KhachHang(MaKH),
-	MaNV varchar(10) foreign key references NhanVien(MaNV)
+	MaNV varchar(10) foreign key references NhanVien(MaNV),
+	MaThanhToan varchar(10) foreign key references ThanhToan(MaThanhToan)
 )
 go
 
