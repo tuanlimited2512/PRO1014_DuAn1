@@ -106,7 +106,8 @@ Create table ChiTietSP(
 	MaManHinh varchar(10) foreign key references ManHinh(MaManHinh),
 	GiaNhap decimal(20, 0),
 	GiaBan decimal(20, 0),
-	SoLuong int, 
+	SoLuong int,
+	BarCode int not null unique,
 	MoTa nvarchar(100),
 	primary key(MaSP)
 )
