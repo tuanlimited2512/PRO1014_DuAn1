@@ -26,7 +26,7 @@ go
 Create table RAM(
 	MaRAM varchar(10) primary key,
 	TenRAM nvarchar(100) not null,
-	DungLuong varchar(100),
+	DungLuong varchar(100) not null,
 	MoTa nvarchar(100)
 )
 go
