@@ -7,8 +7,6 @@ package Application;
 import View.GiaoDienDangNhap;
 
 
-
-
 /**
  *
  * @author anhtu
