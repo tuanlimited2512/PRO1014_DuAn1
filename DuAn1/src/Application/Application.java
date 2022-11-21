@@ -4,7 +4,10 @@
  */
 package Application;
 
-import View.QuanLyBanHang;
+import View.GiaoDienDangNhap;
+
+
+
 
 /**
  *
@@ -12,7 +15,7 @@ import View.QuanLyBanHang;
  */
 public class Application {
     public static void main(String[] args) {
-        QuanLyBanHang qlbh = new QuanLyBanHang();
-        qlbh.setVisible(true);
+        GiaoDienDangNhap gd = new GiaoDienDangNhap();
+        gd.setVisible(true);
     }
 }
