@@ -215,7 +215,7 @@ public class DangNhap extends javax.swing.JPanel {
             lbl_show.setIcon(new ImageIcon(".\\src\\Images\\blind.png"));
             isHidden = false;
         } else {
-            txt_mk.setEchoChar('\u25cf');
+            txt_mk.setEchoChar('•');
             lbl_show.setIcon(new ImageIcon(".\\src\\Images\\show.png"));
             isHidden = true;
         }
