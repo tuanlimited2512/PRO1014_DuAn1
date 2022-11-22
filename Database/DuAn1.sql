@@ -72,12 +72,6 @@ Create table SanPham(
 )
 go
 
-Create table ThanhToan(
-	MaThanhToan varchar(10) primary key,
-	TenThanhToan nvarchar(100) not null,	
-)
-go
-
 Create table AnhSP(
 	MaAnh varchar(10) primary key,
 	TenAnh nvarchar(100) not null,	

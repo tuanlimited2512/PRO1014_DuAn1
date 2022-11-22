@@ -291,7 +291,7 @@ public class QuenMatKhau extends javax.swing.JPanel {
             lbl_show1.setIcon(new ImageIcon(".\\src\\Images\\blind.png"));
             isHidden = false;
         } else {
-            txt_mk1.setEchoChar('\u25cf');
+            txt_mk1.setEchoChar('•');
             lbl_show1.setIcon(new ImageIcon(".\\src\\Images\\show.png"));
             isHidden = true;
         }
@@ -308,7 +308,7 @@ public class QuenMatKhau extends javax.swing.JPanel {
             lbl_show2.setIcon(new ImageIcon(".\\src\\Images\\blind.png"));
             isHidden = false;
         } else {
-            txt_mk2.setEchoChar('\u25cf');
+            txt_mk2.setEchoChar('•');
             lbl_show2.setIcon(new ImageIcon(".\\src\\Images\\show.png"));
             isHidden = true;
         }
