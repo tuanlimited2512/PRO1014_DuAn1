@@ -18,27 +18,27 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
      * Creates new form GiaoDienPhanMem
      */
     private JPanel panelChid;
-    
+
     public GiaoDienPhanMem() {
         initComponents();
         setLocationRelativeTo(null);
         setColor(btn_banhang);
         resetColor(new JPanel[]{btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
         setpanal(new FormBanHang());
-        
+
     }
-    
-    private void setColor(JPanel pane){
-        pane.setBackground(new Color(204,204,204));
+
+    private void setColor(JPanel pane) {
+        pane.setBackground(new Color(204, 204, 204));
     }
-    
-    private void resetColor(JPanel[] pane){
-        for(int i = 0;i < pane.length; i++){
-            pane[i].setBackground(new Color(153,255,204));
+
+    private void resetColor(JPanel[] pane) {
+        for (int i = 0; i < pane.length; i++) {
+            pane[i].setBackground(new Color(153, 255, 204));
         }
     }
-    
-    private void setpanal(JPanel panel){
+
+    private void setpanal(JPanel panel) {
         panelChid = panel;
         formPhanMem.removeAll();
         formPhanMem.add(panelChid);
@@ -363,8 +363,8 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         // TODO add your handling code here:
-        int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?","Phần mềm bán hàng",JOptionPane.YES_NO_OPTION);
-        if(i == 0){
+        int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Phần mềm bán hàng", JOptionPane.YES_NO_OPTION);
+        if (i == 0) {
             setColor(btn_dangxuat);
             resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_thongke});
             new GiaoDienDangNhap().setVisible(true);
@@ -423,19 +423,19 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
 
     private void btn_dangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_dangxuatMousePressed
         // TODO add your handling code here:    
-        int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?","Phần mềm bán hàng",JOptionPane.YES_NO_OPTION);
-        if(i == 0){
+        int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Phần mềm bán hàng", JOptionPane.YES_NO_OPTION);
+        if (i == 0) {
             setColor(btn_dangxuat);
             resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_thongke});
             new GiaoDienDangNhap().setVisible(true);
             this.dispose();
         }
-        
+
     }//GEN-LAST:event_btn_dangxuatMousePressed
 
     private void btn_dangxuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_dangxuatMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btn_dangxuatMouseClicked
 
     /**

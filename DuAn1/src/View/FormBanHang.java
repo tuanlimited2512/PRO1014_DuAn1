@@ -4,6 +4,16 @@
  */
 package View;
 
+import Services.IChiTietSPService;
+import Services.lmpl.ChiTietSPServiceImpl;
+import ViewModels.ChiTietSPViewModel;
+import ViewModels.GioHangViewModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anhtu
@@ -13,8 +23,40 @@ public class FormBanHang extends javax.swing.JPanel {
     /**
      * Creates new form FormBanHang
      */
+    private final IChiTietSPService chiTietSPService;
+    public DefaultComboBoxModel boxModelMauSac;
+    DefaultTableModel defaultTableModel;
+    static List<GioHangViewModel> luuTam = new ArrayList<>();
+
     public FormBanHang() {
         initComponents();
+        chiTietSPService = new ChiTietSPServiceImpl();
+        loadData();
+        addCBChucVu();
+        boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
+
+    }
+
+    void addCBChucVu() {
+        boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
+        List<ChiTietSPViewModel> list = chiTietSPService.getAll();
+        for (ChiTietSPViewModel chiTiet : list) {
+            boxModelMauSac.addElement(chiTiet);
+
+        }
+
+    }
+
+    void loadData() {
+        defaultTableModel = (DefaultTableModel) tbl_bangSanPham.getModel();
+        List<ChiTietSPViewModel> list = chiTietSPService.getAll();
+        for (ChiTietSPViewModel chiTietSPViewModel : list) {
+
+            defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
+                chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
+                chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
+
+        }
     }
 
     /**
@@ -33,17 +75,16 @@ public class FormBanHang extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbl_gioHang = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tbl_bangSanPham = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txt_tenSP = new javax.swing.JTextField();
+        cb_mau = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -127,18 +168,15 @@ public class FormBanHang extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_gioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành tiền"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tbl_gioHang);
 
         jButton2.setBackground(new java.awt.Color(153, 255, 204));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/close.png"))); // NOI18N
@@ -177,35 +215,55 @@ public class FormBanHang extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_bangSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên Sản Phẩm", "Đơn Giá", "Giảm Giá", "Màu Sắc", "NSX", "Kích Thước", "Trọng Lượng", "Số Lượng"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        tbl_bangSanPham.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tbl_bangSanPhamFocusGained(evt);
+            }
+        });
+        tbl_bangSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_bangSanPhamMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbl_bangSanPham);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Tìm kiếm sản phẩm:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        txt_tenSP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_tenSPFocusGained(evt);
+            }
+        });
+        txt_tenSP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_tenSPKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_tenSPKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_tenSPKeyTyped(evt);
+            }
+        });
+
+        cb_mau.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
+        cb_mau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cb_mauActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Lọc màu sắc:");
-
-        jButton4.setBackground(new java.awt.Color(153, 255, 204));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
-        jButton4.setText("Thêm sản phẩm");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -218,14 +276,11 @@ public class FormBanHang extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jButton4)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addComponent(txt_tenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cb_mau, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)))
                 .addContainerGap())
         );
@@ -236,13 +291,11 @@ public class FormBanHang extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_tenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))))
+                        .addComponent(cb_mau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -515,9 +568,36 @@ public class FormBanHang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cb_mauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_mauActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+        boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
+        defaultTableModel = (DefaultTableModel) tbl_bangSanPham.getModel();
+        int mau = (int) cb_mau.getSelectedIndex();
+        System.out.println(mau);
+        if (mau > 0) {
+            defaultTableModel.setRowCount(0);
+            ChiTietSPViewModel chiTiet = (ChiTietSPViewModel) cb_mau.getSelectedItem();
+            List<ChiTietSPViewModel> list = chiTietSPService.locMauSac(chiTiet.getMauSac());
+            for (ChiTietSPViewModel chiTietSPViewModel : list) {
+
+                defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
+                    chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
+                    chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
+            }
+        } else {
+            defaultTableModel.setRowCount(0);
+            List<ChiTietSPViewModel> list1 = chiTietSPService.getAll();
+            for (ChiTietSPViewModel chiTietSPViewModel : list1) {
+
+                defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
+                    chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
+                    chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
+            }
+        }
+
+
+    }//GEN-LAST:event_cb_mauActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -531,18 +611,140 @@ public class FormBanHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void txt_tenSPFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_tenSPFocusGained
+
+
+    }//GEN-LAST:event_txt_tenSPFocusGained
+
+    private void tbl_bangSanPhamFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbl_bangSanPhamFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbl_bangSanPhamFocusGained
+
+    private void txt_tenSPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tenSPKeyPressed
+        // TODO add your handling code here:
+        defaultTableModel = (DefaultTableModel) tbl_bangSanPham.getModel();
+        String tenSP = "%" + txt_tenSP.getText() + "%";
+        List<ChiTietSPViewModel> list = chiTietSPService.timKiemSP(tenSP);
+        defaultTableModel.setRowCount(0);
+        for (ChiTietSPViewModel chiTietSPViewModel : list) {
+
+            defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
+                chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
+                chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
+
+        }
+    }//GEN-LAST:event_txt_tenSPKeyPressed
+
+    private void txt_tenSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tenSPKeyReleased
+        defaultTableModel = (DefaultTableModel) tbl_bangSanPham.getModel();
+        String tenSP = "%" + txt_tenSP.getText() + "%";
+        List<ChiTietSPViewModel> list = chiTietSPService.timKiemSP(tenSP);
+        defaultTableModel.setRowCount(0);
+        for (ChiTietSPViewModel chiTietSPViewModel : list) {
+
+            defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
+                chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
+                chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tenSPKeyReleased
+
+    private void txt_tenSPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tenSPKeyTyped
+        // TODO add your handling code here:
+        defaultTableModel = (DefaultTableModel) tbl_bangSanPham.getModel();
+        String tenSP = "%" + txt_tenSP.getText() + "%";
+        List<ChiTietSPViewModel> list = chiTietSPService.timKiemSP(tenSP);
+        defaultTableModel.setRowCount(0);
+        for (ChiTietSPViewModel chiTietSPViewModel : list) {
+
+            defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
+                chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
+                chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
+
+        }
+    }//GEN-LAST:event_txt_tenSPKeyTyped
+
+    private void tbl_bangSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_bangSanPhamMouseClicked
+        // TODO add your handling code here:
+        int row = tbl_bangSanPham.getSelectedRow();
+        int soLuong = (int) tbl_bangSanPham.getValueAt(row, 7);
+        if (soLuong <= 0) {
+            JOptionPane.showMessageDialog(this, "Sản phẩm này đã hết");
+            return;
+        }
+
+//        List<ChiTietSPViewModel> li = chiTietSPService.getAllID();
+//        ChiTietSPViewModel sp = new ChiTietSPViewModel();
+//        sp.setMaSP(li.get(row).getMaSP());
+//        sp.setTenSP((String) tbl_bangSanPham.getValueAt(row, 0));
+//        List<ChiTietSPViewModel> luuTam = new ArrayList<>();
+//        luuTam.add(sp);
+        loadGH(row);
+
+
+    }//GEN-LAST:event_tbl_bangSanPhamMouseClicked
+
+    void loadGH(int row) {
+        List<ChiTietSPViewModel> li = chiTietSPService.getAllID();
+        if (tbl_gioHang.getRowCount() <= 0) {
+            GioHangViewModel gh = new GioHangViewModel();
+            gh.setMaSP(li.get(row).getMaSP());
+            gh.setTenSP((String) tbl_bangSanPham.getValueAt(row, 0));
+            String donGia = String.valueOf(tbl_bangSanPham.getValueAt(row, 1));
+            gh.setDonGia(Double.parseDouble(donGia));
+            gh.setSoLuong(0);
+
+            luuTam.add(gh);
+            defaultTableModel = (DefaultTableModel) tbl_gioHang.getModel();
+            for (GioHangViewModel gioHangViewModel : luuTam) {
+                defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getDonGia()});
+            }
+        }
+        if (tbl_gioHang.getRowCount() > 0) {
+
+            int dem = 0;
+            for (int j = 0; j < luuTam.size(); j++) {
+                if (luuTam.get(j).getMaSP().equals(li.get(row).getMaSP())) {           
+                    String soLuong = String.valueOf(tbl_gioHang.getValueAt(row, 1));
+                    int i = Integer.parseInt(soLuong);
+                    int sl = i + 1;
+                    luuTam.get(j).setSoLuong(sl);
+                    tbl_gioHang.setValueAt(luuTam.get(j).getSoLuong(), j, 1);
+                    dem = 1;
+                    break;
+                }
+            }
+            if (dem == 0) {
+                GioHangViewModel gh = new GioHangViewModel();
+                gh.setMaSP(li.get(row).getMaSP());
+                gh.setTenSP((String) tbl_bangSanPham.getValueAt(row, 0));
+                String donGia = String.valueOf(tbl_bangSanPham.getValueAt(row, 1));
+                gh.setDonGia(Double.parseDouble(donGia));
+                gh.setSoLuong(1);
+                luuTam.add(gh);
+                defaultTableModel = (DefaultTableModel) tbl_gioHang.getModel();
+                defaultTableModel.setRowCount(0);
+                for (GioHangViewModel gioHangViewModel : luuTam) {
+                    defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getDonGia()});
+                }
+
+            }
+
+        }
+
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_mau;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -577,11 +779,11 @@ public class FormBanHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tbl_bangSanPham;
+    private javax.swing.JTable tbl_gioHang;
+    private javax.swing.JTextField txt_tenSP;
     // End of variables declaration//GEN-END:variables
 }

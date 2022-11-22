@@ -4,10 +4,20 @@
  */
 package Repositories;
 
+import ViewModels.ChiTietSPViewModel;
+import java.util.List;
+
 /**
  *
  * @author anhtu
  */
 public interface IChiTietSPRepository {
     
+    List<ChiTietSPViewModel> getAll();
+    
+    List<ChiTietSPViewModel> timKiemSP(String ten);
+    
+    List<ChiTietSPViewModel> locMauSac(String mauSac);
+    
+    List<ChiTietSPViewModel> getAllID();
 }
