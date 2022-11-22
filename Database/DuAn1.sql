@@ -85,8 +85,8 @@ Create table KhuyenMai(
 	GiamGia nvarchar(50),
 	NgayBatDau date,
 	NgayKetThuc date,
-	TrangThai bit,
-	MaThanhToan varchar(10) foreign key references ThanhToan(MaThanhToan)
+	TrangThai bit
+	
 )
 go
 
@@ -98,6 +98,7 @@ Create table ChiTietSP(
 	MaCPU varchar(10) foreign key references CPU(MaCPU),
 	MaRAM varchar(10) foreign key references RAM(MaRAM),
 	MaManHinh varchar(10) foreign key references ManHinh(MaManHinh),
+	MaAnh varchar(10)foreign key references AnhSP(MaAnh),
 	GiaNhap decimal(20, 0),
 	GiaBan decimal(20, 0),
 	SoLuong int,
@@ -123,8 +124,8 @@ Create table HoaDon(
 	NgayThanhToan date,
 	TinhTrang bit,
 	MaKH varchar(10) foreign key references KhachHang(MaKH),
-	MaNV varchar(10) foreign key references NhanVien(MaNV),
-	MaThanhToan varchar(10) foreign key references ThanhToan(MaThanhToan)
+	MaNV varchar(10) foreign key references NhanVien(MaNV)
+	
 )
 go
 
