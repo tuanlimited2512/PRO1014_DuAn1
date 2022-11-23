@@ -113,7 +113,7 @@ Create table KhachHang(
 	TenKH nvarchar(100) not null,
 	SDT varchar(12),
 	GioiTinh BIT,
-	NgaySinh date,
+	Email nvarchar(max),
 	DiaChi nvarchar(200)
 )
 go
