@@ -534,10 +534,33 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         // TODO add your handling code here:
+        int index = tbl_nhanvien_lamviec.getSelectedRow();
+        NhanVien nv = nhanVienService.getSelectSql().get(index);
+        nv.setMa(txt_ma.getText());
+        nhanVienService.delete(nv);
+        load();
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
+        int index = tbl_nhanvien_lamviec.getSelectedRow();
+        NhanVien nv = nhanVienService.getSelectSql().get(index);
+        
+        
+        VaiTro vt = getTenVaiTro(index);
+        
+        nv.setTen(txt_ten.getText());
+        nv.setNgaySinh(txt_ngaysinh.getText());
+        nv.setGioiTinh(rdo_nam.isSelected()?0:1);
+        nv.setDiaChi(txt_diachi.getText());
+        nv.setSdt(txt_dienthoai.getText());
+        nv.setEmail(txt_email.getText());
+        nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
+        nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
+        nv.setTrangThai(rdo_hd.isSelected()?0:1);
+        nv.setMa(txt_ma.getText());        
+        nhanVienService.update(nv,vt);
+        load();
     }//GEN-LAST:event_btn_suaActionPerformed
 
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed

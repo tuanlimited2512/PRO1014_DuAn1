@@ -57,13 +57,54 @@ public class NhanVienRepository implements INhanVienRepository{
     }
 
     @Override
-    public Integer update(NhanVien nv) {
-        return null;
+    public Boolean update(NhanVien nv, VaiTro vt) {
+        String select = "select MaVaiTro from VaiTro Where TenVaiTro = ? ";
+        String chua = null;
+                try {
+            ResultSet rs1 = DbConnection.getDataFromQuery(select, vt.getTenVaiTro());
+            while(rs1.next()){
+                chua = rs1.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String update = "UPDATE NhanVien SET HoTen = ? , NgaySinh = ?, GioiTinh = ?, DiaChi = ? , SDT = ?, Email = ?, MatKhau = ?, MaVaiTro = ?, TinhTrang = ? Where MaNV = ?";
+        try {
+            PreparedStatement ps = DbConnection.openDbConnection().prepareStatement(update);
+            ps.setObject(1, nv.getTen());
+            ps.setObject(2, nv.getNgaySinh());
+            ps.setObject(3, nv.getGioiTinh());
+            ps.setObject(4, nv.getDiaChi());
+            ps.setObject(5, nv.getSdt());
+            ps.setObject(6, nv.getEmail());
+            ps.setObject(7, nv.getMatKhau());
+            ps.setObject(8, chua);
+            ps.setObject(9, nv.getTrangThai());
+            ps.setObject(10, nv.getMa());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 
     @Override
-    public Integer delete(NhanVien nv) {
-        return null;
+    public Boolean delete(NhanVien nv) {
+        String delete = "delete from nhanvien where manv = ?";
+        
+        try {
+            PreparedStatement ps = DbConnection.openDbConnection().prepareStatement(delete);
+            ps.setObject(1, nv.getMa());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 
     @Override

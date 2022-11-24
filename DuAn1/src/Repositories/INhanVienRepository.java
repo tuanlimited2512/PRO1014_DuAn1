@@ -15,7 +15,7 @@ import java.util.List;
 public interface INhanVienRepository {
     List<NhanVien> getSelectSql();
     Integer insert(NhanVien nv, VaiTro vt);
-    Integer update(NhanVien nv);
-    Integer delete(NhanVien nv);
+    Boolean update(NhanVien nv , VaiTro vt);
+    Boolean delete(NhanVien nv );
     List<NhanVien> tim(String hoTen);
 }

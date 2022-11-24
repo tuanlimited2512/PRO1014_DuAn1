@@ -33,12 +33,12 @@ public class NhanVienService implements INhanVienService{
     }
 
     @Override
-    public Integer update(NhanVien nv) {
-        return repository.update(nv);
+    public Boolean update(NhanVien nv , VaiTro vt) {
+        return repository.update(nv,vt);
     }
 
     @Override
-    public Integer delete(NhanVien nv) {
+    public Boolean delete(NhanVien nv ) {
         return repository.delete(nv);
     }
 
