@@ -5,6 +5,7 @@
 package Services;
 
 import ViewModels.ChiTietSPViewModel;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -20,5 +21,7 @@ public interface IChiTietSPService {
     List<ChiTietSPViewModel> locMauSac(String mauSac);
     
     List<ChiTietSPViewModel> getAllID();
+    
+    HashSet<String> getmau();
 
 }

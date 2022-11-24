@@ -9,6 +9,7 @@ import Services.lmpl.ChiTietSPServiceImpl;
 import ViewModels.ChiTietSPViewModel;
 import ViewModels.GioHangViewModel;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -27,35 +28,36 @@ public class FormBanHang extends javax.swing.JPanel {
     public DefaultComboBoxModel boxModelMauSac;
     DefaultTableModel defaultTableModel;
     static List<GioHangViewModel> luuTam = new ArrayList<>();
-
+    
     public FormBanHang() {
         initComponents();
         chiTietSPService = new ChiTietSPServiceImpl();
         loadData();
         addCBChucVu();
         boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
-
+        
     }
-
+    
     void addCBChucVu() {
         boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
-        List<ChiTietSPViewModel> list = chiTietSPService.getAll();
-        for (ChiTietSPViewModel chiTiet : list) {
-            boxModelMauSac.addElement(chiTiet);
-
+//        List<ChiTietSPViewModel> list = chiTietSPService.getAll();
+        HashSet<String> li = chiTietSPService.getmau();
+        
+        for (String string : li) {
+            boxModelMauSac.addElement(string);
         }
-
+        
     }
-
+    
     void loadData() {
         defaultTableModel = (DefaultTableModel) tbl_bangSanPham.getModel();
         List<ChiTietSPViewModel> list = chiTietSPService.getAll();
         for (ChiTietSPViewModel chiTietSPViewModel : list) {
-
+            
             defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
                 chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
                 chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
-
+            
         }
     }
 
@@ -173,7 +175,7 @@ public class FormBanHang extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành tiền"
+                "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Giảm Giá", "Thành Tiền"
             }
         ));
         jScrollPane2.setViewportView(tbl_gioHang);
@@ -277,7 +279,7 @@ public class FormBanHang extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(txt_tenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(cb_mau, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -577,10 +579,11 @@ public class FormBanHang extends javax.swing.JPanel {
         System.out.println(mau);
         if (mau > 0) {
             defaultTableModel.setRowCount(0);
-            ChiTietSPViewModel chiTiet = (ChiTietSPViewModel) cb_mau.getSelectedItem();
-            List<ChiTietSPViewModel> list = chiTietSPService.locMauSac(chiTiet.getMauSac());
+//            ChiTietSPViewModel chiTiet = (ChiTietSPViewModel) cb_mau.getSelectedItem();
+            String mau1 = (String) cb_mau.getSelectedItem();
+            List<ChiTietSPViewModel> list = chiTietSPService.locMauSac(mau1);
             for (ChiTietSPViewModel chiTietSPViewModel : list) {
-
+                
                 defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
                     chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
                     chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
@@ -589,13 +592,13 @@ public class FormBanHang extends javax.swing.JPanel {
             defaultTableModel.setRowCount(0);
             List<ChiTietSPViewModel> list1 = chiTietSPService.getAll();
             for (ChiTietSPViewModel chiTietSPViewModel : list1) {
-
+                
                 defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
                     chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
                     chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
             }
         }
-
+        
 
     }//GEN-LAST:event_cb_mauActionPerformed
 
@@ -612,7 +615,7 @@ public class FormBanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void txt_tenSPFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_tenSPFocusGained
-
+        
 
     }//GEN-LAST:event_txt_tenSPFocusGained
 
@@ -627,11 +630,11 @@ public class FormBanHang extends javax.swing.JPanel {
         List<ChiTietSPViewModel> list = chiTietSPService.timKiemSP(tenSP);
         defaultTableModel.setRowCount(0);
         for (ChiTietSPViewModel chiTietSPViewModel : list) {
-
+            
             defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
                 chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
                 chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
-
+            
         }
     }//GEN-LAST:event_txt_tenSPKeyPressed
 
@@ -641,11 +644,11 @@ public class FormBanHang extends javax.swing.JPanel {
         List<ChiTietSPViewModel> list = chiTietSPService.timKiemSP(tenSP);
         defaultTableModel.setRowCount(0);
         for (ChiTietSPViewModel chiTietSPViewModel : list) {
-
+            
             defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
                 chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
                 chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
-
+            
         }        // TODO add your handling code here:
     }//GEN-LAST:event_txt_tenSPKeyReleased
 
@@ -656,11 +659,11 @@ public class FormBanHang extends javax.swing.JPanel {
         List<ChiTietSPViewModel> list = chiTietSPService.timKiemSP(tenSP);
         defaultTableModel.setRowCount(0);
         for (ChiTietSPViewModel chiTietSPViewModel : list) {
-
+            
             defaultTableModel.addRow(new Object[]{chiTietSPViewModel.getTenSP(), chiTietSPViewModel.getDonGia(), chiTietSPViewModel.getGiamGia(),
                 chiTietSPViewModel.getMauSac(), chiTietSPViewModel.getTenNSX(),
                 chiTietSPViewModel.getKichThuoc(), chiTietSPViewModel.getTrongLuong(), chiTietSPViewModel.getSoLuongTon()});
-
+            
         }
     }//GEN-LAST:event_txt_tenSPKeyTyped
 
@@ -672,18 +675,11 @@ public class FormBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Sản phẩm này đã hết");
             return;
         }
-
-//        List<ChiTietSPViewModel> li = chiTietSPService.getAllID();
-//        ChiTietSPViewModel sp = new ChiTietSPViewModel();
-//        sp.setMaSP(li.get(row).getMaSP());
-//        sp.setTenSP((String) tbl_bangSanPham.getValueAt(row, 0));
-//        List<ChiTietSPViewModel> luuTam = new ArrayList<>();
-//        luuTam.add(sp);
         loadGH(row);
-
+        
 
     }//GEN-LAST:event_tbl_bangSanPhamMouseClicked
-
+    
     void loadGH(int row) {
         List<ChiTietSPViewModel> li = chiTietSPService.getAllID();
         if (tbl_gioHang.getRowCount() <= 0) {
@@ -692,24 +688,77 @@ public class FormBanHang extends javax.swing.JPanel {
             gh.setTenSP((String) tbl_bangSanPham.getValueAt(row, 0));
             String donGia = String.valueOf(tbl_bangSanPham.getValueAt(row, 1));
             gh.setDonGia(Double.parseDouble(donGia));
-            gh.setSoLuong(0);
-
+            gh.setSoLuong(1);
+            gh.setGiamGia((String) tbl_bangSanPham.getValueAt(row, 2));
+            String giamGia = (String) tbl_bangSanPham.getValueAt(row, 2);
+            if (giamGia.endsWith("VNĐ")) {
+                char[] chars = giamGia.toCharArray();
+                char[] chars1 = new char[chars.length - 3];
+                for (int i = 0; i < chars.length - 3; i++) {
+                    chars1[i] = chars[i];
+                    
+                }
+                String str = new String(chars1);
+                double dg = Double.parseDouble(donGia);
+                double giaGiam = Double.parseDouble(str);
+                double thanhTien = dg - giaGiam;
+                gh.setThanhTien(thanhTien);
+            } else if (giamGia.endsWith("%")) {
+                char[] chars = giamGia.toCharArray();
+                char[] chars1 = new char[chars.length - 1];
+                for (int i = 0; i < chars.length - 1; i++) {
+                    chars1[i] = chars[i];
+                    
+                }
+                String str = new String(chars1);
+                double dg = Double.parseDouble(donGia);
+                double giaGiam = Double.parseDouble(str);
+                double thanhTien = dg * ((100 - giaGiam) / 100);
+                gh.setThanhTien(thanhTien);
+            } else {
+                gh.setThanhTien(gh.getDonGia());
+            }
+            
             luuTam.add(gh);
             defaultTableModel = (DefaultTableModel) tbl_gioHang.getModel();
             for (GioHangViewModel gioHangViewModel : luuTam) {
-                defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getDonGia()});
+                defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getGiamGia(), gioHangViewModel.getThanhTien()});
             }
+            return;
         }
         if (tbl_gioHang.getRowCount() > 0) {
-
+            
             int dem = 0;
             for (int j = 0; j < luuTam.size(); j++) {
-                if (luuTam.get(j).getMaSP().equals(li.get(row).getMaSP())) {           
-                    String soLuong = String.valueOf(tbl_gioHang.getValueAt(row, 1));
-                    int i = Integer.parseInt(soLuong);
-                    int sl = i + 1;
+                if (luuTam.get(j).getMaSP().equals(li.get(row).getMaSP())) {
+                    Integer i = Integer.parseInt(String.valueOf(tbl_gioHang.getValueAt(j, 1)));
+                    Integer sl = i + 1;
                     luuTam.get(j).setSoLuong(sl);
                     tbl_gioHang.setValueAt(luuTam.get(j).getSoLuong(), j, 1);
+                    Integer soLuong = Integer.parseInt(String.valueOf(tbl_gioHang.getValueAt(j, 1)));
+                    double donGia = Double.parseDouble(String.valueOf(tbl_gioHang.getValueAt(j, 2)));
+                    
+                    String giamGia = (String) tbl_bangSanPham.getValueAt(row, 2);
+                    if (giamGia.endsWith("VNĐ")) {
+                        char[] chars = giamGia.toCharArray();
+                        char[] chars1 = new char[chars.length - 3];
+                        for (int k = 0; k < chars.length - 3; k++) {
+                            chars1[k] = chars[k];
+                            
+                        }
+                        String str = new String(chars1);
+                        double giaGiam = Double.parseDouble(str);
+                        double phanGiam = giaGiam * soLuong;
+                        double thanhTien = donGia - phanGiam;
+                        luuTam.get(j).setThanhTien(thanhTien);
+                    } else if (giamGia.endsWith("%")) {
+                        System.out.println("nsms");
+                    } else {
+                        double thanhTien = soLuong * donGia;
+                        luuTam.get(j).setThanhTien(thanhTien);
+                    }
+                    
+                    tbl_gioHang.setValueAt(luuTam.get(j).getThanhTien(), j, 4);
                     dem = 1;
                     break;
                 }
@@ -720,19 +769,47 @@ public class FormBanHang extends javax.swing.JPanel {
                 gh.setTenSP((String) tbl_bangSanPham.getValueAt(row, 0));
                 String donGia = String.valueOf(tbl_bangSanPham.getValueAt(row, 1));
                 gh.setDonGia(Double.parseDouble(donGia));
+                gh.setGiamGia((String) tbl_bangSanPham.getValueAt(row, 2));
                 gh.setSoLuong(1);
+                String giamGia = (String) tbl_bangSanPham.getValueAt(row, 2);
+                if (giamGia.endsWith("VNĐ")) {
+                    char[] chars = giamGia.toCharArray();
+                    char[] chars1 = new char[chars.length - 3];
+                    for (int i = 0; i < chars.length - 3; i++) {
+                        chars1[i] = chars[i];
+                        
+                    }
+                    String str = new String(chars1);
+                    double dg = Double.parseDouble(donGia);
+                    double giaGiam = Double.parseDouble(str);
+                    double thanhTien = dg - giaGiam;
+                    gh.setThanhTien(thanhTien);
+                } else if (giamGia.endsWith("%")) {
+                    char[] chars = giamGia.toCharArray();
+                    char[] chars1 = new char[chars.length - 1];
+                    for (int i = 0; i < chars.length - 1; i++) {
+                        chars1[i] = chars[i];
+                        
+                    }
+                    String str = new String(chars1);
+                    double dg = Double.parseDouble(donGia);
+                    double giaGiam = Double.parseDouble(str);
+                    double thanhTien = dg * ((100 - giaGiam) / 100);
+                    gh.setThanhTien(thanhTien);
+                } else {
+                    gh.setThanhTien(gh.getDonGia());
+                }
                 luuTam.add(gh);
                 defaultTableModel = (DefaultTableModel) tbl_gioHang.getModel();
                 defaultTableModel.setRowCount(0);
                 for (GioHangViewModel gioHangViewModel : luuTam) {
-                    defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getDonGia()});
+                    defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getGiamGia(), gioHangViewModel.getThanhTien()});
                 }
-
+                
             }
-
+            
         }
-
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

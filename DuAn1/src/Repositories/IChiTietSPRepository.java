@@ -5,6 +5,7 @@
 package Repositories;
 
 import ViewModels.ChiTietSPViewModel;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface IChiTietSPRepository {
     List<ChiTietSPViewModel> locMauSac(String mauSac);
     
     List<ChiTietSPViewModel> getAllID();
+    
+    HashSet<String> getmau();
 }

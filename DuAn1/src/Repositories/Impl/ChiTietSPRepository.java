@@ -10,6 +10,7 @@ import ViewModels.ChiTietSPViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -100,6 +101,22 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         }
 
         return list;
+    }
+
+    @Override
+    public HashSet<String> getmau() {
+        HashSet<String> li = new HashSet<>();
+        String sql = "select MauSac from "
+                + "SanPham\n";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql);
+            while (rs.next()) {
+                li.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietSPRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return li;
     }
 
 }

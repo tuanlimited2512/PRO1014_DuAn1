@@ -8,6 +8,7 @@ import Repositories.IChiTietSPRepository;
 import Repositories.Impl.ChiTietSPRepository;
 import Services.IChiTietSPService;
 import ViewModels.ChiTietSPViewModel;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -41,5 +42,10 @@ public class ChiTietSPServiceImpl implements IChiTietSPService {
     public List<ChiTietSPViewModel> getAllID() {
         return chiTietRePo.getAllID();
     }
+
+    @Override
+    public HashSet<String> getmau() {
+        return chiTietRePo.getmau();
+       }
 
 }

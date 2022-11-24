@@ -14,9 +14,18 @@ public class GioHangViewModel {
     String tenSP;
     Integer soLuong;
     double donGia;
+    String giamGia;
     double thanhTien;
 
     public GioHangViewModel() {
+    }
+
+    public String getGiamGia() {
+        return giamGia;
+    }
+
+    public void setGiamGia(String giamGia) {
+        this.giamGia = giamGia;
     }
 
     public GioHangViewModel(String maSP, String tenSP, Integer soLuong, double donGia, double thanhTien) {
@@ -60,7 +69,7 @@ public class GioHangViewModel {
     }
 
     public double getThanhTien() {
-        return donGia*soLuong;
+        return thanhTien;
     }
 
     public void setThanhTien(double thanhTien) {
