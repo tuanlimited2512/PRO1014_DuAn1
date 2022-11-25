@@ -356,7 +356,7 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 650));
 
         formPhanMem.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(formPhanMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 1030, 650));
+        getContentPane().add(formPhanMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 1050, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
