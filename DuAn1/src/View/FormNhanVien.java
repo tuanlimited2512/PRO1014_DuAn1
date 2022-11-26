@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author anhtu
  */
 public class FormNhanVien extends javax.swing.JPanel {
+
     private final INhanVienService nhanVienService;
     private final IVaiTroService vaiTroService;
     private boolean isHidden = true;
@@ -31,7 +33,7 @@ public class FormNhanVien extends javax.swing.JPanel {
      */
     DefaultTableModel dfmol = new DefaultTableModel();
     DefaultComboBoxModel dfcombo = new DefaultComboBoxModel();
-    
+
     public FormNhanVien() {
         initComponents();
         nhanVienService = new NhanVienService();
@@ -39,19 +41,19 @@ public class FormNhanVien extends javax.swing.JPanel {
         showCombo(vaiTroService.getSelectSql());
         load();
     }
-    
-    private void load(){
+
+    private void load() {
         dfmol = (DefaultTableModel) tbl_nhanvien_lamviec.getModel();
         dfmol.setRowCount(0);
-        for(NhanVien nv : nhanVienService.getSelectSql()){
+        for (NhanVien nv : nhanVienService.getSelectSql()) {
             dfmol.addRow(nv.toDataRow());
         }
     }
-    
-    private void showCombo(List<VaiTro> listVT){
+
+    private void showCombo(List<VaiTro> listVT) {
         dfcombo = (DefaultComboBoxModel) cbo_vaitro.getModel();
         dfcombo.removeAllElements();
-        for(VaiTro vt : listVT){
+        for (VaiTro vt : listVT) {
             dfcombo.addElement(vt.getTenVaiTro());
         }
     }
@@ -512,24 +514,26 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
+
         int index = tbl_nhanvien_lamviec.getSelectedRow();
         NhanVien nv = new NhanVien();
         VaiTro vt = getTenVaiTro(index);
-        
+
         nv.setMa(txt_ma.getText());
         nv.setTen(txt_ten.getText());
         nv.setNgaySinh(txt_ngaysinh.getText());
-        nv.setGioiTinh(rdo_nam.isSelected()?0:1);
+        nv.setGioiTinh(rdo_nam.isSelected() ? 0 : 1);
         nv.setDiaChi(txt_diachi.getText());
         nv.setSdt(txt_dienthoai.getText());
         nv.setEmail(txt_email.getText());
         nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
         nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
-        nv.setTrangThai(rdo_hd.isSelected()?0:1);
-        
+        nv.setTrangThai(rdo_hd.isSelected() ? 0 : 1);
         nhanVienService.insert(nv, vt);
         load();
-        
+        JOptionPane.showMessageDialog(this, "Them thanh cong");
+       clearF();
+
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
@@ -538,6 +542,8 @@ public class FormNhanVien extends javax.swing.JPanel {
         NhanVien nv = nhanVienService.getSelectSql().get(index);
         nv.setMa(txt_ma.getText());
         nhanVienService.delete(nv);
+        clearF();
+        JOptionPane.showMessageDialog(this, "Xoa thanh cong");      
         load();
     }//GEN-LAST:event_btn_xoaActionPerformed
 
@@ -545,33 +551,37 @@ public class FormNhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = tbl_nhanvien_lamviec.getSelectedRow();
         NhanVien nv = nhanVienService.getSelectSql().get(index);
-        
-        
+
         VaiTro vt = getTenVaiTro(index);
-        
+
         nv.setTen(txt_ten.getText());
         nv.setNgaySinh(txt_ngaysinh.getText());
-        nv.setGioiTinh(rdo_nam.isSelected()?0:1);
+        nv.setGioiTinh(rdo_nam.isSelected() ? 0 : 1);
         nv.setDiaChi(txt_diachi.getText());
         nv.setSdt(txt_dienthoai.getText());
         nv.setEmail(txt_email.getText());
         nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
         nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
-        nv.setTrangThai(rdo_hd.isSelected()?0:1);
-        nv.setMa(txt_ma.getText());        
-        nhanVienService.update(nv,vt);
+        nv.setTrangThai(rdo_hd.isSelected() ? 0 : 1);
+        nv.setMa(txt_ma.getText());
+        nhanVienService.update(nv, vt);   
+        clearF();  
+        JOptionPane.showMessageDialog(this, "Sua thanh cong");
         load();
+
     }//GEN-LAST:event_btn_suaActionPerformed
 
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
         // TODO add your handling code here:
+        clearF();
+
     }//GEN-LAST:event_btn_newActionPerformed
 
     private void tbl_nhanvien_lamviecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_nhanvien_lamviecMouseClicked
         // TODO add your handling code here:
         int index = tbl_nhanvien_lamviec.getSelectedRow();
         NhanVien nv = nhanVienService.getSelectSql().get(index);
-        
+
         txt_ma.setText(nv.getMa());
         txt_ten.setText(nv.getTen());
         txt_ngaysinh.setText(nv.getNgaySinh());
@@ -579,33 +589,30 @@ public class FormNhanVien extends javax.swing.JPanel {
         txt_dienthoai.setText(nv.getSdt());
         txt_email.setText(nv.getEmail());
         txt_mk.setText(nv.getMatKhau());
-        
-        if(tbl_nhanvien_lamviec.getValueAt(index, 3).equals("Nam")){
+
+        if (tbl_nhanvien_lamviec.getValueAt(index, 3).equals("Nam")) {
             rdo_nam.setSelected(true);
-        }else{
+        } else {
             rdo_nu.setSelected(true);
         }
-        
-        if(tbl_nhanvien_lamviec.getValueAt(index, 9).equals("Đang làm việc")){
+
+        if (tbl_nhanvien_lamviec.getValueAt(index, 9).equals("Đang làm việc")) {
             rdo_hd.setSelected(true);
-        }else{
+        } else {
             rdo_khd.setSelected(true);
         }
-        
+
         cbo_vaitro.setSelectedItem(nv.getMaVaiTro());
     }//GEN-LAST:event_tbl_nhanvien_lamviecMouseClicked
 
-    
-    public VaiTro getTenVaiTro(int index){
+    public VaiTro getTenVaiTro(int index) {
         VaiTro vt = new VaiTro();
         String tenVaiTro = (String) cbo_vaitro.getSelectedItem();
         vt.setTenVaiTro(tenVaiTro);
         return vt;
     }
-    
-    
-    
-    
+
+
     private void lbl_showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_showMouseClicked
         // TODO add your handling code here:
         if (isHidden) {
@@ -618,6 +625,19 @@ public class FormNhanVien extends javax.swing.JPanel {
             isHidden = true;
         }
     }//GEN-LAST:event_lbl_showMouseClicked
+
+    public void clearF() {
+        txt_ma.setText("");
+        txt_ten.setText("");
+        txt_ngaysinh.setText("");
+        txt_dienthoai.setText("");
+        txt_diachi.setText("");
+        txt_email.setText("");
+        txt_mk.setText("");
+        cbo_vaitro.setSelectedItem(1);
+        buttonGroup1.clearSelection();
+        buttonGroup2.clearSelection();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
