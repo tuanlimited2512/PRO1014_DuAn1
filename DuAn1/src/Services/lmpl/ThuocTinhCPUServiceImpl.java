@@ -4,7 +4,7 @@
  */
 package Services.lmpl;
 
-import DomainModels.ThuocTinhCPU;
+import DomainModels.CPU;
 import Repositories.IThuocTinhCPURepository;
 import Repositories.Impl.ThuocTinhCPURepository;
 import Services.IThuocTinhCPUService;
@@ -19,12 +19,12 @@ public class ThuocTinhCPUServiceImpl implements IThuocTinhCPUService{
     private IThuocTinhCPURepository repository = new ThuocTinhCPURepository();
     
     @Override
-    public ArrayList<ThuocTinhCPU> getAll() {
+    public ArrayList<CPU> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public String add(ThuocTinhCPU cpu) {
+    public String add(CPU cpu) {
         boolean add = repository.add(cpu);
         if (add) {
             return "Thêm thành công!";
@@ -34,7 +34,7 @@ public class ThuocTinhCPUServiceImpl implements IThuocTinhCPUService{
     }
 
     @Override
-    public String update(ThuocTinhCPU cpu, String maCPU) {
+    public String update(CPU cpu, String maCPU) {
         boolean update = repository.update(cpu, maCPU);
         if (update) {
             return "Cập nhập thành công!";

@@ -8,15 +8,15 @@ package DomainModels;
  *
  * @author Tran Thi My Dung
  */
-public class ThuocTinhCPU {
+public class CPU {
     private String maCPU;
     private String tenCPU;
     private String moTa;
 
-    public ThuocTinhCPU() {
+    public CPU() {
     }
 
-    public ThuocTinhCPU(String maCPU, String tenCPU, String moTa) {
+    public CPU(String maCPU, String tenCPU, String moTa) {
         this.maCPU = maCPU;
         this.tenCPU = tenCPU;
         this.moTa = moTa;

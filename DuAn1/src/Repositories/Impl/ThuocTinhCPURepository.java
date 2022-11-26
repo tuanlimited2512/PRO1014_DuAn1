@@ -6,7 +6,7 @@ package Repositories.Impl;
 
 import Repositories.IThuocTinhCPURepository;
 import Utilities.DbConnection;
-import DomainModels.ThuocTinhCPU;
+import DomainModels.CPU;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,16 +20,16 @@ import java.sql.PreparedStatement;
 public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
 
     @Override
-    public ArrayList<ThuocTinhCPU> getAll() {
+    public ArrayList<CPU> getAll() {
         String sql = "SELECT [MaCPU]\n"
                 + "      ,[TenCPU]\n"
                 + "      ,[MoTa]\n"
                 + "  FROM [DuAn1].[dbo].[CPU]";
         try ( Connection con = DbConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ArrayList<ThuocTinhCPU> listCPU = new ArrayList<>();
+            ArrayList<CPU> listCPU = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listCPU.add(new ThuocTinhCPU(rs.getString(1), rs.getString(2), rs.getString(3)));
+                listCPU.add(new CPU(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
             return listCPU;
         } catch (SQLException e) {
@@ -39,7 +39,7 @@ public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
     }
 
     @Override
-    public boolean add(ThuocTinhCPU cpu) {
+    public boolean add(CPU cpu) {
         String sql = "INSERT INTO [dbo].[CPU]\n"
                 + "           ([MaCPU]\n"
                 + "	      ,[TenCPU]\n"
@@ -58,7 +58,7 @@ public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
     }
 
     @Override
-    public boolean update(ThuocTinhCPU cpu, String maCPU) {
+    public boolean update(CPU cpu, String maCPU) {
         String sql = "UPDATE [dbo].[CPU]\n"
                 + "   SET [TenCPU] = ?\n"
                 + "      ,[MoTa] = ?\n"

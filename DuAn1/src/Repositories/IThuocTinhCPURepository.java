@@ -4,7 +4,7 @@
  */
 package Repositories;
 
-import DomainModels.ThuocTinhCPU;
+import DomainModels.CPU;
 import java.util.ArrayList;
 
 /**
@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public interface IThuocTinhCPURepository {
 
-    ArrayList<ThuocTinhCPU> getAll();
+    ArrayList<CPU> getAll();
 
-    boolean add (ThuocTinhCPU cpu);
+    boolean add (CPU cpu);
 
-    boolean update(ThuocTinhCPU cpu, String maCPU);
+    boolean update(CPU cpu, String maCPU);
 
     boolean delete(String maCPU);
     

@@ -4,7 +4,7 @@
  */
 package Services;
 
-import DomainModels.ThuocTinhCPU;
+import DomainModels.CPU;
 import java.util.ArrayList;
 
 /**
@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public interface IThuocTinhCPUService {
 
-    ArrayList<ThuocTinhCPU> getAll();
+    ArrayList<CPU> getAll();
 
-    String add(ThuocTinhCPU cpu);
+    String add(CPU cpu);
 
-    String update(ThuocTinhCPU cpu, String maCPU);
+    String update(CPU cpu, String maCPU);
 
     String delete(String maCPU);
     
