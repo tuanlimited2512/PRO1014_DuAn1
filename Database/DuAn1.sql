@@ -1,16 +1,15 @@
-Create Database DuAn1
-go
+
 Use DuAn1
 go
 
 Create Table VaiTro(
-	MaVaiTro varchar(10) primary key,
+	MaVaiTro UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenVaiTro nvarchar(100) not null,
 )
 go
 
 Create Table NhanVien(
-	MaNV varchar(10) primary key,
+	MaNV UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	HoTen nvarchar(100) not null,
 	GioiTinh bit,
 	SDT varchar(10) not null,
@@ -19,12 +18,12 @@ Create Table NhanVien(
 	Email nvarchar(100) not null,
 	TinhTrang bit,
 	MatKhau varchar(Max),
-	MaVaiTro varchar(10) foreign key references VaiTro(MaVaiTro),
+	MaVaiTro UNIQUEIDENTIFIER foreign key references VaiTro(MaVaiTro),
 )
 go
 
 Create table RAM(
-	MaRAM varchar(10) primary key,
+	MaRAM UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenRAM nvarchar(100) not null,
 	DungLuong varchar(100) not null,
 	MoTa nvarchar(100)
@@ -32,26 +31,26 @@ Create table RAM(
 go
 
 Create table DongSP(
-	MaDongSP varchar(10) primary key,
+	MaDongSP UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenDongSP nvarchar(100) not null,
 )
 go
 
 Create table NSX(
-	MaNSX varchar(10) primary key,
-	TenNSX nvarchar(100)
+	MaNSX UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	TenNSX nvarchar(100) not null
 )
 go
 
 Create table CPU(
-	MaCPU varchar(10) primary key,
+	MaCPU UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenCPU nvarchar(100) not null,
 	MoTa nvarchar(100)
 )
 go
 
 Create table ManHinh(
-	MaManHinh varchar(10) primary key,
+	MaManHinh UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenManHinh nvarchar(100) not null,
 	DoPhanGiai nvarchar(50) not null,
 	KichThuoc nvarchar(50) not null,
@@ -60,26 +59,26 @@ Create table ManHinh(
 go
 
 Create table SanPham(
-	MaSP varchar(10) primary key,
+	MaSP UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenSP nvarchar(100) not null,
-	MauSac nvarchar(30),
-	HeDieuHanh nvarchar(30),
-	NamBH int, 
-	TrongLuong decimal(20, 0),
-	XuatXu nvarchar(100),
+	MauSac nvarchar(30) not null,
+	HeDieuHanh nvarchar(30) not null,
+	NamBH int not null, 
+	TrongLuong decimal(20, 0) not null,
+	XuatXu nvarchar(100) not null,
 	TrangThai bit,
 	MoTa nvarchar(100)
 )
 go
 
 Create table AnhSP(
-	MaAnh varchar(10) primary key,
+	MaAnh UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenAnh nvarchar(100) not null,	
 )
 go
 
 Create table KhuyenMai(
-	MaKM varchar(10) primary key,
+	MaKM UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenKM nvarchar(100) not null,
 	HinhThucGiam nvarchar(50),
 	GiamGia nvarchar(50),
@@ -90,15 +89,16 @@ Create table KhuyenMai(
 )
 go
 
+go
 Create table ChiTietSP(
-	MaSP varchar(10) foreign key references SanPham(MaSP),
-	MaDongSP varchar(10) foreign key references DongSP(MaDongSP),
-	MaNSX varchar(10) foreign key references NSX(MaNSX),
-	MaKM varchar(10) foreign key references KhuyenMai(MaKM),
-	MaCPU varchar(10) foreign key references CPU(MaCPU),
-	MaRAM varchar(10) foreign key references RAM(MaRAM),
-	MaManHinh varchar(10) foreign key references ManHinh(MaManHinh),
-	MaAnh varchar(10)foreign key references AnhSP(MaAnh),
+	MaSP UNIQUEIDENTIFIER foreign key references SanPham(MaSP),
+	MaDongSP UNIQUEIDENTIFIER foreign key references DongSP(MaDongSP),
+	MaNSX UNIQUEIDENTIFIER foreign key references NSX(MaNSX),
+	MaKM UNIQUEIDENTIFIER foreign key references KhuyenMai(MaKM),
+	MaCPU UNIQUEIDENTIFIER foreign key references CPU(MaCPU),
+	MaRAM UNIQUEIDENTIFIER foreign key references RAM(MaRAM),
+	MaManHinh UNIQUEIDENTIFIER foreign key references ManHinh(MaManHinh),
+	MaAnh UNIQUEIDENTIFIER foreign key references AnhSP(MaAnh),
 	GiaNhap decimal(20, 0),
 	GiaBan decimal(20, 0),
 	SoLuong int,
@@ -107,9 +107,14 @@ Create table ChiTietSP(
 	primary key(MaSP)
 )
 go
-
+Create table Serial(
+	MaSerial UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	TinhTrang bit,
+	MaSP UNIQUEIDENTIFIER foreign key references ChiTietSP(MaSP)
+)
+go
 Create table KhachHang(
-	MaKH varchar(10) primary key,
+	MaKH UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenKH nvarchar(100) not null,
 	SDT varchar(12),
 	GioiTinh BIT,
@@ -119,21 +124,28 @@ Create table KhachHang(
 go
 
 Create table HoaDon(
-	MaHD varchar(10) primary key,
+	MaHD UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	NgayTao date,
 	NgayThanhToan date,
 	TinhTrang bit,
-	MaKH varchar(10) foreign key references KhachHang(MaKH),
-	MaNV varchar(10) foreign key references NhanVien(MaNV)
+	MaKH UNIQUEIDENTIFIER foreign key references KhachHang(MaKH),
+	MaNV UNIQUEIDENTIFIER foreign key references NhanVien(MaNV)
 	
 )
 go
 
 Create table HoaDonChiTiet(
-	MaHD varchar(10) foreign key references HoaDon(MaHD), 
-	MaSP varchar(10) foreign key references ChiTietSP(MaSP),
+	MaHoaDonCT UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	MaHD UNIQUEIDENTIFIER foreign key references HoaDon(MaHD), 
+	MaSP UNIQUEIDENTIFIER foreign key references ChiTietSP(MaSP),
 	SoLuong int,
 	DonGia decimal(20, 0),
-	primary key(MaHD, MaSP)
+	TienGiamGia nvarchar(50)
+	
 )
 go
+Create table SerialDaBan(
+	MaSerial nvarchar(100) PRIMARY KEY ,
+	TinhTrang bit,
+	MaHoaDonCT UNIQUEIDENTIFIER foreign key references HoaDonChiTiet(MaHoaDonCT)
+)
