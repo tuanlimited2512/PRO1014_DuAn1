@@ -29,17 +29,17 @@ public class KhachHangServiceImpl implements IKhachHangService{
 
     @Override
     public Boolean insert(KhachHang kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return repository.insert(kh);
     }
 
     @Override
     public Boolean update(KhachHang kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return repository.update(kh);
     }
 
     @Override
     public Boolean delete(KhachHang kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return repository.delete(kh);
     }
     
 }
