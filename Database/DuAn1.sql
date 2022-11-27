@@ -1,4 +1,5 @@
-
+Create database DuAn1
+go
 Use DuAn1
 go
 
@@ -84,7 +85,8 @@ Create table KhuyenMai(
 	GiamGia nvarchar(50),
 	NgayBatDau date,
 	NgayKetThuc date,
-	TrangThai bit
+	TrangThai bit,
+	MoTa nvarchar(100)
 	
 )
 go
