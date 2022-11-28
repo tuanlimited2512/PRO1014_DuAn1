@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  */
 public class DbConnection {
     private static String hostName = "localhost";
-    private static String acc = "vinhnv25244";
-    private static String pass = "12345";
+    private static String acc = "sa";
+    private static String pass = "DungPH25136";
     private static String dbName = "DuAn1";
     private static String connectionSQL = "jdbc:sqlserver://"+hostName+":1433;databaseName="+dbName;
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";

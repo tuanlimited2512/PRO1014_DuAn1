@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
+import DomainModels.DongSP;
+import Services.IDongSanPhamService;
+import Services.lmpl.DongSanPhamServiceImpl;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,8 +19,36 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
     /**
      * Creates new form ThuocTinhDongSP
      */
+    private DefaultTableModel dtm = new DefaultTableModel();
+    private ArrayList<DongSP> listDSP = new ArrayList<>();
+    private IDongSanPhamService service = new DongSanPhamServiceImpl();
+    
     public ThuocTinhDongSP() {
         initComponents();
+        txtMaDSP.setEnabled(false);
+        tableDongSP.setModel(dtm);
+        String [] headers = {"Mã", "Tên"};
+        dtm.setColumnIdentifiers(headers);
+        listDSP = service.getAll();
+        loadData(listDSP);
+    }
+    
+    private void loadData(ArrayList<DongSP> list){
+        dtm.setRowCount(0);
+        for (DongSP dsp : list) {
+            dtm.addRow(dsp.toDataRow());
+        }
+    }
+    
+    private void fillData(int index){
+        DongSP dsp = listDSP.get(index);
+        txtMaDSP.setText(dsp.getMaDSP());
+        txtTenDSP.setText(dsp.getTenDSP());
+    }
+    
+    private void lamMoi (){
+        txtMaDSP.setText("");
+        txtTenDSP.setText("");
     }
 
     /**
@@ -29,15 +63,15 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtMaDSP = new javax.swing.JTextField();
+        txtTenDSP = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableDongSP = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thuộc tính sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -45,9 +79,9 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel4.setText("Mã NSX");
+        jLabel4.setText("Mã DSP");
 
-        jLabel5.setText("Tên NSX");
+        jLabel5.setText("Tên DSP");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -60,8 +94,8 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaDSP, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenDSP, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -70,46 +104,46 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaDSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenDSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton5.setBackground(new java.awt.Color(153, 255, 204));
-        jButton5.setText("Thêm");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(153, 255, 204));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(153, 255, 204));
-        jButton6.setText("Sửa");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(153, 255, 204));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(153, 255, 204));
-        jButton7.setText("Xóa");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(153, 255, 204));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(153, 255, 204));
-        jButton8.setText("Làm mới");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBackground(new java.awt.Color(153, 255, 204));
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
@@ -120,27 +154,27 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(btnThem)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(btnSua)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
+                .addComponent(btnXoa)
                 .addGap(18, 18, 18)
-                .addComponent(jButton8)
+                .addComponent(btnLamMoi)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableDongSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -148,7 +182,12 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                 "Mã Dòng SP", "Tên Dòng SP"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tableDongSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDongSPMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableDongSP);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -177,35 +216,55 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        String ten = txtTenDSP.getText();
+        DongSP cpu = new DongSP(null, ten);
+        JOptionPane.showMessageDialog(this, service.add(cpu));
+        listDSP = service.getAll();
+        loadData(listDSP);
+        lamMoi();
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        String ma = txtMaDSP.getText();
+        String ten = txtTenDSP.getText();
+        DongSP dsp = new DongSP(null, ten);
+        JOptionPane.showMessageDialog(this, service.update(dsp, ma));
+        listDSP = service.getAll();
+        loadData(listDSP);
+        lamMoi();
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        String ma = txtMaDSP.getText();
+        JOptionPane.showMessageDialog(this, service.delete(ma));
+        listDSP = service.getAll();
+        loadData(listDSP);
+        lamMoi();
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        lamMoi();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void tableDongSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDongSPMouseClicked
+        int row = tableDongSP.getSelectedRow();
+        fillData(row);
+    }//GEN-LAST:event_tableDongSPMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable tableDongSP;
+    private javax.swing.JTextField txtMaDSP;
+    private javax.swing.JTextField txtTenDSP;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,6 +29,7 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
         tableThuocTinhCPU.setModel(dtm);
         String [] headers = {"Mã", "Tên", "Mô Tả"};
         dtm.setColumnIdentifiers(headers);
+        txtMaCPU.setEnabled(false);
         listCPU = service.getAll();
         loadData(listCPU);
     }
@@ -229,10 +230,9 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        String ma = txtMaCPU.getText();
         String ten = txtTenCPU.getText();
         String moTa = txtMoTa.getText();
-        CPU cpu = new CPU(ma, ten, moTa);
+        CPU cpu = new CPU(null, ten, moTa);
         JOptionPane.showMessageDialog(this, service.add(cpu));
         listCPU = service.getAll();
         loadData(listCPU);

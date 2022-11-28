@@ -4,34 +4,33 @@
  */
 package Repositories.Impl;
 
-import Repositories.IThuocTinhCPURepository;
+import DomainModels.DongSP;
+import Repositories.IDongSanPhamRepository;
 import Utilities.DbConnection;
-import DomainModels.CPU;
-import java.util.ArrayList;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Tran Thi My Dung
  */
-public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
+public class DongSanPhamRepositorysImpl implements IDongSanPhamRepository {
 
     @Override
-    public ArrayList<CPU> getAll() {
-        String sql = "SELECT [MaCPU]\n"
-                + "      ,[TenCPU]\n"
-                + "      ,[MoTa]\n"
-                + "  FROM [DuAn1].[dbo].[CPU]";
+    public ArrayList<DongSP> getAll() {
+        String sql = "SELECT [MaDongSP]\n"
+                + "      ,[TenDongSP]\n"
+                + "  FROM [dbo].[DongSP]";
         try ( Connection con = DbConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ArrayList<CPU> listCPU = new ArrayList<>();
+            ArrayList<DongSP> listDSP = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listCPU.add(new CPU(rs.getString(1), rs.getString(2), rs.getString(3)));
+                listDSP.add(new DongSP(rs.getString(1), rs.getString(2)));
             }
-            return listCPU;
+            return listDSP;
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -39,15 +38,13 @@ public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
     }
 
     @Override
-    public boolean add(CPU cpu) {
-        String sql = "INSERT INTO [dbo].[CPU]\n"
-                + "           ([TenCPU]\n"
-                + "           ,[MoTa])\n"
-                + "     VALUES (?,?)";
+    public boolean add(DongSP dsp) {
+        String sql = "INSERT INTO [dbo].[DongSP]\n"
+                + "           ([TenDongSP])\n"
+                + "     VALUES (?)";
         int check = 0;
         try ( Connection con = DbConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, cpu.getTenCPU());
-            ps.setObject(2, cpu.getMoTa());
+            ps.setObject(1, dsp.getTenDSP());
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace(System.out);
@@ -56,16 +53,14 @@ public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
     }
 
     @Override
-    public boolean update(CPU cpu, String maCPU) {
-        String sql = "UPDATE [dbo].[CPU]\n"
-                + "   SET [TenCPU] = ?\n"
-                + "      ,[MoTa] = ?\n"
-                + " WHERE MaCPU = ?";
+    public boolean update(DongSP dsp, String maDSP) {
+        String sql = "UPDATE [dbo].[DongSP]\n"
+                + "   SET [TenDongSP] = ?\n"
+                + " WHERE MaDongSP = ?";
         int check = 0;
         try ( Connection con = DbConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, cpu.getTenCPU());
-            ps.setObject(2, cpu.getMoTa());
-            ps.setObject(3, maCPU);
+            ps.setObject(1, dsp.getTenDSP());
+            ps.setObject(2, maDSP);
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace(System.out);
@@ -74,12 +69,12 @@ public class ThuocTinhCPURepository implements IThuocTinhCPURepository {
     }
 
     @Override
-    public boolean delete(String maCPU) {
-        String sql = "DELETE FROM [dbo].[CPU]\n"
-                + "      WHERE MaCPU = ?";
+    public boolean delete(String maDSP) {
+        String sql = "DELETE FROM [dbo].[DongSP]\n"
+                + "      WHERE MaDongSP = ?";
         int check = 0;
         try ( Connection con = DbConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, maCPU);
+            ps.setObject(1, maDSP);
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace(System.out);
