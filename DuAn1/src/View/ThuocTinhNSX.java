@@ -4,6 +4,13 @@
  */
 package View;
 
+import DomainModels.NSX;
+import Services.INSXService;
+import Services.lmpl.NSXServiceImpl;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anhtu
@@ -13,10 +20,105 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
     /**
      * Creates new form ThuocTinhNSX
      */
+    private INSXService insx;
+    private DefaultTableModel tableModel;
+    private ArrayList<NSX> listnsx;
+
     public ThuocTinhNSX() {
         initComponents();
+        insx = new NSXServiceImpl();
+        loaddata(listnsx);
     }
 
+    private void loaddata(ArrayList<NSX> listnsx) {
+        tableModel = (DefaultTableModel) tbnsx.getModel();
+        tableModel.setRowCount(0);
+        for (NSX nsx : insx.getAllnsx()) {
+            tableModel.addRow(new Object[]{
+                nsx.getMansx(), nsx.getTennsx()
+            });
+        }
+    }
+
+    private void mouseclick() {
+        int index = tbnsx.getSelectedRow();
+        txtmansx.setText(tbnsx.getValueAt(index, 0).toString());
+        txttennsx.setText(tbnsx.getValueAt(index, 1).toString());
+    }
+
+    private boolean validatefrom(String check){
+        if(txtmansx.getText().isEmpty() || txttennsx.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Thông Tin Không Được Để Trống");
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean checktrung(String ma){
+        for (NSX nsx : insx.getAllnsx()) {
+           if(nsx.getMansx().equals(ma)){
+               return true;
+           }
+        }
+        return false;
+    }
+    
+    private NSX docfrom(){
+        NSX nsx = new NSX();
+        nsx.setMansx(txtmansx.getText().trim());
+        nsx.setTennsx(txttennsx.getText().trim());
+        return nsx;
+    }
+    
+    private void addrow(){
+        if(checktrung(txtmansx.getText())){
+            JOptionPane.showMessageDialog(this, "Nsx Có Mã Tồn Tại");
+            return;
+        }else{
+            if(!validatefrom("Add nsx")){
+                return;
+            }
+            String add = insx.add(docfrom());
+            listnsx = insx.getAllnsx();
+            loaddata(listnsx);
+            JOptionPane.showMessageDialog(this, add);
+        }
+    }
+    
+    private void updaterow(){
+        int index = tbnsx.getSelectedRow();
+        if(index < 0){
+            JOptionPane.showMessageDialog(this, "Chọn Dòng Để Sửa");
+        }else{
+            String update = insx.update(docfrom());
+            listnsx = insx.getAllnsx();
+            loaddata(listnsx);
+            JOptionPane.showMessageDialog(this, update);
+        }
+    }
+    
+    private void deleterow(){
+        int index = tbnsx.getSelectedRow();
+        if(index < 0){
+            JOptionPane.showMessageDialog(this, "Chọn Dòng Để Xóa");
+        }else{
+            int luachon = JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Xóa Không ?", "Thông Báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(luachon == JOptionPane.YES_OPTION){
+                String delete = insx.delete(txtmansx.getText().trim());
+                listnsx = insx.getAllnsx();
+                loaddata(listnsx);
+                JOptionPane.showMessageDialog(this, delete);
+            }else{
+                
+            }
+        }
+    }
+    
+    private void newfrom(){
+        txtmansx.setText("");
+        txttennsx.setText("");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,15 +131,15 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtmansx = new javax.swing.JTextField();
+        txttennsx = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbnsx = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thuộc tính sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -60,8 +162,8 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtmansx, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttennsx, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -70,11 +172,11 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtmansx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttennsx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -140,7 +242,7 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbnsx.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -148,7 +250,12 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
                 "Mã NSX", "Tên NSX"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbnsx.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbnsxMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbnsx);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -179,19 +286,28 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        addrow();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        updaterow();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        deleterow();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        newfrom();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void tbnsxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbnsxMouseClicked
+        // TODO add your handling code here:
+        mouseclick();
+    }//GEN-LAST:event_tbnsxMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,8 +320,8 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable tbnsx;
+    private javax.swing.JTextField txtmansx;
+    private javax.swing.JTextField txttennsx;
     // End of variables declaration//GEN-END:variables
 }
