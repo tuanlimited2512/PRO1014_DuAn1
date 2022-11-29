@@ -6,6 +6,7 @@ package View;
 import DomainModels.DongSP;
 import Services.IDongSanPhamService;
 import Services.lmpl.DongSanPhamServiceImpl;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -65,6 +66,7 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtMaDSP = new javax.swing.JTextField();
         txtTenDSP = new javax.swing.JTextField();
+        msgTen = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -83,6 +85,8 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
 
         jLabel5.setText("Tên DSP");
 
+        msgTen.setText(" ");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -93,9 +97,10 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMaDSP, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenDSP, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMaDSP, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(txtTenDSP, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(msgTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -109,6 +114,8 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtTenDSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgTen)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -171,7 +178,7 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                 .addComponent(btnXoa)
                 .addGap(18, 18, 18)
                 .addComponent(btnLamMoi)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         tableDongSP.setModel(new javax.swing.table.DefaultTableModel(
@@ -210,32 +217,57 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        boolean isValide = true;
         String ten = txtTenDSP.getText();
-        DongSP cpu = new DongSP(null, ten);
-        JOptionPane.showMessageDialog(this, service.add(cpu));
-        listDSP = service.getAll();
-        loadData(listDSP);
-        lamMoi();
+        if (ten.trim().isEmpty()) {
+            msgTen.setText("Tên không được để trống!");
+            msgTen.setForeground(Color.red);
+            isValide = false;
+        } else {
+            msgTen.setText("");
+        }
+        if (isValide == true) {
+            DongSP cpu = new DongSP(null, ten);
+            JOptionPane.showMessageDialog(this, service.add(cpu));
+            listDSP = service.getAll();
+            loadData(listDSP);
+            lamMoi();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        boolean isValide = true;
         String ma = txtMaDSP.getText();
         String ten = txtTenDSP.getText();
-        DongSP dsp = new DongSP(null, ten);
-        JOptionPane.showMessageDialog(this, service.update(dsp, ma));
-        listDSP = service.getAll();
-        loadData(listDSP);
-        lamMoi();
+        if (ten.trim().isEmpty()) {
+            msgTen.setText("Tên không được để trống!");
+            msgTen.setForeground(Color.red);
+            isValide = false;
+        } else {
+            msgTen.setText("");
+        }
+        if (isValide == true) {
+            DongSP dsp = new DongSP(null, ten);
+            JOptionPane.showMessageDialog(this, service.update(dsp, ma));
+            listDSP = service.getAll();
+            loadData(listDSP);
+            lamMoi();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int index = tableDongSP.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu !!!");
+            return;
+        }
         String ma = txtMaDSP.getText();
         JOptionPane.showMessageDialog(this, service.delete(ma));
         listDSP = service.getAll();
@@ -263,6 +295,7 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel msgTen;
     private javax.swing.JTable tableDongSP;
     private javax.swing.JTextField txtMaDSP;
     private javax.swing.JTextField txtTenDSP;

@@ -7,6 +7,7 @@ package View;
 import DomainModels.CPU;
 import Services.IThuocTinhCPUService;
 import Services.lmpl.ThuocTinhCPUServiceImpl;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -70,7 +71,10 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtMaCPU = new javax.swing.JTextField();
         txtTenCPU = new javax.swing.JTextField();
-        txtMoTa = new javax.swing.JTextField();
+        msgTen = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtMoTa = new javax.swing.JTextArea();
+        msgMoTa = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -91,6 +95,14 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
 
         jLabel6.setText("Mô tả");
 
+        msgTen.setText(" ");
+
+        txtMoTa.setColumns(20);
+        txtMoTa.setRows(5);
+        jScrollPane2.setViewportView(txtMoTa);
+
+        msgMoTa.setText(" ");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -99,14 +111,18 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMaCPU, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenCPU, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(msgMoTa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(txtTenCPU)
+                            .addComponent(msgTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtMaCPU))
+                        .addContainerGap(28, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,14 +131,18 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtMaCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtTenCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgTen)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msgMoTa)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -177,7 +197,7 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(btnThem)
                 .addGap(18, 18, 18)
                 .addComponent(btnSua)
@@ -185,7 +205,7 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
                 .addComponent(btnXoa)
                 .addGap(18, 18, 18)
                 .addComponent(btnLamMoi)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tableThuocTinhCPU.setModel(new javax.swing.table.DefaultTableModel(
@@ -222,35 +242,75 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        boolean isValide = true;
         String ten = txtTenCPU.getText();
+        if (ten.trim().isEmpty()) {
+            msgTen.setText("Tên không được để trống!");
+            msgTen.setForeground(Color.red);
+            isValide = false;
+        } else {
+            msgTen.setText("");
+        }
         String moTa = txtMoTa.getText();
-        CPU cpu = new CPU(null, ten, moTa);
-        JOptionPane.showMessageDialog(this, service.add(cpu));
-        listCPU = service.getAll();
-        loadData(listCPU);
-        lamMoi();
+        if (moTa.trim().isEmpty()) {
+            msgMoTa.setText("Mô tả không được để trống!");
+            msgMoTa.setForeground(Color.red);
+            isValide = false;
+        } else {
+            msgMoTa.setText("");
+        }
+        if (isValide == true) {
+            CPU cpu = new CPU(null, ten, moTa);
+            JOptionPane.showMessageDialog(this, service.add(cpu));
+            listCPU = service.getAll();
+            loadData(listCPU);
+            lamMoi();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        boolean isValide = true;
         String ma = txtMaCPU.getText();
         String ten = txtTenCPU.getText();
+        if (ten.trim().isEmpty()) {
+            msgTen.setText("Tên không được để trống!");
+            msgTen.setForeground(Color.red);
+            isValide = false;
+        } else {
+            msgTen.setText("");
+        }
         String moTa = txtMoTa.getText();
-        CPU cpu = new CPU(null, ten, moTa);
-        JOptionPane.showMessageDialog(this, service.update(cpu, ma));
-        listCPU = service.getAll();
-        loadData(listCPU);
-        lamMoi();
+        if (moTa.trim().isEmpty()) {
+            msgMoTa.setText("Mô tả không được để trống!");
+            msgMoTa.setForeground(Color.red);
+            isValide = false;
+        } else {
+            msgMoTa.setText("");
+        }
+        if (isValide == true) {
+            CPU cpu = new CPU(null, ten, moTa);
+            JOptionPane.showMessageDialog(this, service.update(cpu, ma));
+            listCPU = service.getAll();
+            loadData(listCPU);
+            lamMoi();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int index = tableThuocTinhCPU.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu !!!");
+            return;
+        }
         String ma = txtMaCPU.getText();
         JOptionPane.showMessageDialog(this, service.delete(ma));
         listCPU = service.getAll();
@@ -279,10 +339,13 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel msgMoTa;
+    private javax.swing.JLabel msgTen;
     private javax.swing.JTable tableThuocTinhCPU;
     private javax.swing.JTextField txtMaCPU;
-    private javax.swing.JTextField txtMoTa;
+    private javax.swing.JTextArea txtMoTa;
     private javax.swing.JTextField txtTenCPU;
     // End of variables declaration//GEN-END:variables
 }
