@@ -4,10 +4,19 @@
  */
 package Services;
 
+import DomainModels.RAM;
+import java.util.ArrayList;
+
 /**
  *
  * @author vuxua
  */
 public interface ITHuocTinhRamService {
+    ArrayList<RAM> getAll();
     
+    String add(RAM ram);
+    
+    String update(RAM ram , String maRam);
+    
+    String delete(String maRam);
 }

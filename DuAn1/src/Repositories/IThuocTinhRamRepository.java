@@ -4,10 +4,19 @@
  */
 package Repositories;
 
+import DomainModels.RAM;
+import java.util.ArrayList;
+
 /**
  *
  * @author vuxua
  */
 public interface IThuocTinhRamRepository {
-    
+     ArrayList<RAM> getAll();
+
+    boolean add(RAM ram);
+
+    boolean update(RAM ram, String maRam);
+
+    boolean delete(String maRam);
 }
