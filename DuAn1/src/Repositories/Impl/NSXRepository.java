@@ -37,11 +37,10 @@ public class NSXRepository implements INSXRepository {
 
     @Override
     public boolean addnsx(NSX nsx) {
-        String sql = "insert into NSX values (?, ?)";
+        String sql = "insert into NSX values (newid(), ?)";
         int check = 0;
         try (Connection con = DbConnection.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, nsx.getMansx());
-            ps.setObject(2, nsx.getTennsx());
+            ps.setObject(1, nsx.getTennsx());
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace(System.out);
@@ -51,12 +50,11 @@ public class NSXRepository implements INSXRepository {
 
     @Override
     public boolean updatensx(NSX nsx) {
-        String sql = "update NSX set MaNSX=?, TenNSX=? where MaNSX=?";
+        String sql = "update NSX set TenNSX=? where MaNSX=?";
         int check = 0;
         try (Connection con = DbConnection.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, nsx.getMansx());
-            ps.setObject(2, nsx.getTennsx());
-            ps.setObject(3, nsx.getMansx());
+            ps.setObject(1, nsx.getTennsx());
+            ps.setObject(2, nsx.getMansx());
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace(System.out);

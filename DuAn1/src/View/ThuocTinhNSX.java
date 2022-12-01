@@ -47,21 +47,14 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
     }
 
     private boolean validatefrom(String check){
-        if(txtmansx.getText().isEmpty() || txttennsx.getText().isEmpty()){
+        if(txttennsx.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Thông Tin Không Được Để Trống");
             return false;
         }
         return true;
     }
     
-    private boolean checktrung(String ma){
-        for (NSX nsx : insx.getAllnsx()) {
-           if(nsx.getMansx().equals(ma)){
-               return true;
-           }
-        }
-        return false;
-    }
+
     
     private NSX docfrom(){
         NSX nsx = new NSX();
@@ -71,10 +64,7 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
     }
     
     private void addrow(){
-        if(checktrung(txtmansx.getText())){
-            JOptionPane.showMessageDialog(this, "Nsx Có Mã Tồn Tại");
-            return;
-        }else{
+
             if(!validatefrom("Add nsx")){
                 return;
             }
@@ -82,7 +72,8 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
             listnsx = insx.getAllnsx();
             loaddata(listnsx);
             JOptionPane.showMessageDialog(this, add);
-        }
+    
+    
     }
     
     private void updaterow(){
@@ -150,6 +141,8 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
         jLabel4.setText("Mã NSX");
 
         jLabel5.setText("Tên NSX");
+
+        txtmansx.setEditable(false);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
