@@ -4,6 +4,13 @@
  */
 package View;
 
+import DomainModels.RAM;
+import Services.ITHuocTinhRamService;
+import Services.lmpl.ThuocTinhRamService;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author anhtu
@@ -13,9 +20,33 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
     /**
      * Creates new form ThuocTinhRAM
      */
+     private DefaultTableModel dtm = new DefaultTableModel();
+     private ArrayList<RAM> listRAM = new ArrayList<>();
+    private ITHuocTinhRamService _RAMService = new ThuocTinhRamService();
     public ThuocTinhRAM() {
-        initComponents();
+         initComponents();
+        tblThuocTinhRAM.setModel(dtm);
+        String [] headers = {"Mã", "Tên","Dung Lượng", "Mô Tả"};
+        dtm.setColumnIdentifiers(headers);
+        txt_maram.setEnabled(false);
+        listRAM = _RAMService.getAll();
+        loadData(listRAM);
+     
     }
+    private void loadData( ArrayList<RAM> list){
+        dtm.setRowCount(0);
+        for(RAM ram : list){
+            dtm.addRow(ram.toDataRow());
+        }
+    }
+    private void fillData(int index){
+        RAM ram = listRAM.get(index);
+        txt_maram.setText(ram.getMaRam());
+        txt_tenram.setText(ram.getTenRam());
+        txt_dungluong.setText(ram.getDungLuong());
+        txt_moTa.setText(ram.getMoTa());
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,12 +67,12 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txt_maram = new javax.swing.JTextField();
+        txt_tenram = new javax.swing.JTextField();
+        txt_dungluong = new javax.swing.JTextField();
+        txt_moTa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblThuocTinhRAM = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thuộc tính sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -132,10 +163,10 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_maram, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_tenram, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_dungluong, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_moTa, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -144,23 +175,23 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_maram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_tenram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_dungluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_moTa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblThuocTinhRAM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -168,7 +199,7 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
                 "Mã RAM", "Tên RAM", "Dung lượng", "Mô tả"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblThuocTinhRAM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,18 +230,54 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+         String ten = txt_tenram.getText();
+        String dungLuong = txt_dungluong.getText();
+        String moTa=txt_moTa.getText();
+        RAM ram = new RAM(null, ten, dungLuong, moTa);
+        JOptionPane.showMessageDialog(this, _RAMService.add(ram));
+        listRAM=_RAMService.getAll();
+        loadData(listRAM);
+        txt_maram.setText("");
+        txt_tenram.setText("");
+        txt_dungluong.setText("");
+        txt_moTa.setText("");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+         String ma=txt_maram.getText();
+        String ten = txt_tenram.getText();
+        String dungLuong = txt_dungluong.getText();
+        String moTa=txt_moTa.getText();
+        RAM ram = new RAM(null, ten, dungLuong, moTa);
+        JOptionPane.showMessageDialog(this, _RAMService.update(ram, ma));
+        listRAM=_RAMService.getAll();
+        loadData(listRAM);
+        txt_maram.setText("");
+        txt_tenram.setText("");
+        txt_dungluong.setText("");
+        txt_moTa.setText("");
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+                String ma = txt_maram.getText();
+        JOptionPane.showMessageDialog(this, _RAMService.delete(ma));
+        listRAM=_RAMService.getAll();
+        loadData(listRAM);
+        txt_maram.setText("");
+        txt_tenram.setText("");
+        txt_dungluong.setText("");
+        txt_moTa.setText("");
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        txt_maram.setText("");
+        txt_tenram.setText("");
+        txt_dungluong.setText("");
+        txt_moTa.setText("");
     }//GEN-LAST:event_jButton8ActionPerformed
 
 
@@ -226,10 +293,10 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tblThuocTinhRAM;
+    private javax.swing.JTextField txt_dungluong;
+    private javax.swing.JTextField txt_maram;
+    private javax.swing.JTextField txt_moTa;
+    private javax.swing.JTextField txt_tenram;
     // End of variables declaration//GEN-END:variables
 }
