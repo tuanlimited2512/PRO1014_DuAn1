@@ -12,7 +12,7 @@ go
 Create Table NhanVien(
 	MaNV UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	HoTen nvarchar(100) not null,
-	GioiTinh bit,
+	GioiTinh nvarchar(20),
 	SDT varchar(10) not null,
 	NgaySinh date not null,
 	DiaChi nvarchar(100) not null,
@@ -119,7 +119,7 @@ Create table KhachHang(
 	MaKH UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenKH nvarchar(100) not null,
 	SDT varchar(12),
-	GioiTinh BIT,
+	GioiTinh nvarchar(10),
 	Email nvarchar(max),
 	DiaChi nvarchar(200)
 )
