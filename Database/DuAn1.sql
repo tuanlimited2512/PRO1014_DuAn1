@@ -72,12 +72,6 @@ Create table SanPham(
 )
 go
 
-Create table AnhSP(
-	MaAnh UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-	TenAnh nvarchar(100) not null,	
-)
-go
-
 Create table KhuyenMai(
 	MaKM UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TenKM nvarchar(100) not null,
@@ -100,7 +94,6 @@ Create table ChiTietSP(
 	MaCPU UNIQUEIDENTIFIER foreign key references CPU(MaCPU),
 	MaRAM UNIQUEIDENTIFIER foreign key references RAM(MaRAM),
 	MaManHinh UNIQUEIDENTIFIER foreign key references ManHinh(MaManHinh),
-	MaAnh UNIQUEIDENTIFIER foreign key references AnhSP(MaAnh),
 	GiaNhap decimal(20, 0),
 	GiaBan decimal(20, 0),
 	SoLuong int,
