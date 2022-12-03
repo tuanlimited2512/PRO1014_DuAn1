@@ -41,7 +41,7 @@ public class FormKhuyenMai extends javax.swing.JPanel {
             String date1= sdf.format(km.getNgaybatdau());
             String date2= sdf.format(km.getNgayketthuc());
             dfmol.addRow(new Object[]{
-                km.getMa(),km.getTen(), km.getHinhthuc(), km.getGia(km.getHinhthuc()), km.getSanpham(), date1, date2, km.getTrangthai()==0?"Đang áp dụng":"Không áp dụng", km.getMota()
+                km.getMa(),km.getTen(), km.getHinhthuc(), km.getGia(km.getHinhthuc()), km.getSanpham(), date1, date2, km.getTrangthai(), km.getMota()
             });
         }
     }
@@ -387,6 +387,7 @@ public class FormKhuyenMai extends javax.swing.JPanel {
         date_batdau.setDate(null);
         date_ketthuc.setDate(null);
         txt_mota.setText("");
+        load();
     }//GEN-LAST:event_btn_lammoiActionPerformed
 
     private void btn_luuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_luuActionPerformed
@@ -400,7 +401,7 @@ public class FormKhuyenMai extends javax.swing.JPanel {
         km.setGiamgia(txt_mucgiam.getText());
         km.setNgaybatdau(date_batdau.getDate());
         km.setNgayketthuc(date_ketthuc.getDate());
-        km.setTrangthai(0);
+        km.setTrangthai("Đang áp dụng");
         km.setMota(txt_mota.getText());
         
         khuyenMaiService.updateCTSP(km.getTen(), spvm.getMa());
@@ -418,7 +419,7 @@ public class FormKhuyenMai extends javax.swing.JPanel {
         km.setGiamgia(txt_mucgiam.getText());
         km.setNgaybatdau(date_batdau.getDate());
         km.setNgayketthuc(date_ketthuc.getDate());
-        km.setTrangthai(0);
+        km.setTrangthai("Đang áp dụng");
         km.setMota(txt_mota.getText());
         km.setMa(tbl_khuyenmai.getValueAt(index, 0).toString());
         

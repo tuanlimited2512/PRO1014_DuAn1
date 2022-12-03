@@ -13,13 +13,13 @@ import java.util.Date;
 public class KhuyenMai {
     String ma, ten, hinhthuc,giamgia, sanpham;
     Date ngaybatdau, ngayketthuc;
-    int trangthai;
+    String trangthai;
     String mota;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String ma, String ten, String hinhthuc, String giamgia, String sanpham, Date ngaybatdau, Date ngayketthuc, int trangthai, String mota) {
+    public KhuyenMai(String ma, String ten, String hinhthuc, String giamgia, String sanpham, Date ngaybatdau, Date ngayketthuc, String trangthai, String mota) {
         this.ma = ma;
         this.ten = ten;
         this.hinhthuc = hinhthuc;
@@ -31,7 +31,7 @@ public class KhuyenMai {
         this.mota = mota;
     }
 
-    public KhuyenMai(String ten, String hinhthuc, String giamgia, String sanpham, Date ngaybatdau, Date ngayketthuc, int trangthai, String mota) {
+    public KhuyenMai(String ten, String hinhthuc, String giamgia, String sanpham, Date ngaybatdau, Date ngayketthuc, String trangthai, String mota) {
         this.ten = ten;
         this.hinhthuc = hinhthuc;
         this.giamgia = giamgia;
@@ -98,11 +98,11 @@ public class KhuyenMai {
         this.ngayketthuc = ngayketthuc;
     }
 
-    public int getTrangthai() {
+    public String getTrangthai() {
         return trangthai;
     }
 
-    public void setTrangthai(int trangthai) {
+    public void setTrangthai(String trangthai) {
         this.trangthai = trangthai;
     }
 

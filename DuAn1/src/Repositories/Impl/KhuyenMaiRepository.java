@@ -28,7 +28,7 @@ public class KhuyenMaiRepository implements IKhuyenMaiRepository{
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
             while(rs.next()){
-                listKM.add(new KhuyenMai(rs.getString(1), rs.getNString(2), rs.getNString(3), rs.getNString(4), rs.getNString(5), rs.getDate(6), rs.getDate(7), rs.getInt(8), rs.getNString(9)));
+                listKM.add(new KhuyenMai(rs.getString(1), rs.getNString(2), rs.getNString(3), rs.getNString(4), rs.getNString(5), rs.getDate(6), rs.getDate(7), rs.getString(8), rs.getNString(9)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(KhuyenMaiRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,7 +46,7 @@ public class KhuyenMaiRepository implements IKhuyenMaiRepository{
             ps.setObject(3, km.getGiamgia());
             ps.setObject(4, km.getNgaybatdau());
             ps.setObject(5, km.getNgayketthuc());
-            ps.setObject(6, 0);
+            ps.setObject(6, km.getTrangthai());
             ps.setObject(7, km.getMota());
             ps.executeUpdate();
             return true;
@@ -66,7 +66,7 @@ public class KhuyenMaiRepository implements IKhuyenMaiRepository{
             ps.setObject(3, km.getGiamgia());
             ps.setObject(4, km.getNgaybatdau());
             ps.setObject(5, km.getNgayketthuc());
-            ps.setObject(6, 0);
+            ps.setObject(6, km.getTrangthai());
             ps.setObject(7, km.getMota());
             ps.setObject(8, km.getMa());
             ps.executeUpdate();

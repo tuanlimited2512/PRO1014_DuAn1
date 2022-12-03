@@ -65,7 +65,6 @@ public class FormBanHang extends javax.swing.JPanel {
         addCBNhanVien(iNhanVienService.getSelectSqlLV());
         boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
         loadHoaDon();
-        tbl_bangSanPham.setRowSelectionInterval(0, 0);
 
     }
 
