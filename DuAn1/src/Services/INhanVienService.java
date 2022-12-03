@@ -13,9 +13,11 @@ import java.util.List;
  * @author anhtu
  */
 public interface INhanVienService {
-    List<NhanVien> getSelectSql();
-    Integer insert(NhanVien nv, VaiTro vt);
-    Boolean update(NhanVien nv , VaiTro vt);
+    List<NhanVien> getSelectSqlLV();
+    Integer insert(NhanVien nv, String tenVaiTro);
+    Boolean update(NhanVien nv , String tenVaiTro);
     Boolean delete(NhanVien nv );
-    List<NhanVien> tim(String hoTen);
+    List<NhanVien> timSDT(String sdt);
+    List<NhanVien> timVT(String vt);
+    List<NhanVien> timGT(String giotinh);
 }

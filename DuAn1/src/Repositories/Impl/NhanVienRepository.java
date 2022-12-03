@@ -21,28 +21,28 @@ import java.util.logging.Logger;
 public class NhanVienRepository implements INhanVienRepository{
 
     @Override
-    public List<NhanVien> getSelectSql() {
+    public List<NhanVien> getSelectSqlLV() {
         List<NhanVien> listNV = new ArrayList<>();
         String select = "select MaNV, HoTen, CONVERT (VARCHAR(10), NgaySinh, 103), GioiTinh, DiaChi, SDT, Email, MatKhau, VaiTro.TenVaiTro, TinhTrang from nhanvien "
                 + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro";
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
             while(rs.next()){
-                listNV.add(new NhanVien(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getInt(4), rs.getNString(5),
-                rs.getString(6), rs.getString(7), rs.getString(8), rs.getNString(9), rs.getInt(10)));
+                listNV.add(new NhanVien(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5),
+                rs.getString(6), rs.getString(7), rs.getString(8), rs.getNString(9), rs.getNString(10)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listNV;
     }
-
+    
     @Override
-    public Integer insert(NhanVien nv, VaiTro vt) {
+    public Integer insert(NhanVien nv, String tenVaiTro) {
         String select = "select MaVaiTro from VaiTro Where TenVaiTro = ? ";
         String chua = null;
         try {
-            ResultSet rs1 = DbConnection.getDataFromQuery(select, vt.getTenVaiTro());
+            ResultSet rs1 = DbConnection.getDataFromQuery(select, tenVaiTro);
             while(rs1.next()){
                 chua = rs1.getString(1);
             }
@@ -57,11 +57,11 @@ public class NhanVienRepository implements INhanVienRepository{
     }
 
     @Override
-    public Boolean update(NhanVien nv, VaiTro vt) {
+    public Boolean update(NhanVien nv, String tenVaiTro) {
         String select = "select MaVaiTro from VaiTro Where TenVaiTro = ? ";
         String chua = null;
                 try {
-            ResultSet rs1 = DbConnection.getDataFromQuery(select, vt.getTenVaiTro());
+            ResultSet rs1 = DbConnection.getDataFromQuery(select, tenVaiTro);
             while(rs1.next()){
                 chua = rs1.getString(1);
             }
@@ -108,8 +108,66 @@ public class NhanVienRepository implements INhanVienRepository{
     }
 
     @Override
-    public List<NhanVien> tim(String hoTen) {
-        return null;
+    public List<NhanVien> timSDT(String sdt) {
+        List<NhanVien> listNV = new ArrayList<>();
+        String select = "select MaNV, HoTen, CONVERT (VARCHAR(10), NgaySinh, 103), GioiTinh, DiaChi, SDT, Email, MatKhau, VaiTro.TenVaiTro, TinhTrang from nhanvien "
+                + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro Where SDT = ?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, sdt);
+            while(rs.next()){
+                listNV.add(new NhanVien(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5),
+                rs.getString(6), rs.getString(7), rs.getString(8), rs.getNString(9), rs.getNString(10)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listNV;
     }
+
+    @Override
+    public List<NhanVien> timVT(String vt) {
+        String select1 = "select MaVaiTro from VaiTro Where TenVaiTro = ? ";
+        String chua = null;
+                try {
+            ResultSet rs1 = DbConnection.getDataFromQuery(select1, vt);
+            while(rs1.next()){
+                chua = rs1.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        List<NhanVien> listNV = new ArrayList<>();
+        String select = "select MaNV, HoTen, CONVERT (VARCHAR(10), NgaySinh, 103), GioiTinh, DiaChi, SDT, Email, MatKhau, VaiTro.TenVaiTro, TinhTrang from nhanvien "
+                + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro Where NhanVien.MaVaiTro = ?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, chua);
+            while(rs.next()){
+                listNV.add(new NhanVien(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5),
+                rs.getString(6), rs.getString(7), rs.getString(8), rs.getNString(9), rs.getNString(10)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listNV;
+    }
+
+    @Override
+    public List<NhanVien> timGT(String giotinh) {
+        List<NhanVien> listNV = new ArrayList<>();
+        String select = "select MaNV, HoTen, CONVERT (VARCHAR(10), NgaySinh, 103), GioiTinh, DiaChi, SDT, Email, MatKhau, VaiTro.TenVaiTro, TinhTrang from nhanvien "
+                + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro Where GioiTinh = ?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, giotinh);
+            while(rs.next()){
+                listNV.add(new NhanVien(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5),
+                rs.getString(6), rs.getString(7), rs.getString(8), rs.getNString(9), rs.getNString(10)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listNV;
+    }
+
     
 }

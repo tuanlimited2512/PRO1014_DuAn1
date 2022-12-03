@@ -10,13 +10,13 @@ package DomainModels;
  */
 public class KhachHang {
     String ma, ten, sdt;
-    int gioitinh;
+    String gioitinh;
     String email, diachi;
 
     public KhachHang() {
     }
 
-    public KhachHang(String ma, String ten, String sdt, int gioitinh, String email, String diachi) {
+    public KhachHang(String ma, String ten, String sdt, String gioitinh, String email, String diachi) {
         this.ma = ma;
         this.ten = ten;
         this.sdt = sdt;
@@ -49,11 +49,11 @@ public class KhachHang {
         this.sdt = sdt;
     }
 
-    public int getGioitinh() {
+    public String getGioitinh() {
         return gioitinh;
     }
 
-    public void setGioitinh(int gioitinh) {
+    public void setGioitinh(String gioitinh) {
         this.gioitinh = gioitinh;
     }
 
@@ -79,6 +79,6 @@ public class KhachHang {
     }
     
     public Object[] toDataRow(){
-        return new Object[]{ma, ten, sdt, gioitinh==0?"Nam":"Nữ", email, diachi};
+        return new Object[]{ma, ten, sdt, gioitinh, email, diachi};
     }
 }

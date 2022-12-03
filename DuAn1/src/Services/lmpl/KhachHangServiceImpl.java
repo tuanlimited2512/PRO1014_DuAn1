@@ -41,5 +41,15 @@ public class KhachHangServiceImpl implements IKhachHangService{
     public Boolean delete(KhachHang kh) {
         return repository.delete(kh);
     }
+
+    @Override
+    public List<KhachHang> timGT(String gt) {
+        return repository.timGT(gt);
+    }
+
+    @Override
+    public List<KhachHang> timDiaChi(String dt) {
+        return repository.timDiaChi(dt);
+    }
     
 }

@@ -75,9 +75,6 @@ public class FormKhachHang extends javax.swing.JPanel {
         cbo_locgt = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         txt_locdc = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -260,9 +257,22 @@ public class FormKhachHang extends javax.swing.JPanel {
 
         jLabel8.setText("Giới tính");
 
-        cbo_locgt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbo_locgt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Nam", "Nữ" }));
+        cbo_locgt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_locgtActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Địa chỉ");
+
+        txt_locdc.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txt_locdcInputMethodTextChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -326,41 +336,6 @@ public class FormKhachHang extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Thông tin cá nhân", jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Tên khách hàng", "SĐT", "Ngày giao dịch", "Tên sản phẩm", "Số lượng", "Giá bán", "Tổng tiền", "Trạng thái hóa đơn"
-            }
-        ));
-        jScrollPane4.setViewportView(jTable4);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 913, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Lịch sử giao dịch", jPanel4);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -409,16 +384,16 @@ public class FormKhachHang extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        int index = tbl_khachhang.getSelectedRow();
         KhachHang kh = new KhachHang();
+        
         kh.setMa(txt_makh.getText());
         kh.setTen(txt_tenkh.getText());
         kh.setSdt(txt_sdt.getText());
-        kh.setGioitinh(rdo_nam.isSelected()? 0 : 1);
+        kh.setGioitinh(rdo_nam.isSelected()? "Nam" : "Nữ");
         kh.setEmail(txt_email.getText());
         kh.setDiachi(tar_diachi.getText());
         khachHangService.insert(kh);
-        JOptionPane.showMessageDialog(this, "Them thanh cong");
+        JOptionPane.showMessageDialog(this, "Thêm thành công");
         load();
         clearF();
         
@@ -430,10 +405,11 @@ public class FormKhachHang extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         int index = tbl_khachhang.getSelectedRow();
-        KhachHang kh = new KhachHang();
+        KhachHang kh = khachHangService.getSelectSql().get(index);
+        
         kh.setMa(txt_makh.getText());
         khachHangService.delete(kh);
-        JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+        JOptionPane.showMessageDialog(this, "Xóa thành công");
         load();
         clearF();
     }//GEN-LAST:event_btn_xoaActionPerformed
@@ -441,16 +417,17 @@ public class FormKhachHang extends javax.swing.JPanel {
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
         
-                int index = tbl_khachhang.getSelectedRow();
-        KhachHang kh = new KhachHang();
+        int index = tbl_khachhang.getSelectedRow();
+        KhachHang kh = khachHangService.getSelectSql().get(index);
+        
         kh.setMa(txt_makh.getText());
         kh.setTen(txt_tenkh.getText());
         kh.setSdt(txt_sdt.getText());
-        kh.setGioitinh(rdo_nam.isSelected()? 0 : 1);
+        kh.setGioitinh(rdo_nam.isSelected()? "Nam" : "Nữ");
         kh.setEmail(txt_email.getText());
         kh.setDiachi(tar_diachi.getText());
         khachHangService.update(kh);
-        JOptionPane.showMessageDialog(this, "Sua thanh cong");
+        JOptionPane.showMessageDialog(this, "Sửa thành công");
         load();
         clearF();
         
@@ -482,6 +459,34 @@ public class FormKhachHang extends javax.swing.JPanel {
         clearF();
     }//GEN-LAST:event_btn_lammoiActionPerformed
 
+    private void cbo_locgtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_locgtActionPerformed
+        // TODO add your handling code here:
+        if (cbo_locgt.getSelectedIndex() == 0) {
+            load();
+            return;
+        } else {
+            dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+            dfmol.setRowCount(0);
+            for (KhachHang nv : khachHangService.timGT((String) cbo_locgt.getSelectedItem())) {
+                dfmol.addRow(nv.toDataRow());
+            }
+        }
+    }//GEN-LAST:event_cbo_locgtActionPerformed
+
+    private void txt_locdcInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_locdcInputMethodTextChanged
+        // TODO add your handling code here:
+        if (khachHangService.timDiaChi(txt_locdc.getText()).isEmpty()) {
+            load();
+            return;
+        } else {
+            dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+            dfmol.setRowCount(0);
+            for (KhachHang nv : khachHangService.timDiaChi(txt_locdc.getText())) {
+                dfmol.addRow(nv.toDataRow());
+            }
+        }
+    }//GEN-LAST:event_txt_locdcInputMethodTextChanged
+
     public void clearF(){
         txt_makh.setText("");
         txt_tenkh.setText("");
@@ -511,13 +516,10 @@ public class FormKhachHang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable4;
     private javax.swing.JRadioButton rdo_nam;
     private javax.swing.JRadioButton rdo_nu;
     private javax.swing.JTextArea tar_diachi;

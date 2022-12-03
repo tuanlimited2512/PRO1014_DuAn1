@@ -23,18 +23,18 @@ public class NhanVienService implements INhanVienService{
 
     
     @Override
-    public List<NhanVien> getSelectSql() {
-        return repository.getSelectSql();
+    public List<NhanVien> getSelectSqlLV() {
+        return repository.getSelectSqlLV();
+    }
+    
+    @Override
+    public Integer insert(NhanVien nv, String tenVaiTro) {
+        return repository.insert(nv, tenVaiTro);
     }
 
     @Override
-    public Integer insert(NhanVien nv, VaiTro vt) {
-        return repository.insert(nv, vt);
-    }
-
-    @Override
-    public Boolean update(NhanVien nv , VaiTro vt) {
-        return repository.update(nv,vt);
+    public Boolean update(NhanVien nv , String tenVaiTro) {
+        return repository.update(nv,tenVaiTro);
     }
 
     @Override
@@ -43,8 +43,18 @@ public class NhanVienService implements INhanVienService{
     }
 
     @Override
-    public List<NhanVien> tim(String hoTen) {
-        return repository.tim(hoTen);
+    public List<NhanVien> timSDT(String sdt) {
+        return repository.timSDT(sdt);
     }
-    
+
+    @Override
+    public List<NhanVien> timVT(String vt) {
+        return repository.timVT(vt);
+    }
+
+    @Override
+    public List<NhanVien> timGT(String giotinh) {
+        return repository.timGT(giotinh);
+    }
+
 }

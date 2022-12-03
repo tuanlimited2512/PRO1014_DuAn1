@@ -11,15 +11,15 @@ package DomainModels;
 public class NhanVien {
 
     private String ma, ten, ngaySinh;
-    private int gioiTinh;
+    private String gioiTinh;
     private String diaChi, sdt, email, matKhau;
     private String maVaiTro;
-    private int trangThai;
+    private String trangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(String ma, String ten, String ngaySinh, int gioiTinh, String diaChi, String sdt, String email, String matKhau, String maVaiTro, int trangThai) {
+    public NhanVien(String ma, String ten, String ngaySinh, String gioiTinh, String diaChi, String sdt, String email, String matKhau, String maVaiTro, String trangThai) {
         this.ma = ma;
         this.ten = ten;
         this.ngaySinh = ngaySinh;
@@ -56,11 +56,11 @@ public class NhanVien {
         this.ngaySinh = ngaySinh;
     }
 
-    public int getGioiTinh() {
+    public String getGioiTinh() {
         return gioiTinh;
     }
 
-    public void setGioiTinh(int gioiTinh) {
+    public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
 
@@ -104,11 +104,11 @@ public class NhanVien {
         this.maVaiTro = maVaiTro;
     }
 
-    public int getTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(int trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -118,6 +118,6 @@ public class NhanVien {
     }
 
     public Object[] toDataRow() {
-        return new Object[]{ma, ten, ngaySinh, gioiTinh == 0 ? "Nam" : "Nữ", diaChi, sdt, email, matKhau, maVaiTro, trangThai == 0 ? "Đang làm việc" : "Nghỉ việc"};
+        return new Object[]{ma, ten, ngaySinh, gioiTinh, diaChi, sdt, email, matKhau, maVaiTro, trangThai};
     }
 }

@@ -26,7 +26,7 @@ public class KhachHangRepository implements IKhachHangRepository{
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
             while(rs.next()){
-                listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getInt(4), rs.getNString(5), rs.getNString(6)));
+                listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
             }
             return listKH;
         } catch (SQLException ex) {
@@ -37,7 +37,7 @@ public class KhachHangRepository implements IKhachHangRepository{
 
     @Override
     public Boolean insert(KhachHang kh) {
-        String insert = "insert into khachhang (makh , tenkh , sdt , gioitinh , email , diachi ) values (?,?,?,?,?,?) ";
+        String insert = "insert into khachhang (MaKH, tenkh , sdt , gioitinh , email , diachi ) values (?,?,?,?,?,?) ";
 
         try {
             PreparedStatement ps = DbConnection.openDbConnection().prepareStatement(insert);
@@ -89,6 +89,38 @@ public class KhachHangRepository implements IKhachHangRepository{
             Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    @Override
+    public List<KhachHang> timGT(String gt) {
+        List<KhachHang> listKH = new ArrayList<>();
+        String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang WHERE GioiTinh = ?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, gt);
+            while(rs.next()){
+                listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
+            }
+            return listKH;
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public List<KhachHang> timDiaChi(String dt) {
+        List<KhachHang> listKH = new ArrayList<>();
+        String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang WHERE DiaChi = ?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, dt);
+            while(rs.next()){
+                listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
+            }
+            return listKH;
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
 }

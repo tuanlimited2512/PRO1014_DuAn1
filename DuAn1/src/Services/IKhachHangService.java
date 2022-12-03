@@ -16,4 +16,7 @@ public interface IKhachHangService {
     Boolean insert(KhachHang kh);
     Boolean update(KhachHang kh);
     Boolean delete(KhachHang kh);
+    
+    List<KhachHang> timGT(String gt);
+    List<KhachHang> timDiaChi(String dt);
 }
