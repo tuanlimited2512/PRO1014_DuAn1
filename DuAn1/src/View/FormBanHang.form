@@ -367,8 +367,8 @@
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jScrollPane4" min="-2" pref="111" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                  <Component id="jScrollPane4" min="-2" pref="175" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -563,8 +563,8 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txt_maHoaDon" min="-2" pref="110" max="-2" attributes="0"/>
                                       <Component id="lbl_tienkhachdua" min="-2" pref="174" max="-2" attributes="0"/>
+                                      <Component id="txt_maHoaDon" min="-2" pref="92" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -677,10 +677,10 @@
                       </Group>
                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cb_NhanVien" pref="146" max="32767" attributes="0"/>
                           <Component id="txt_maKH" max="32767" attributes="0"/>
+                          <Component id="cb_NhanVien" pref="128" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -62,18 +62,18 @@ public class FormBanHang extends javax.swing.JPanel {
         iNhanVienService = new NhanVienService();
         loadData();
         addCBChucVu();
-        addCBNhanVien();
+        addCBNhanVien(iNhanVienService.getSelectSqlLV());
         boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
         loadHoaDon();
         tbl_bangSanPham.setRowSelectionInterval(0, 0);
 
     }
 
-    void addCBNhanVien() {
+    void addCBNhanVien(List<NhanVien> listNV) {
         boxModelNV = (DefaultComboBoxModel) cb_NhanVien.getModel();
-        List<NhanVien> listNV = iNhanVienService.getSelectSql();
+        boxModelNV.removeAllElements();
         for (NhanVien nhanVien : listNV) {
-            boxModelNV.addElement(nhanVien);
+            boxModelNV.addElement(nhanVien.getMa());
         }
     }
 
@@ -363,8 +363,8 @@ public class FormBanHang extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cb_mau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -386,9 +386,9 @@ public class FormBanHang extends javax.swing.JPanel {
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cb_NhanVien, 0, 146, Short.MAX_VALUE)
-                    .addComponent(txt_maKH))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(txt_maKH)
+                    .addComponent(cb_NhanVien, 0, 128, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,8 +551,8 @@ public class FormBanHang extends javax.swing.JPanel {
                                 .addGap(60, 60, 60))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_maHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_tienkhachdua, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbl_tienkhachdua, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_maHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1063,12 +1063,12 @@ public class FormBanHang extends javax.swing.JPanel {
     private void tbl_hoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_hoadonMouseClicked
         // TODO add your handling code here:
         int row = tbl_hoadon.getSelectedRow();
+        HoaDon hd = donServices.get().get(row);
         String maHD = (String) tbl_hoadon.getValueAt(row, 0);
         txt_maHoaDon.setText(maHD);
-        String maKH = (String) tbl_hoadon.getValueAt(row, 0);
+        String maKH = (String) tbl_hoadon.getValueAt(row, 2);
         txt_maKH.setText(maKH);
-        String maNV = (String) tbl_hoadon.getValueAt(row, 3);
-        cb_NhanVien.setSelectedItem(maNV);
+        cb_NhanVien.setSelectedItem(hd.getMaNV());
         ArrayList<GioHangViewModel> li = gioHang.get(maHD);
         ArrayList<GioHangViewModel> li1 = gioHang.get1(maHD);
         do {
