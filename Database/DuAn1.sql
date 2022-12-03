@@ -126,7 +126,7 @@ Create table KhachHang(
 go
 
 Create table HoaDon(
-	MaHD nvarchar(50),
+	MaHD nvarchar(50) primary key,
 	NgayTao date,
 	NgayThanhToan date,
 	TinhTrang nvarchar(50),
