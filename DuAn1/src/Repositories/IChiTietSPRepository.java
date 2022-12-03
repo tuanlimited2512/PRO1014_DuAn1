@@ -23,4 +23,6 @@ public interface IChiTietSPRepository {
     List<ChiTietSPViewModel> getAllID();
     
     HashSet<String> getmau();
+    
+    Integer upDateSL(String ma);
 }

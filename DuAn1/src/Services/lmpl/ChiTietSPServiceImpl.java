@@ -46,6 +46,22 @@ public class ChiTietSPServiceImpl implements IChiTietSPService {
     @Override
     public HashSet<String> getmau() {
         return chiTietRePo.getmau();
-       }
+    }
+
+    @Override
+    public Boolean kiemTraLaSo(String s) {
+
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Integer upDateSL(String ma) {
+        return chiTietRePo.upDateSL(ma);
+    }
 
 }

@@ -75,7 +75,7 @@ public class KhachHang {
 
     @Override
     public String toString() {
-        return "KhachHang{" + "ma=" + ma + ", ten=" + ten + ", sdt=" + sdt + ", gioitinh=" + gioitinh + ", email=" + email + ", diachi=" + diachi + '}';
+        return  ma ;
     }
     
     public Object[] toDataRow(){

@@ -24,4 +24,7 @@ public interface IChiTietSPService {
     
     HashSet<String> getmau();
 
+    Boolean kiemTraLaSo(String s);
+    
+    Integer upDateSL(String ma);
 }

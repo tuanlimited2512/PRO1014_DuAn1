@@ -119,4 +119,22 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         return li;
     }
 
+    @Override
+    public Integer upDateSL(String ma) {
+        String sql1 = "select MaSP from ChiTietSP where MaSP = ? ";
+        String maTam = null;
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql1, ma);
+            while (rs.next()) {
+                maTam = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietSPRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String sql2 = "update ChiTietSP set SoLuong = ((select SoLuong from ChiTietSP where MaSP=?) - 1) where MaSP=?";
+        Integer row = DbConnection.excuteUpdate(sql2, maTam, maTam);
+        return row;
+    }
+
 }

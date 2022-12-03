@@ -10,7 +10,7 @@ Create Table VaiTro(
 go
 
 Create Table NhanVien(
-	MaNV UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	MaNV nvarchar(50) Primary key,
 	HoTen nvarchar(100) not null,
 	GioiTinh nvarchar(20),
 	SDT varchar(10) not null,
@@ -116,7 +116,7 @@ Create table Serial(
 )
 go
 Create table KhachHang(
-	MaKH UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	MaKH nvarchar(50)primary key,
 	TenKH nvarchar(100) not null,
 	SDT varchar(12),
 	GioiTinh nvarchar(10),
@@ -130,8 +130,8 @@ Create table HoaDon(
 	NgayTao date,
 	NgayThanhToan date,
 	TinhTrang nvarchar(50),
-	MaKH UNIQUEIDENTIFIER foreign key references KhachHang(MaKH),
-	MaNV UNIQUEIDENTIFIER foreign key references NhanVien(MaNV)
+	MaKH nvarchar(50) foreign key references KhachHang(MaKH),
+	MaNV nvarchar(50) foreign key references NhanVien(MaNV)
 	
 )
 go

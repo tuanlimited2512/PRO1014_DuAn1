@@ -36,6 +36,22 @@ public class GioHangViewModel {
         this.thanhTien = thanhTien;
     }
 
+    public GioHangViewModel(String maSP, String tenSP, Integer soLuong, double donGia, String giamGia) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.giamGia = giamGia;
+    }
+
+    public GioHangViewModel(String tenSP, Integer soLuong, double donGia, String giamGia) {
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.giamGia = giamGia;
+    }
+     
+
     public String getMaSP() {
         return maSP;
     }

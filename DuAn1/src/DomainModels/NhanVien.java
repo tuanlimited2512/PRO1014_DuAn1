@@ -9,12 +9,13 @@ package DomainModels;
  * @author anhtu
  */
 public class NhanVien {
+
     private String ma, ten, ngaySinh;
     private int gioiTinh;
     private String diaChi, sdt, email, matKhau;
     private String maVaiTro;
     private int trangThai;
-    
+
     public NhanVien() {
     }
 
@@ -111,9 +112,12 @@ public class NhanVien {
         this.trangThai = trangThai;
     }
 
-    
-    
-    public Object[] toDataRow(){
-        return new Object[]{ma, ten, ngaySinh, gioiTinh==0?"Nam":"Nữ", diaChi, sdt, email, matKhau, maVaiTro, trangThai==0?"Đang làm việc":"Nghỉ việc"};
+    @Override
+    public String toString() {
+        return ma;
+    }
+
+    public Object[] toDataRow() {
+        return new Object[]{ma, ten, ngaySinh, gioiTinh == 0 ? "Nam" : "Nữ", diaChi, sdt, email, matKhau, maVaiTro, trangThai == 0 ? "Đang làm việc" : "Nghỉ việc"};
     }
 }
