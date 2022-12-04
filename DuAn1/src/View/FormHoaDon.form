@@ -158,10 +158,11 @@
             <Component class="javax.swing.JComboBox" name="cbo_timtrangthai">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
+                  <StringArray count="4">
                     <StringItem index="0" value=" "/>
-                    <StringItem index="1" value="&#x110;&#xe3; thanh to&#xe1;n"/>
-                    <StringItem index="2" value="&#x110;&#xe3; h&#x1ee7;y"/>
+                    <StringItem index="1" value="&#x110;&#xe3; Thanh To&#xe1;n"/>
+                    <StringItem index="2" value="Hu&#x1ef7; Ho&#xe1; &#x110;&#x1a1;n"/>
+                    <StringItem index="3" value="Ch&#x1edd; Thanh To&#xe1;n"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -352,6 +353,9 @@
         <Component class="javax.swing.JTextField" name="txt_timMaHD">
           <Events>
             <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="txt_timMaHDInputMethodTextChanged"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_timMaHDKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_timMaHDKeyReleased"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_timMaHDKeyTyped"/>
           </Events>
         </Component>
       </SubComponents>

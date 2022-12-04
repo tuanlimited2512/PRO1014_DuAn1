@@ -72,7 +72,7 @@ public class FormHoaDon extends javax.swing.JPanel {
 
         jLabel2.setText("Trạng thái thanh toán");
 
-        cbo_timtrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Đã thanh toán", "Đã hủy" }));
+        cbo_timtrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Đã Thanh Toán", "Huỷ Hoá Đơn", "Chờ Thanh Toán" }));
         cbo_timtrangthai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbo_timtrangthaiActionPerformed(evt);
@@ -176,6 +176,17 @@ public class FormHoaDon extends javax.swing.JPanel {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txt_timMaHDInputMethodTextChanged(evt);
+            }
+        });
+        txt_timMaHD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_timMaHDKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_timMaHDKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_timMaHDKeyTyped(evt);
             }
         });
 
@@ -303,17 +314,34 @@ public class FormHoaDon extends javax.swing.JPanel {
 
     private void txt_timMaHDInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_timMaHDInputMethodTextChanged
         // TODO add your handling code here:
-        if(service.getSelectSql(txt_timMaHD.getText()).isEmpty()){
-            load();
-            return;
-        }else{
-            dfmol = (DefaultTableModel) tbl_hoadon.getModel();
-            dfmol.setRowCount(0);
-            for (HoaDonViewModel hd : service.getSelectSql(txt_timMaHD.getText())) {
-                dfmol.addRow(hd.toDataRow());
-            }
-        }
     }//GEN-LAST:event_txt_timMaHDInputMethodTextChanged
+
+    private void txt_timMaHDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timMaHDKeyPressed
+        // TODO add your handling code here:
+        dfmol = (DefaultTableModel) tbl_hoadon.getModel();
+        dfmol.setRowCount(0);
+        for (HoaDonViewModel hd : service.getSelectSql("%" + txt_timMaHD.getText() + "%")) {
+            dfmol.addRow(hd.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timMaHDKeyPressed
+
+    private void txt_timMaHDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timMaHDKeyReleased
+        // TODO add your handling code here:
+        dfmol = (DefaultTableModel) tbl_hoadon.getModel();
+        dfmol.setRowCount(0);
+        for (HoaDonViewModel hd : service.getSelectSql("%" + txt_timMaHD.getText() + "%")) {
+            dfmol.addRow(hd.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timMaHDKeyReleased
+
+    private void txt_timMaHDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timMaHDKeyTyped
+        // TODO add your handling code here:
+        dfmol = (DefaultTableModel) tbl_hoadon.getModel();
+        dfmol.setRowCount(0);
+        for (HoaDonViewModel hd : service.getSelectSql("%" + txt_timMaHD.getText() + "%")) {
+            dfmol.addRow(hd.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timMaHDKeyTyped
     
     private void load(){
         dfmol = (DefaultTableModel) tbl_hoadon.getModel();

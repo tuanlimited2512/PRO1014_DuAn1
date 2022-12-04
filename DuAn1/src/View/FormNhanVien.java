@@ -415,6 +415,17 @@ public class FormNhanVien extends javax.swing.JPanel {
                 txt_timsdtInputMethodTextChanged(evt);
             }
         });
+        txt_timsdt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_timsdtKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_timsdtKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_timsdtKeyTyped(evt);
+            }
+        });
 
         jLabel13.setText("Tìm theo số điện thoại");
 
@@ -660,17 +671,37 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void txt_timsdtInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_timsdtInputMethodTextChanged
         // TODO add your handling code here:
-        if(nhanVienService.timSDT(txt_timsdt.getText()).isEmpty()){
-            load();
-            return;
-        }else{
-            dfmol = (DefaultTableModel) tbl_nhanvien_lamviec.getModel();
-            dfmol.setRowCount(0);
-            for (NhanVien nv : nhanVienService.timSDT(txt_timsdt.getText())) {
-                dfmol.addRow(nv.toDataRow());
-            }
-        }
     }//GEN-LAST:event_txt_timsdtInputMethodTextChanged
+
+    private void txt_timsdtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timsdtKeyPressed
+        // TODO add your handling code here:
+        String timsdt = "%" + txt_timsdt.getText() + "%";
+        dfmol = (DefaultTableModel) tbl_nhanvien_lamviec.getModel();
+        dfmol.setRowCount(0);
+        for (NhanVien nv : nhanVienService.timSDT(timsdt)) {
+            dfmol.addRow(nv.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timsdtKeyPressed
+
+    private void txt_timsdtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timsdtKeyReleased
+        // TODO add your handling code here:
+        String timsdt = "%" + txt_timsdt.getText() + "%";
+        dfmol = (DefaultTableModel) tbl_nhanvien_lamviec.getModel();
+        dfmol.setRowCount(0);
+        for (NhanVien nv : nhanVienService.timSDT(timsdt)) {
+            dfmol.addRow(nv.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timsdtKeyReleased
+
+    private void txt_timsdtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timsdtKeyTyped
+        // TODO add your handling code here:
+        String timsdt = "%" + txt_timsdt.getText() + "%";
+        dfmol = (DefaultTableModel) tbl_nhanvien_lamviec.getModel();
+        dfmol.setRowCount(0);
+        for (NhanVien nv : nhanVienService.timSDT(timsdt)) {
+            dfmol.addRow(nv.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timsdtKeyTyped
 
     public void clearF() {
         txt_ma.setText("");

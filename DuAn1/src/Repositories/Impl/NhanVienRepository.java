@@ -111,7 +111,7 @@ public class NhanVienRepository implements INhanVienRepository{
     public List<NhanVien> timSDT(String sdt) {
         List<NhanVien> listNV = new ArrayList<>();
         String select = "select MaNV, HoTen, CONVERT (VARCHAR(10), NgaySinh, 103), GioiTinh, DiaChi, SDT, Email, MatKhau, VaiTro.TenVaiTro, TinhTrang from nhanvien "
-                + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro Where SDT = ?";
+                + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro Where SDT LIKE ? ";
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, sdt);
             while(rs.next()){
