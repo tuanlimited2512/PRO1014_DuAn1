@@ -20,7 +20,7 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
     private JPanel panelChid;
 
     public GiaoDienPhanMem() {
-        initComponents();
+        initComponents(); 
         setLocationRelativeTo(null);
         setColor(btn_banhang);
         resetColor(new JPanel[]{btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
