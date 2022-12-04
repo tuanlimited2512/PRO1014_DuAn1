@@ -12,16 +12,18 @@ public class HoaDonCTViewModel {
     String mahd, masp, tensp;
     int soluong;
     double dongia;
+    double thanhTien;
 
     public HoaDonCTViewModel() {
     }
 
-    public HoaDonCTViewModel(String mahd, String masp, String tensp, int soluong, double dongia) {
+    public HoaDonCTViewModel(String mahd, String masp, String tensp, int soluong, double dongia, double thanhTien) {
         this.mahd = mahd;
         this.masp = masp;
         this.tensp = tensp;
         this.soluong = soluong;
         this.dongia = dongia;
+        this.thanhTien = thanhTien;
     }
 
     public String getMahd() {
@@ -64,13 +66,17 @@ public class HoaDonCTViewModel {
         this.dongia = dongia;
     }
 
-    @Override
-    public String toString() {
-        return "HoaDonCTViewModel{" + "mahd=" + mahd + ", masp=" + masp + ", tensp=" + tensp + ", soluong=" + soluong + ", dongia=" + dongia + '}';
+    public double getThanhTien() {
+        return thanhTien;
     }
+
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
     
     public Object[] toDataRow(){
-        return new Object[]{mahd, masp, tensp, soluong, dongia, dongia * soluong};
+        return new Object[]{mahd, masp, tensp, soluong, dongia, thanhTien};
     }
     
 }
