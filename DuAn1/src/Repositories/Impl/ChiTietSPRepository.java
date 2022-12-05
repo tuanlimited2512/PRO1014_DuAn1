@@ -137,4 +137,34 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         return row;
     }
 
+    @Override
+    public Integer upDateSLKhiAnXoa(String ma, int soLuong) {
+        String sql2 = "update ChiTietSP set SoLuong = ((select SoLuong from ChiTietSP where MaSP=?) + ?) where MaSP=?";
+        Integer row = DbConnection.excuteUpdate(sql2, ma, soLuong, ma);
+        return row;
+    }
+
+    @Override
+    public Integer upDateSLKhiAnThayDoiSL(String ma, int soLuong, int soLuongTD) {
+        String sql2 = "update ChiTietSP set SoLuong = ((select SoLuong from ChiTietSP where MaSP=?) + ? - ? ) where MaSP=?";
+        Integer row = DbConnection.excuteUpdate(sql2, ma, soLuong, soLuongTD, ma);
+        return row;
+    }
+
+    @Override
+    public Integer getSoLuong(String maSp) {
+        Integer soLuong = null;
+        String sql = "select SoLuong from ChiTietSP where MaSP=?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql, maSp);
+            while (rs.next()) {
+                soLuong = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietSPRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return soLuong;
+    }
+
 }

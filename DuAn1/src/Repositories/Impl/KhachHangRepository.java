@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author anhtu
  */
-public class KhachHangRepository implements IKhachHangRepository{
+public class KhachHangRepository implements IKhachHangRepository {
 
     @Override
     public List<KhachHang> getSelectSql() {
@@ -25,7 +25,7 @@ public class KhachHangRepository implements IKhachHangRepository{
         String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang";
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
-            while(rs.next()){
+            while (rs.next()) {
                 listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
             }
             return listKH;
@@ -58,10 +58,10 @@ public class KhachHangRepository implements IKhachHangRepository{
     @Override
     public Boolean update(KhachHang kh) {
         String update = "update khachhang set tenkh = ? , sdt = ? , gioitinh = ? , email = ? , diachi = ? where makh = ?";
-        
+
         try {
             PreparedStatement ps = DbConnection.openDbConnection().prepareStatement(update);
-                        
+
             ps.setObject(1, kh.getTen());
             ps.setObject(2, kh.getSdt());
             ps.setObject(3, kh.getGioitinh());
@@ -79,7 +79,7 @@ public class KhachHangRepository implements IKhachHangRepository{
     @Override
     public Boolean delete(KhachHang kh) {
         String delete = "delete from khachhang where makh = ? ";
-        
+
         try {
             PreparedStatement ps = DbConnection.openDbConnection().prepareStatement(delete);
             ps.setObject(1, kh.getMa());
@@ -97,7 +97,7 @@ public class KhachHangRepository implements IKhachHangRepository{
         String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang WHERE GioiTinh = ?";
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, gt);
-            while(rs.next()){
+            while (rs.next()) {
                 listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
             }
             return listKH;
@@ -110,10 +110,10 @@ public class KhachHangRepository implements IKhachHangRepository{
     @Override
     public List<KhachHang> timDiaChi(String dt) {
         List<KhachHang> listKH = new ArrayList<>();
-        String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang WHERE DiaChi = ?";
+        String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang WHERE DiaChi like ?";
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, dt);
-            while(rs.next()){
+            while (rs.next()) {
                 listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
             }
             return listKH;
@@ -122,5 +122,39 @@ public class KhachHangRepository implements IKhachHangRepository{
         }
         return null;
     }
-    
+
+    @Override
+    public List<KhachHang> timSDT(String sdt) {
+        List<KhachHang> listKH = new ArrayList<>();
+        String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang WHERE SDT like ?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, sdt);
+            while (rs.next()) {
+                listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
+            }
+            return listKH;
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> trungMa() {
+        String sql = "Select MaKH from KhachHang";
+        ArrayList<String> li = new ArrayList<>();
+
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql);
+            while (rs.next()) {
+                li.add(rs.getString(1));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonRepository.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return li;
+    }
+
 }

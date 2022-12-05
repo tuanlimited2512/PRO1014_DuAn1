@@ -5,6 +5,7 @@
 package Repositories;
 
 import DomainModels.KhachHang;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +13,20 @@ import java.util.List;
  * @author anhtu
  */
 public interface IKhachHangRepository {
+
     List<KhachHang> getSelectSql();
+
     Boolean insert(KhachHang kh);
+
     Boolean update(KhachHang kh);
+
     Boolean delete(KhachHang kh);
-    
+
     List<KhachHang> timGT(String gt);
+
     List<KhachHang> timDiaChi(String dt);
+    
+    List<KhachHang> timSDT(String sdt);
+
+    ArrayList<String> trungMa();
 }

@@ -6,6 +6,7 @@ package Services;
 
 import ViewModels.HoaDon;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -18,9 +19,11 @@ public interface IHoaDonServices {
     ArrayList<HoaDon> get();
 
     Integer updateDaTT(String ma);
-    
+
     Integer updateHuyTT(String ma);
-    
+
     ArrayList<String> trungMa();
+
+    Integer updateNgayTT(String ma, HoaDon hd);
 
 }

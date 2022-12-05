@@ -73,4 +73,11 @@ public class HoaDonRepository implements IHoaDonRepository {
         return li;
     }
 
+    @Override
+    public Integer updateNgayTT(String ma, HoaDon hd) {
+        String sql = " Update HoaDon set NgayThanhToan = ? where MaHD=?";
+        Integer row = DbConnection.excuteUpdate(sql, hd.getNgayThanhToan(), ma);
+        return row;
+    }
+
 }

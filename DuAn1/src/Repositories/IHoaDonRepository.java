@@ -5,6 +5,7 @@
 package Repositories;
 
 import ViewModels.HoaDon;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -21,4 +22,6 @@ public interface IHoaDonRepository {
     Integer updateHuy(String ma);
     
     ArrayList<String> trungMa();
+    
+    Integer updateNgayTT(String ma,HoaDon hd);
 }

@@ -8,20 +8,21 @@ import DomainModels.KhachHang;
 import Repositories.IKhachHangRepository;
 import Repositories.Impl.KhachHangRepository;
 import Services.IKhachHangService;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author anhtu
  */
-public class KhachHangServiceImpl implements IKhachHangService{
-    
+public class KhachHangServiceImpl implements IKhachHangService {
+
     private final IKhachHangRepository repository;
 
     public KhachHangServiceImpl() {
         this.repository = new KhachHangRepository();
     }
-    
+
     @Override
     public List<KhachHang> getSelectSql() {
         return repository.getSelectSql();
@@ -51,5 +52,15 @@ public class KhachHangServiceImpl implements IKhachHangService{
     public List<KhachHang> timDiaChi(String dt) {
         return repository.timDiaChi(dt);
     }
-    
+
+    @Override
+    public List<KhachHang> timSDT(String sdt) {
+        return repository.timSDT(sdt);
+    }
+
+    @Override
+    public ArrayList<String> trungMa() {
+        return repository.trungMa();
+    }
+
 }

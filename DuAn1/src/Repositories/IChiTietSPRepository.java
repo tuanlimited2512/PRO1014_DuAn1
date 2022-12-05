@@ -25,4 +25,10 @@ public interface IChiTietSPRepository {
     HashSet<String> getmau();
     
     Integer upDateSL(String ma);
+    
+    Integer upDateSLKhiAnXoa(String ma,int soLuong);
+    
+    Integer upDateSLKhiAnThayDoiSL(String ma,int soLuong,int soLuongTD);
+    
+    Integer getSoLuong(String maSp);
 }

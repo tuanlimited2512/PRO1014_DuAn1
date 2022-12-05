@@ -64,4 +64,19 @@ public class ChiTietSPServiceImpl implements IChiTietSPService {
         return chiTietRePo.upDateSL(ma);
     }
 
+    @Override
+    public Integer upDateSLKhiAnXoa(String ma, int soLuong) {
+        return chiTietRePo.upDateSLKhiAnXoa(ma, soLuong);
+    }
+
+    @Override
+    public Integer upDateSLKhiAnThayDoiSL(String ma, int soLuong, int soLuongTD) {
+        return chiTietRePo.upDateSLKhiAnThayDoiSL(ma, soLuong, soLuongTD);
+    }
+
+    @Override
+    public Integer getSoLuong(String maSp) {
+        return chiTietRePo.getSoLuong(maSp);
+    }
+
 }

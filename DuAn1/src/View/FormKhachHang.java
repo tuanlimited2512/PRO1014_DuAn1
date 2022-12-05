@@ -7,6 +7,7 @@ package View;
 import DomainModels.KhachHang;
 import Services.IKhachHangService;
 import Services.lmpl.KhachHangServiceImpl;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,21 +16,23 @@ import javax.swing.table.DefaultTableModel;
  * @author anhtu
  */
 public class FormKhachHang extends javax.swing.JPanel {
+
     private final IKhachHangService khachHangService;
     /**
      * Creates new form FormKhachHang
      */
     DefaultTableModel dfmol = new DefaultTableModel();
+
     public FormKhachHang() {
         initComponents();
         khachHangService = new KhachHangServiceImpl();
         load();
     }
-    
-    private void load(){
+
+    private void load() {
         dfmol = (DefaultTableModel) tbl_khachhang.getModel();
         dfmol.setRowCount(0);
-        for(KhachHang kh : khachHangService.getSelectSql()){
+        for (KhachHang kh : khachHangService.getSelectSql()) {
             dfmol.addRow(kh.toDataRow());
         }
     }
@@ -67,7 +70,7 @@ public class FormKhachHang extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        txt_timkh = new javax.swing.JTextField();
+        txt_timKHTheoSdt = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbl_khachhang = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -234,6 +237,18 @@ public class FormKhachHang extends javax.swing.JPanel {
 
         jLabel6.setText("Tìm kiếm");
 
+        txt_timKHTheoSdt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_timKHTheoSdtKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_timKHTheoSdtKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_timKHTheoSdtKeyTyped(evt);
+            }
+        });
+
         tbl_khachhang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -271,6 +286,17 @@ public class FormKhachHang extends javax.swing.JPanel {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txt_locdcInputMethodTextChanged(evt);
+            }
+        });
+        txt_locdc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_locdcKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_locdcKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_locdcKeyTyped(evt);
             }
         });
 
@@ -314,7 +340,7 @@ public class FormKhachHang extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_timkh, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_timKHTheoSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -326,7 +352,7 @@ public class FormKhachHang extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txt_timkh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_timKHTheoSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,29 +410,62 @@ public class FormKhachHang extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        KhachHang kh = new KhachHang();
-        
-        kh.setMa(txt_makh.getText());
-        kh.setTen(txt_tenkh.getText());
-        kh.setSdt(txt_sdt.getText());
-        kh.setGioitinh(rdo_nam.isSelected()? "Nam" : "Nữ");
-        kh.setEmail(txt_email.getText());
-        kh.setDiachi(tar_diachi.getText());
-        khachHangService.insert(kh);
-        JOptionPane.showMessageDialog(this, "Thêm thành công");
-        load();
-        clearF();
-        
-        
-        
+        if (kiemTra()) {
+            KhachHang kh = new KhachHang();
+
+            kh.setMa(txt_makh.getText());
+            kh.setTen(txt_tenkh.getText());
+            kh.setSdt(txt_sdt.getText());
+            kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
+            kh.setEmail(txt_email.getText());
+            kh.setDiachi(tar_diachi.getText());
+            khachHangService.insert(kh);
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            load();
+            clearF();
+        }
+
+
     }//GEN-LAST:event_btn_themActionPerformed
 
+    Boolean kiemTra() {
+        if (txt_makh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
+            return false;
+        }
+        String maKH = txt_makh.getText();
+        ArrayList<String> list = khachHangService.trungMa();
+        for (String string : list) {
+            if (maKH.equals(string)) {
+                JOptionPane.showMessageDialog(this, "Mã Trùng.Bạn cần thêm 1 mã khác.");
+                return false;
+            }
+        }
+        if (txt_tenkh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+            return false;
+        }
+        if (txt_email.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+            return false;
+        }
+        if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+            return false;
+        }
+        if (tar_diachi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+            return false;
+        }
+
+        return true;
+    }
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         // TODO add your handling code here:
 
         int index = tbl_khachhang.getSelectedRow();
         KhachHang kh = khachHangService.getSelectSql().get(index);
-        
+
         kh.setMa(txt_makh.getText());
         khachHangService.delete(kh);
         JOptionPane.showMessageDialog(this, "Xóa thành công");
@@ -416,42 +475,42 @@ public class FormKhachHang extends javax.swing.JPanel {
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
-        
+
         int index = tbl_khachhang.getSelectedRow();
         KhachHang kh = khachHangService.getSelectSql().get(index);
-        
+
         kh.setMa(txt_makh.getText());
         kh.setTen(txt_tenkh.getText());
         kh.setSdt(txt_sdt.getText());
-        kh.setGioitinh(rdo_nam.isSelected()? "Nam" : "Nữ");
+        kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
         kh.setEmail(txt_email.getText());
         kh.setDiachi(tar_diachi.getText());
         khachHangService.update(kh);
         JOptionPane.showMessageDialog(this, "Sửa thành công");
         load();
         clearF();
-        
+
     }//GEN-LAST:event_btn_suaActionPerformed
 
     private void tbl_khachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangMouseClicked
         // TODO add your handling code here:
         int index = tbl_khachhang.getSelectedRow();
         KhachHang kh = khachHangService.getSelectSql().get(index);
-        
+
         txt_makh.setText(kh.getMa());
         txt_tenkh.setText(kh.getTen());
         txt_sdt.setText(kh.getSdt());
-        
-        if(tbl_khachhang.getValueAt(index,3).equals("Nam")){
+
+        if (tbl_khachhang.getValueAt(index, 3).equals("Nam")) {
             rdo_nam.setSelected(true);
-        }else{
+        } else {
             rdo_nu.setSelected(true);
         }
-        
+
         txt_email.setText(kh.getEmail());
         tar_diachi.setText(kh.getDiachi());
-        
-        
+
+
     }//GEN-LAST:event_tbl_khachhangMouseClicked
 
     private void btn_lammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lammoiActionPerformed
@@ -475,19 +534,79 @@ public class FormKhachHang extends javax.swing.JPanel {
 
     private void txt_locdcInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_locdcInputMethodTextChanged
         // TODO add your handling code here:
-        if (khachHangService.timDiaChi(txt_locdc.getText()).isEmpty()) {
-            load();
-            return;
-        } else {
-            dfmol = (DefaultTableModel) tbl_khachhang.getModel();
-            dfmol.setRowCount(0);
-            for (KhachHang nv : khachHangService.timDiaChi(txt_locdc.getText())) {
-                dfmol.addRow(nv.toDataRow());
-            }
-        }
+//        if (khachHangService.timDiaChi(txt_locdc.getText()).isEmpty()) {
+//            load();
+//            return;
+//        } else {
+//            dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+//            dfmol.setRowCount(0);
+//            for (KhachHang nv : khachHangService.timDiaChi(txt_locdc.getText())) {
+//                dfmol.addRow(nv.toDataRow());
+//            }
+//        }
     }//GEN-LAST:event_txt_locdcInputMethodTextChanged
 
-    public void clearF(){
+    private void txt_timKHTheoSdtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKHTheoSdtKeyPressed
+        // TODO add your handling code here:
+        String sdt = "%" + txt_timKHTheoSdt.getText() + "%";
+        dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+        dfmol.setRowCount(0);
+        for (KhachHang kh : khachHangService.timSDT(sdt)) {
+            dfmol.addRow(kh.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timKHTheoSdtKeyPressed
+
+    private void txt_timKHTheoSdtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKHTheoSdtKeyReleased
+        // TODO add your handling code here:
+        String sdt = "%" + txt_timKHTheoSdt.getText() + "%";
+        dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+        dfmol.setRowCount(0);
+        for (KhachHang kh : khachHangService.timSDT(sdt)) {
+            dfmol.addRow(kh.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timKHTheoSdtKeyReleased
+
+    private void txt_timKHTheoSdtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKHTheoSdtKeyTyped
+        // TODO add your handling code here:
+        String sdt = "%" + txt_timKHTheoSdt.getText() + "%";
+        dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+        dfmol.setRowCount(0);
+        for (KhachHang kh : khachHangService.timSDT(sdt)) {
+            dfmol.addRow(kh.toDataRow());
+        }
+    }//GEN-LAST:event_txt_timKHTheoSdtKeyTyped
+
+    private void txt_locdcKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_locdcKeyPressed
+        // TODO add your handling code here:
+        dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+        String dc = "%" + txt_locdc.getText() + "%";
+        dfmol.setRowCount(0);
+        for (KhachHang nv : khachHangService.timDiaChi(dc)) {
+            dfmol.addRow(nv.toDataRow());
+        }
+    }//GEN-LAST:event_txt_locdcKeyPressed
+
+    private void txt_locdcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_locdcKeyReleased
+        // TODO add your handling code here:
+        dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+        String dc = "%" + txt_locdc.getText() + "%";
+        dfmol.setRowCount(0);
+        for (KhachHang nv : khachHangService.timDiaChi(dc)) {
+            dfmol.addRow(nv.toDataRow());
+        }
+    }//GEN-LAST:event_txt_locdcKeyReleased
+
+    private void txt_locdcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_locdcKeyTyped
+        // TODO add your handling code here:
+        dfmol = (DefaultTableModel) tbl_khachhang.getModel();
+        String dc = "%" + txt_locdc.getText() + "%";
+        dfmol.setRowCount(0);
+        for (KhachHang nv : khachHangService.timDiaChi(dc)) {
+            dfmol.addRow(nv.toDataRow());
+        }
+    }//GEN-LAST:event_txt_locdcKeyTyped
+
+    public void clearF() {
         txt_makh.setText("");
         txt_tenkh.setText("");
         txt_sdt.setText("");
@@ -495,7 +614,7 @@ public class FormKhachHang extends javax.swing.JPanel {
         tar_diachi.setText("");
         buttonGroup1.clearSelection();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_lammoi;
@@ -529,6 +648,6 @@ public class FormKhachHang extends javax.swing.JPanel {
     private javax.swing.JTextField txt_makh;
     private javax.swing.JTextField txt_sdt;
     private javax.swing.JTextField txt_tenkh;
-    private javax.swing.JTextField txt_timkh;
+    private javax.swing.JTextField txt_timKHTheoSdt;
     // End of variables declaration//GEN-END:variables
 }

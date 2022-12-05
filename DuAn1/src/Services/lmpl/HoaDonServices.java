@@ -8,6 +8,7 @@ import Repositories.IHoaDonRepository;
 import Repositories.Impl.HoaDonRepository;
 import Services.IHoaDonServices;
 import ViewModels.HoaDon;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -45,6 +46,11 @@ public class HoaDonServices implements IHoaDonServices {
     @Override
     public ArrayList<String> trungMa() {
         return hoaDon.trungMa();
+    }
+
+    @Override
+    public Integer updateNgayTT(String ma, HoaDon hd) {
+        return hoaDon.updateNgayTT(ma, hd);
     }
 
 }

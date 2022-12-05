@@ -15,16 +15,22 @@ import java.util.List;
 public interface IChiTietSPService {
 
     List<ChiTietSPViewModel> getAll();
-    
+
     List<ChiTietSPViewModel> timKiemSP(String ten);
-    
+
     List<ChiTietSPViewModel> locMauSac(String mauSac);
-    
+
     List<ChiTietSPViewModel> getAllID();
-    
+
     HashSet<String> getmau();
 
     Boolean kiemTraLaSo(String s);
-    
+
     Integer upDateSL(String ma);
+
+    Integer upDateSLKhiAnXoa(String ma, int soLuong);
+
+    Integer upDateSLKhiAnThayDoiSL(String ma, int soLuong, int soLuongTD);
+
+    Integer getSoLuong(String maSp);
 }
