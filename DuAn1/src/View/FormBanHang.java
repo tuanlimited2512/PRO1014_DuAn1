@@ -763,11 +763,11 @@ public class FormBanHang extends javax.swing.JPanel {
         
         HoaDon hd2 = new HoaDon();
         hd2.setNgayThanhToan(new Date());
-        hd2.setThanhTien(lbl_thanhToan.getText());
+        hd2.setThanhTien(Double.parseDouble(lbl_thanhToan.getText()));
         if (donServices.updateNgayTT(ma, hd2) != null) {
             System.out.println("update ngayTT ok");
         }
-        if(donServices.updateThanhTien(ma, hd2)!=null){
+        if (donServices.updateThanhTien(ma, hd2) != null) {
             System.out.println("update thanhTien ok");
         }
         xuatHoaDon();
@@ -1282,7 +1282,7 @@ public class FormBanHang extends javax.swing.JPanel {
             hd.setMaKH(txt_maKH.getText());
             hd.setMaNV(cb_NhanVien.getSelectedItem().toString());
             hd.setTinhTrang("Chờ Thanh Toán");
-            hd.setThanhTien(lbl_thanhToan.getText());
+            hd.setThanhTien(Double.parseDouble(lbl_thanhToan.getText()));
             
             if (donServices.them(hd) != null) {
                 JOptionPane.showMessageDialog(this, "Tạo Hoá Đơn Thành Công");

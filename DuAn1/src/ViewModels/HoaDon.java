@@ -18,9 +18,9 @@ public class HoaDon {
     String tinhTrang;
     String maKH;
     String maNV;
-    String thanhTien;
+    double thanhTien;
 
-    public HoaDon(String maHD, Date ngayTao, Date ngayThanhToan, String tinhTrang, String maKH, String maNV, String thanhTien) {
+    public HoaDon(String maHD, Date ngayTao, Date ngayThanhToan, String tinhTrang, String maKH, String maNV, double thanhTien) {
         this.maHD = maHD;
         this.ngayTao = ngayTao;
         this.ngayThanhToan = ngayThanhToan;
@@ -98,11 +98,11 @@ public class HoaDon {
         this.tinhTrang = tinhTrang;
     }
 
-    public String getThanhTien() {
+    public double getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(String thanhTien) {
+    public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
 
