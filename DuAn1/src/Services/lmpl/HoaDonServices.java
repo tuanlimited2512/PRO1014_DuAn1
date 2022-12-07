@@ -53,4 +53,9 @@ public class HoaDonServices implements IHoaDonServices {
         return hoaDon.updateNgayTT(ma, hd);
     }
 
+    @Override
+    public Integer updateThanhTien(String ma, HoaDon hd) {
+        return hoaDon.updateThanhTien(ma, hd);
+    }
+
 }

@@ -63,4 +63,9 @@ public class KhachHangServiceImpl implements IKhachHangService {
         return repository.trungMa();
     }
 
+    @Override
+    public List<KhachHang> getSelectSql1(String maKH) {
+        return repository.getSelectSql1(maKH);
+    }
+
 }

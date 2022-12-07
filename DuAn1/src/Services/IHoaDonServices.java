@@ -26,4 +26,6 @@ public interface IHoaDonServices {
 
     Integer updateNgayTT(String ma, HoaDon hd);
 
+    Integer updateThanhTien(String ma, HoaDon hd);
+
 }

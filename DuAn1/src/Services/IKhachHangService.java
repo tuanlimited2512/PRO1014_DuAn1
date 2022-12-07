@@ -15,6 +15,8 @@ import java.util.List;
 public interface IKhachHangService {
 
     List<KhachHang> getSelectSql();
+    
+    List<KhachHang> getSelectSql1(String maKH);
 
     Boolean insert(KhachHang kh);
 

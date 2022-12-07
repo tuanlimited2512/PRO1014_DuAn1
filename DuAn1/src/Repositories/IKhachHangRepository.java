@@ -16,6 +16,8 @@ public interface IKhachHangRepository {
 
     List<KhachHang> getSelectSql();
 
+    List<KhachHang> getSelectSql1(String maKH);
+
     Boolean insert(KhachHang kh);
 
     Boolean update(KhachHang kh);
@@ -25,7 +27,7 @@ public interface IKhachHangRepository {
     List<KhachHang> timGT(String gt);
 
     List<KhachHang> timDiaChi(String dt);
-    
+
     List<KhachHang> timSDT(String sdt);
 
     ArrayList<String> trungMa();

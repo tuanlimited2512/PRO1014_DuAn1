@@ -15,30 +15,31 @@ import java.util.List;
  *
  * @author anhtu
  */
-public class NhanVienService implements INhanVienService{
+public class NhanVienService implements INhanVienService {
+
     private final INhanVienRepository repository;
+
     public NhanVienService() {
         this.repository = new NhanVienRepository();
     }
 
-    
     @Override
     public List<NhanVien> getSelectSqlLV() {
         return repository.getSelectSqlLV();
     }
-    
+
     @Override
     public Integer insert(NhanVien nv, String tenVaiTro) {
         return repository.insert(nv, tenVaiTro);
     }
 
     @Override
-    public Boolean update(NhanVien nv , String tenVaiTro) {
-        return repository.update(nv,tenVaiTro);
+    public Boolean update(NhanVien nv, String tenVaiTro) {
+        return repository.update(nv, tenVaiTro);
     }
 
     @Override
-    public Boolean delete(NhanVien nv ) {
+    public Boolean delete(NhanVien nv) {
         return repository.delete(nv);
     }
 
@@ -55,6 +56,11 @@ public class NhanVienService implements INhanVienService{
     @Override
     public List<NhanVien> timGT(String giotinh) {
         return repository.timGT(giotinh);
+    }
+
+    @Override
+    public List<NhanVien> getSelectSqlLV(String maNV) {
+        return repository.getSelectSqlLV(maNV);
     }
 
 }

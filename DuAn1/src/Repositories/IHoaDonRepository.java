@@ -24,4 +24,6 @@ public interface IHoaDonRepository {
     ArrayList<String> trungMa();
     
     Integer updateNgayTT(String ma,HoaDon hd);
+    
+    Integer updateThanhTien(String ma,HoaDon hd);
 }

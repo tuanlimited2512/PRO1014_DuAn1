@@ -131,7 +131,8 @@ Create table HoaDon(
 	NgayThanhToan date,
 	TinhTrang nvarchar(50),
 	MaKH nvarchar(50) foreign key references KhachHang(MaKH),
-	MaNV nvarchar(50) foreign key references NhanVien(MaNV)
+	MaNV nvarchar(50) foreign key references NhanVien(MaNV),
+	ThanhTien money
 	
 )
 go

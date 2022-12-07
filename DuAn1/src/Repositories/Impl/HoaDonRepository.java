@@ -20,8 +20,8 @@ public class HoaDonRepository implements IHoaDonRepository {
 
     @Override
     public Integer them(HoaDon hd) {
-        String sql = "Insert into HoaDon values(?,?,?,?,?,?)";
-        Integer row = DbConnection.excuteUpdate(sql, hd.getMaHD(), hd.getNgayTao(), hd.getNgayThanhToan(), hd.getTinhTrang(), hd.getMaKH(), hd.getMaNV());
+        String sql = "Insert into HoaDon values(?,?,?,?,?,?,?)";
+        Integer row = DbConnection.excuteUpdate(sql, hd.getMaHD(), hd.getNgayTao(), hd.getNgayThanhToan(), hd.getTinhTrang(), hd.getMaKH(), hd.getMaNV(), hd.getThanhTien());
         return row;
 
     }
@@ -77,6 +77,14 @@ public class HoaDonRepository implements IHoaDonRepository {
     public Integer updateNgayTT(String ma, HoaDon hd) {
         String sql = " Update HoaDon set NgayThanhToan = ? where MaHD=?";
         Integer row = DbConnection.excuteUpdate(sql, hd.getNgayThanhToan(), ma);
+        return row;
+    }
+
+    @Override
+    public Integer updateThanhTien(String ma, HoaDon hd) {
+
+        String sql = "  update HoaDon set ThanhTien =  ? where  MaHD =  ?";
+        Integer row = DbConnection.excuteUpdate(sql, hd.getThanhTien(), ma);
         return row;
     }
 

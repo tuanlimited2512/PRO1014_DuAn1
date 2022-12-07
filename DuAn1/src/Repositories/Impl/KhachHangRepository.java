@@ -157,4 +157,20 @@ public class KhachHangRepository implements IKhachHangRepository {
         return li;
     }
 
+    @Override
+    public List<KhachHang> getSelectSql1(String maKH) {
+        List<KhachHang> listKH = new ArrayList<>();
+        String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang where MaKH=?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, maKH);
+            while (rs.next()) {
+                listKH.add(new KhachHang(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5), rs.getNString(6)));
+            }
+            return listKH;
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }
