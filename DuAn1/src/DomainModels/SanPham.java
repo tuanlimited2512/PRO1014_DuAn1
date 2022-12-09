@@ -9,20 +9,41 @@ package DomainModels;
  * @author Tran Thi My Dung
  */
 public class SanPham {
-    private String maSP ;
+
+    private String maSP;
     private String tenSP;
     private String mauSac;
     private String heDieuHanh;
     private int namBH;
     private float trongLuong;
     private String xuatXu;
-    private boolean trangThai;
+    private String trangThai;
     private String moTa;
+    String maDongSP;
+    String maNSX;
+    String maCPU;
+    String maRAM;
+    String maManHinh;
+    double giaNhap;
+    double giaBan;
+    int soLuong;
+    String barCode;
 
     public SanPham() {
     }
 
-    public SanPham(String maSP, String tenSP, String mauSac, String heDieuHanh, int namBH, float trongLuong, String xuatXu, boolean trangThai, String moTa) {
+    public SanPham(String maSP, String tenSP, String mauSac, String heDieuHanh, String trangThai, double giaNhap, double giaBan, int soLuong) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.mauSac = mauSac;
+        this.heDieuHanh = heDieuHanh;
+        this.trangThai = trangThai;
+        this.giaNhap = giaNhap;
+        this.giaBan = giaBan;
+        this.soLuong = soLuong;
+    }
+
+    public SanPham(String maSP, String tenSP, String mauSac, String heDieuHanh, int namBH, float trongLuong, String xuatXu, String trangThai, String moTa, String maDongSP, String maNSX, String maCPU, String maRAM, String maManHinh, double giaNhap, double giaBan, int soLuong, String barCode) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.mauSac = mauSac;
@@ -32,15 +53,15 @@ public class SanPham {
         this.xuatXu = xuatXu;
         this.trangThai = trangThai;
         this.moTa = moTa;
-    }
-
-    public SanPham(String maSP, String tenSP, String mauSac, String heDieuHanh, float trongLuong, boolean trangThai) {
-        this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.mauSac = mauSac;
-        this.heDieuHanh = heDieuHanh;
-        this.trongLuong = trongLuong;
-        this.trangThai = trangThai;
+        this.maDongSP = maDongSP;
+        this.maNSX = maNSX;
+        this.maCPU = maCPU;
+        this.maRAM = maRAM;
+        this.maManHinh = maManHinh;
+        this.giaNhap = giaNhap;
+        this.giaBan = giaBan;
+        this.soLuong = soLuong;
+        this.barCode = barCode;
     }
 
     public String getMaSP() {
@@ -99,11 +120,11 @@ public class SanPham {
         this.xuatXu = xuatXu;
     }
 
-    public boolean isTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -114,8 +135,77 @@ public class SanPham {
     public void setMoTa(String moTa) {
         this.moTa = moTa;
     }
-    
-    public Object [] toDataRow(){
-        return new Object[] {maSP, tenSP, mauSac, heDieuHanh, namBH, trongLuong, xuatXu, trangThai == true ? "Còn hàng" : "Hết hàng", moTa};
+
+    public String getMaDongSP() {
+        return maDongSP;
     }
+
+    public void setMaDongSP(String maDongSP) {
+        this.maDongSP = maDongSP;
+    }
+
+    public String getMaNSX() {
+        return maNSX;
+    }
+
+    public void setMaNSX(String maNSX) {
+        this.maNSX = maNSX;
+    }
+
+    public String getMaCPU() {
+        return maCPU;
+    }
+
+    public void setMaCPU(String maCPU) {
+        this.maCPU = maCPU;
+    }
+
+    public String getMaRAM() {
+        return maRAM;
+    }
+
+    public void setMaRAM(String maRAM) {
+        this.maRAM = maRAM;
+    }
+
+    public String getMaManHinh() {
+        return maManHinh;
+    }
+
+    public void setMaManHinh(String maManHinh) {
+        this.maManHinh = maManHinh;
+    }
+
+    public double getGiaNhap() {
+        return giaNhap;
+    }
+
+    public void setGiaNhap(double giaNhap) {
+        this.giaNhap = giaNhap;
+    }
+
+    public double getGiaBan() {
+        return giaBan;
+    }
+
+    public void setGiaBan(double giaBan) {
+        this.giaBan = giaBan;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package Services.lmpl;
 
+import Services.ISanPhamService;
 import DomainModels.SanPham;
 import Repositories.ISanPhamRepository;
 import Repositories.Impl.SanPhamRepositoryImpl;
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  *
  * @author Tran Thi My Dung
  */
-public class SanPhamServiceImpl implements ISanPhamService{
+public class SanPhamServiceImpl implements ISanPhamService {
+
     private ISanPhamRepository repository = new SanPhamRepositoryImpl();
 
     @Override
@@ -22,48 +24,48 @@ public class SanPhamServiceImpl implements ISanPhamService{
     }
 
     @Override
-    public String add(SanPham sp) {
-        boolean add = repository.add(sp);
-        if (add) {
-            return "Thêm thành công !";
-        } else {
-            return  "Thêm thất bại !";
-        }
+    public ArrayList<SanPham> getAll1() {
+        return repository.getAll1();
     }
 
     @Override
-    public String update(SanPham sp, String ma) {
-        boolean update = repository.update(sp, ma);
-        if (update) {
-            return "Cập nhập thành công!";
-        } else {
-            return "Cập nhập thất bại!";
-        }
+    public ArrayList<SanPham> getAll(String mau) {
+        return repository.getAll(mau);
     }
 
     @Override
-    public String delete(String ma) {
-        boolean delete = repository.delete(ma);
-        if (delete) {
-            return "Xóa thành công!";
-        } else {
-            return "Xóa thất bại!";
-        }
+    public Integer themSanPham(SanPham sp) {
+        return repository.themSanPham(sp);
     }
 
     @Override
-    public ArrayList<SanPham> timKiem(String ten) {
-        return repository.timKiem(ten);
+    public Integer themChiTiet(SanPham sp) {
+        return repository.themChiTiet(sp);
     }
 
     @Override
-    public ArrayList<SanPham> locMauSac(String ms) {
-        return repository.locMauSac(ms);
+    public Integer upDateSanPham(SanPham sp, String ma) {
+        return repository.upDateSanPham(sp, ma);
     }
 
     @Override
-    public ArrayList<SanPham> locHDH(String hdh) {
-        return repository.locHDH(hdh);
+    public Integer upDateCTSanPham(SanPham sp, String ma) {
+        return repository.upDateCTSanPham(sp, ma);
     }
-    
+
+    @Override
+    public Integer xoaSanPham(String ma) {
+        return repository.xoaSanPham(ma);
+    }
+
+    @Override
+    public Integer xoaCTSanPham(String ma) {
+        return repository.xoaCTSanPham(ma);
+    }
+
+    @Override
+    public ArrayList<SanPham> getAll2(String ten) {
+        return repository.getAll2(ten);
+    }
+
 }

@@ -58,4 +58,9 @@ public class RAM {
     public Object [] toDataRow(){
         return new Object[] {maRam, tenRam,dungLuong, moTa};
     }
+
+    @Override
+    public String toString() {
+        return  tenRam ;
+    }
 }

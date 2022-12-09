@@ -39,4 +39,9 @@ public class DongSP {
     public Object [] toDataRow(){
         return new Object[] {maDSP, tenDSP};
     }
+
+    @Override
+    public String toString() {
+        return tenDSP;
+    }
 }

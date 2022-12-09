@@ -34,4 +34,9 @@ public class NSX {
     public void setTennsx(String tennsx) {
         this.tennsx = tennsx;
     }
+
+    @Override
+    public String toString() {
+        return  tennsx ;
+    }
 }

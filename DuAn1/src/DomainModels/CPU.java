@@ -49,4 +49,13 @@ public class CPU {
     public Object [] toDataRow(){
         return new Object[] {maCPU, tenCPU, moTa};
     }
+
+    @Override
+    public String toString() {
+        return  tenCPU ;
+    }
+
+    
+    
+    
 }
