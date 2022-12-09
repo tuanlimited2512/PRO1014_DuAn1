@@ -60,7 +60,7 @@ Create table ManHinh(
 go
 
 Create table SanPham(
-	MaSP UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	MaSP nvarchar(50) PRIMARY KEY,
 	TenSP nvarchar(100) not null,
 	MauSac nvarchar(30) not null,
 	HeDieuHanh nvarchar(30) not null,
@@ -93,7 +93,7 @@ go
 
 go
 Create table ChiTietSP(
-	MaSP UNIQUEIDENTIFIER foreign key references SanPham(MaSP),
+	MaSP nvarchar(50) foreign key references SanPham(MaSP),
 	MaDongSP UNIQUEIDENTIFIER foreign key references DongSP(MaDongSP),
 	MaNSX UNIQUEIDENTIFIER foreign key references NSX(MaNSX),
 	MaKM UNIQUEIDENTIFIER foreign key references KhuyenMai(MaKM),
@@ -140,10 +140,10 @@ go
 Create table HoaDonChiTiet(
 	MaHoaDonCT UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	MaHD nvarchar(50) foreign key references HoaDon(MaHD), 
-	MaSP UNIQUEIDENTIFIER foreign key references ChiTietSP(MaSP),
+	MaSP nvarchar(50) foreign key references ChiTietSP(MaSP),
 	SoLuong int,
 	DonGia decimal(20, 0),
-	TienGiamGia nvarchar(50)
+	TienGiamGia decimal(20, 0)
 	
 )
 go
