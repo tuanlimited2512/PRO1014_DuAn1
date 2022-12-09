@@ -10,6 +10,7 @@ import Services.lmpl.KhuyenMaiServicelmpl;
 import ViewModels.SanPhamViewModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +32,9 @@ public class FormKhuyenMai extends javax.swing.JPanel {
         loadSP();
         Date dateNow = new Date();
         System.out.println(sdf.format(dateNow));
+        
+        khuyenMaiService.updateTrangThai();
+        khuyenMaiService.updateMaKM();
     }
     
     private void load(){
@@ -41,7 +45,7 @@ public class FormKhuyenMai extends javax.swing.JPanel {
             String date1= sdf.format(km.getNgaybatdau());
             String date2= sdf.format(km.getNgayketthuc());
             dfmol.addRow(new Object[]{
-                km.getMa(),km.getTen(), km.getHinhthuc(), km.getGia(km.getHinhthuc()), km.getSanpham(), date1, date2, km.getTrangthai(), km.getMota()
+                km.getMa(),km.getTen(), km.getHinhthuc(), km.getGiamgia(), km.getSanpham(), date1, date2, km.getTrangthai(), km.getMota()
             });
         }
     }
@@ -392,39 +396,78 @@ public class FormKhuyenMai extends javax.swing.JPanel {
 
     private void btn_luuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_luuActionPerformed
         // TODO add your handling code here:
-        KhuyenMai km = new KhuyenMai();
         int index = tbl_sanpham.getSelectedRow();
-        SanPhamViewModel spvm = khuyenMaiService.getSelectSP().get(index);
         
-        km.setTen(txt_ten.getText());
-        km.setHinhthuc((String) cbo_hinhthuc.getSelectedItem());
-        km.setGiamgia(txt_mucgiam.getText());
-        km.setNgaybatdau(date_batdau.getDate());
-        km.setNgayketthuc(date_ketthuc.getDate());
-        km.setTrangthai("Đang áp dụng");
-        km.setMota(txt_mota.getText());
-        
-        khuyenMaiService.updateCTSP(km.getTen(), spvm.getMa());
-        khuyenMaiService.insert(km);
-        load();
+        if(txt_ten.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Chưa nhập tên chương trình khuyến mãi.");
+        }else if(txt_mucgiam.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Chưa nhập mức giảm.");
+        }else if(date_batdau.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Chưa nhập ngày bắt đầu");
+        }else if(date_ketthuc.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Chưa nhập ngày kết thúc");
+        }else if(index < 0){
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm.");
+        } else {
+            Object[] ob = {"Có", "Không"};
+            int xoa = JOptionPane.showOptionDialog(this, "Bạn có muốn thêm sản phẩm",
+                    "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, ob, ob[1]);
+            if (xoa == 0) {
+                KhuyenMai km = new KhuyenMai();
+                SanPhamViewModel spvm = khuyenMaiService.getSelectSP().get(index);
+
+                km.setTen(txt_ten.getText());
+                km.setHinhthuc((String) cbo_hinhthuc.getSelectedItem());
+                km.setGiamgia(txt_mucgiam.getText());
+                km.setNgaybatdau(date_batdau.getDate());
+                km.setNgayketthuc(date_ketthuc.getDate());
+                km.setTrangthai("Đang áp dụng");
+                km.setMota(txt_mota.getText());
+
+                khuyenMaiService.updateCTSP(km.getTen(), spvm.getMa());
+                khuyenMaiService.insert(km);
+                load();
+                JOptionPane.showConfirmDialog(this, "Thêm khuyến mãi sản phẩm thành công");
+            }
+        }
     }//GEN-LAST:event_btn_luuActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
-        int index = tbl_khuyenmai.getSelectedRow();
-        KhuyenMai km = khuyenMaiService.getSelectSql().get(index);
         
-        km.setTen(txt_ten.getText());
-        km.setHinhthuc((String) cbo_hinhthuc.getSelectedItem());
-        km.setGiamgia(txt_mucgiam.getText());
-        km.setNgaybatdau(date_batdau.getDate());
-        km.setNgayketthuc(date_ketthuc.getDate());
-        km.setTrangthai("Đang áp dụng");
-        km.setMota(txt_mota.getText());
-        km.setMa(tbl_khuyenmai.getValueAt(index, 0).toString());
+        if(txt_ten.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Chưa nhập tên chương trình khuyến mãi.");
+        }else if(txt_mucgiam.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Chưa nhập mức giảm.");
+        }else if(date_batdau.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Chưa nhập ngày bắt đầu");
+        }else if(date_ketthuc.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Chưa nhập ngày kết thúc");
+        } else {
+            Object[] ob = {"Có", "Không"};
+            int xoa = JOptionPane.showOptionDialog(this, "Bạn có muốn sửa sản phẩm không",
+                    "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, ob, ob[1]);
+            if (xoa == 0) {
+                int index1 = tbl_khuyenmai.getSelectedRow();
+                KhuyenMai km = khuyenMaiService.getSelectSql().get(index1);
+
+                km.setTen(txt_ten.getText());
+                km.setHinhthuc((String) cbo_hinhthuc.getSelectedItem());
+                km.setGiamgia(txt_mucgiam.getText());
+                km.setNgaybatdau(date_batdau.getDate());
+                km.setNgayketthuc(date_ketthuc.getDate());
+                km.setTrangthai("Đang áp dụng");
+                km.setMota(txt_mota.getText());
+                km.setMa(tbl_khuyenmai.getValueAt(index1, 0).toString());
+
+                khuyenMaiService.update(km);
+                load();
+                JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi sản phẩm thành công");
+            }
+        }
         
-        khuyenMaiService.update(km);
-        load();
     }//GEN-LAST:event_btn_suaActionPerformed
 
     private void tbl_khuyenmaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khuyenmaiMouseClicked

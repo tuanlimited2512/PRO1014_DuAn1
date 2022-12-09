@@ -113,6 +113,20 @@ public class KhuyenMaiRepository implements IKhuyenMaiRepository{
         return kq;
     }
 
+    @Override
+    public Integer updateTrangThai() {
+        String updateTrangThai = "update khuyenmai set trangthai = N'Không áp dụng' WHERE NgayKetThuc < GetDate()";
+        Integer rs = DbConnection.excuteUpdate(updateTrangThai);
+        return rs;
+    }
+
+    @Override
+    public Integer updateMaKM() {
+        String updateMaKM = "Update ChiTietSP set MaKM = '52267130-1630-4502-810c-18dd9ef6d6b2' WHERE ChiTietSP.MaKM in (Select MaKM From KhuyenMai Where TrangThai= N'Không áp dụng')";
+        Integer rs = DbConnection.excuteUpdate(updateMaKM);
+        return rs;
+    }
+
     
     
 }

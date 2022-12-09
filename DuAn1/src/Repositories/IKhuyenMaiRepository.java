@@ -18,4 +18,7 @@ public interface IKhuyenMaiRepository {
     Boolean update(KhuyenMai km);
     List<SanPhamViewModel> getSelectSP();
     Integer updateCTSP(String tenKM, String MaSP);
+    
+    Integer updateTrangThai();
+    Integer updateMaKM();
 }

@@ -1300,7 +1300,31 @@ public class FormBanHang extends javax.swing.JPanel {
                 hd1.setSoLuong(gioHangViewModel.getSoLuong());
                 hd1.setDonGia(gioHangViewModel.getDonGia());
 //            double tienGiam = (gioHangViewModel.getDonGia() * gioHangViewModel.getSoLuong()) - gioHangViewModel.getThanhTien();
-                hd1.setTienGiam(gioHangViewModel.getGiamGia());
+                if(gioHangViewModel.getGiamGia().endsWith("VNĐ")){
+                    char[] chars = gioHangViewModel.getGiamGia().toCharArray();
+                    char[] chars1 = new char[chars.length - 3];
+                    for (int k = 0; k < chars.length - 3; k++) {
+                        chars1[k] = chars[k];
+
+                    }
+                    String str = new String(chars1);
+                    hd1.setTienGiam(str);
+                }else if(gioHangViewModel.getGiamGia().endsWith("%")){
+                    double donGia2 = gioHangViewModel.getDonGia();
+                    char[] chars = gioHangViewModel.getGiamGia().toCharArray();
+                    char[] chars1 = new char[chars.length - 1];
+                    for (int l = 0; l < chars.length - 1; l++) {
+                        chars1[l] = chars[l];
+
+                    }
+                    String str = new String(chars1);
+                    int giaGiam = Integer.parseInt(str);
+                    double thanhTienCua1SP = donGia2 - ((donGia2 * (100 - giaGiam)) / 100);
+                    hd1.setTienGiam(String.valueOf(thanhTienCua1SP));
+                }else{
+                    hd1.setTienGiam("0");
+                }
+                
                 list1.add(hd1);
             }
             int dem = 0;
@@ -1347,6 +1371,7 @@ public class FormBanHang extends javax.swing.JPanel {
         }
         defaultTableModel = (DefaultTableModel) tbl_gioHang.getModel();
         defaultTableModel.setRowCount(0);
+        
         for (GioHangViewModel gioHangViewModel : li) {
             defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getGiamGia(), gioHangViewModel.getThanhTien()});
         }
@@ -1356,7 +1381,7 @@ public class FormBanHang extends javax.swing.JPanel {
             int soLuong = Integer.parseInt(String.valueOf(tbl_gioHang.getValueAt(i, 1)));
             double donGia = Double.parseDouble(String.valueOf(tbl_gioHang.getValueAt(i, 2)));
             double thanhTien = 0;
-            if (giamGia.equals("VNĐ")) {
+            if (giamGia.endsWith("VNĐ")) {
                 char[] chars = giamGia.toCharArray();
                 char[] chars1 = new char[chars.length - 3];
                 for (int k = 0; k < chars.length - 3; k++) {
@@ -1369,7 +1394,7 @@ public class FormBanHang extends javax.swing.JPanel {
                 double dg = donGia * soLuong;
                 thanhTien = dg - phanGiam;
                 
-            } else if (tbl_gioHang.getValueAt(i, 3).equals("%")) {
+            } else if (giamGia.endsWith("%")) {
                 String donGia2 = String.valueOf(tbl_gioHang.getValueAt(row, 2));
                 char[] chars = giamGia.toCharArray();
                 char[] chars1 = new char[chars.length - 1];

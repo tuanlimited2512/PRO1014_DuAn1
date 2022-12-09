@@ -48,5 +48,15 @@ public class KhuyenMaiServicelmpl implements IKhuyenMaiService{
     public Integer updateCTSP(String tenKM, String MaSP) {
         return repository.updateCTSP(tenKM, MaSP);
     }
+
+    @Override
+    public Integer updateTrangThai() {
+        return repository.updateTrangThai();
+    }
+
+    @Override
+    public Integer updateMaKM() {
+        return repository.updateMaKM();
+    }
     
 }

@@ -118,15 +118,4 @@ public class KhuyenMai {
     public String toString() {
         return "KhuyenMai{" + "ma=" + ma + ", ten=" + ten + ", hinhthuc=" + hinhthuc + ", giamgia=" + giamgia + ", sanpham=" + sanpham + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc + ", trangthai=" + trangthai + ", mota=" + mota + '}';
     }
-
-    
-    public String getGia(String hinhThucGiam){   
-
-        if(hinhThucGiam.equals("Giảm giá theo số tiền")){
-            return this.giamgia + " VNĐ";
-        }else{
-            return this.giamgia + "%";
-        }
-    }
-    
 }

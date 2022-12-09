@@ -20,9 +20,10 @@ public class GioHangRepository implements IGioHangRepository {
 
     @Override
     public ArrayList<GioHangViewModel> get(String ma) {
-        String sql = "Select TenSP,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia,TienGiamGia from HoaDonChiTiet,SanPham\n"
-                + "where SanPham.MaSP = HoaDonChiTiet.MaSP\n"
-                + " and MaHD=?";
+        String sql = "Select TenSP,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia, KhuyenMai.GiamGia from HoaDonChiTiet "
+                + "join SanPham on SanPham.MaSP = HoaDonChiTiet.MaSP "
+                + "join ChiTietSP on ChiTietSP.MaSP=SanPham.MaSP "
+                + "join KhuyenMai on KhuyenMai.MaKM=ChiTietSP.MaKM WHERE MaHD = ?";
         ArrayList<GioHangViewModel> li = new ArrayList<>();
         try {
             ResultSet rs = DbConnection.getDataFromQuery(sql, ma);
@@ -38,9 +39,10 @@ public class GioHangRepository implements IGioHangRepository {
 
     @Override
     public ArrayList<GioHangViewModel> get1(String ma) {
-        String sql = "Select SanPham.MaSP,TenSP,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia,TienGiamGia from HoaDonChiTiet,SanPham\n"
-                + "where SanPham.MaSP = HoaDonChiTiet.MaSP\n"
-                + " and MaHD=?";
+        String sql = "Select SanPham.MaSP, TenSP,HoaDonChiTiet.SoLuong,HoaDonChiTiet.DonGia, KhuyenMai.GiamGia from HoaDonChiTiet "
+                + "join SanPham on SanPham.MaSP = HoaDonChiTiet.MaSP "
+                + "join ChiTietSP on ChiTietSP.MaSP=SanPham.MaSP "
+                + "join KhuyenMai on KhuyenMai.MaKM=ChiTietSP.MaKM WHERE MaHD = ?";
         ArrayList<GioHangViewModel> li = new ArrayList<>();
         try {
             ResultSet rs = DbConnection.getDataFromQuery(sql, ma);

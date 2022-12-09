@@ -22,7 +22,7 @@ public class ThongKeSPViewModelRepository implements IThongKeSPViewModelReposito
     @Override
     public List<ThongKeSPViewModel> getSelectSql() {
         List<ThongKeSPViewModel> listTKSP = new ArrayList<>();
-        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - KhuyenMai.GiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
+        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - HoaDonChiTiet.TienGiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
                 + "join ChiTietSP on ChiTietSP.MaSP = HoaDonChiTiet.MaSP "
                 + "join KhuyenMai on ChiTietSP.MaKM = KhuyenMai.MaKM "
                 + "join sanpham on SanPham.MaSP= ChiTietSP.MaSP "
@@ -45,7 +45,7 @@ public class ThongKeSPViewModelRepository implements IThongKeSPViewModelReposito
     @Override
     public List<ThongKeSPViewModel> timNam(String nam) {
         List<ThongKeSPViewModel> listTKSP = new ArrayList<>();
-        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - KhuyenMai.GiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
+        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - HoaDonChiTiet.TienGiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
                 + "join ChiTietSP on ChiTietSP.MaSP = HoaDonChiTiet.MaSP "
                 + "join KhuyenMai on ChiTietSP.MaKM = KhuyenMai.MaKM "
                 + "join sanpham on SanPham.MaSP= ChiTietSP.MaSP "
@@ -68,7 +68,7 @@ public class ThongKeSPViewModelRepository implements IThongKeSPViewModelReposito
     @Override
     public List<ThongKeSPViewModel> timTen(String ten) {
         List<ThongKeSPViewModel> listTKSP = new ArrayList<>();
-        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - KhuyenMai.GiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
+        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - HoaDonChiTiet.TienGiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
                 + "join ChiTietSP on ChiTietSP.MaSP = HoaDonChiTiet.MaSP "
                 + "join KhuyenMai on ChiTietSP.MaKM = KhuyenMai.MaKM "
                 + "join sanpham on SanPham.MaSP= ChiTietSP.MaSP "
