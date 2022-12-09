@@ -111,5 +111,67 @@ public class ThongKeTQBanChayServicrlmpl implements IThongKeTQService{
     public List<DoanhThu> getDT_N(String nam) {
         return repository.getDT_N(nam);
     }
+
+    
+    //Biều đồ
+    @Override
+    public Double getmonth1() {
+        return repository.getmonth1();
+    }
+
+    @Override
+    public Double getmonth2() {
+        return repository.getmonth2();
+    }
+
+    @Override
+    public Double getmonth3() {
+        return repository.getmonth3();
+    }
+
+    @Override
+    public Double getmonth4() {
+        return repository.getmonth4();
+    }
+
+    @Override
+    public Double getmonth5() {
+        return repository.getmonth5();
+    }
+
+    @Override
+    public Double getmonth6() {
+        return repository.getmonth6();
+    }
+
+    @Override
+    public Double getmonth7() {
+        return repository.getmonth7();
+    }
+
+    @Override
+    public Double getmonth8() {
+        return repository.getmonth8();
+    }
+
+    @Override
+    public Double getmonth9() {
+        return repository.getmonth9();
+    }
+
+    @Override
+    public Double getmonth10() {
+        return repository.getmonth10();
+    }
+
+    @Override
+    public Double getmonth11() {
+        return repository.getmonth11();
+    }
+
+    @Override
+    public Double getmonth12() {
+        return repository.getmonth12();
+    }
     
 }

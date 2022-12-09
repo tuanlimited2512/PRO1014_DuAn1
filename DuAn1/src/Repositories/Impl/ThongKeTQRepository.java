@@ -15,6 +15,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Repositories.IThongKeTQRepository;
+import javax.xml.transform.Result;
 
 /**
  *
@@ -103,7 +104,9 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
     @Override
     public List<TongKhachHang> getTKH() {
         List<TongKhachHang> listTKH = new ArrayList<>();
-        String select = "select count(MaKH) from KhachHang";
+        String select = "select count(KhachHang.MaKH) from KhachHang "
+                + "join HoaDon on HoaDon.MaKH=KhachHang.MaKH "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
@@ -122,7 +125,7 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
         List<TongKhachHang> listTKH = new ArrayList<>();
         String select = "select count(KhachHang.MaKH) from KhachHang "
                 + "join HoaDon on HoaDon.MaKH=KhachHang.MaKH "
-                + "Where MONTH(HoaDon.NgayTao) = ?";
+                + "Where MONTH(HoaDon.NgayTao) = ? AND HoaDon.TinhTrang = N'Đã thanh toán' ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, thang);
@@ -141,7 +144,7 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
         List<TongKhachHang> listTKH = new ArrayList<>();
         String select = "select count(KhachHang.MaKH) from KhachHang "
                 + "join HoaDon on HoaDon.MaKH=KhachHang.MaKH "
-                + "Where YEAR(HoaDon.NgayTao) = ? ";
+                + "Where YEAR(HoaDon.NgayTao) = ? AND HoaDon.TinhTrang = N'Đã thanh toán' ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, nam);
@@ -159,7 +162,8 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
     @Override
     public List<TongHoaDon> getTHD() {
         List<TongHoaDon> listTHD = new ArrayList<>();
-        String select = "select count(MaHD) from HoaDon";
+        String select = "select count(MaHD) from HoaDon "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
@@ -177,7 +181,7 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
     public List<TongHoaDon> getTHD_T(String thang) {
         List<TongHoaDon> listTHD = new ArrayList<>();
         String select = "Select Count(HoaDon.MaHD) from HoaDon "
-                + "where Month(HoaDon.NgayTao) = ? ";
+                + "where Month(HoaDon.NgayTao) = ? AND HoaDon.TinhTrang = N'Đã thanh toán' ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, thang);
@@ -195,7 +199,7 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
     public List<TongHoaDon> getTHD_N(String nam) {
         List<TongHoaDon> listTHD = new ArrayList<>();
         String select = "Select Count(HoaDon.MaHD) from HoaDon "
-                + "where YEAR(HoaDon.NgayTao) = ? ";
+                + "where YEAR(HoaDon.NgayTao) = ? AND HoaDon.TinhTrang = N'Đã thanh toán' ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, nam);
@@ -265,6 +269,210 @@ public class ThongKeTQRepository implements IThongKeTQRepository{
             Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public Double getmonth1() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 1 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth2() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 2 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth3() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 3 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth4() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 4 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth5() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 5 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth6() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 6 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth7() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 7 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth8() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 8 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth9() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 9 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth10() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 10 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth11() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 11 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
+    }
+
+    @Override
+    public Double getmonth12() {
+        double chua = 0;
+        String select = "select Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong)  from  HoaDonChiTiet "
+                + "join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD "
+                + "Where HoaDon.TinhTrang = N'Đã thanh toán' AND MONTH(HoaDon.NgayTao) = 12 ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select);
+            while(rs.next()){
+                chua = rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongKeTQRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return chua;
     }
     
     

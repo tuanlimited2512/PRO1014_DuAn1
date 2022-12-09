@@ -68,4 +68,9 @@ public class SanPhamServiceImpl implements ISanPhamService {
         return repository.getAll2(ten);
     }
 
+    @Override
+    public Integer updateTrangThai() {
+        return repository.updateTrangThai();
+    }
+
 }

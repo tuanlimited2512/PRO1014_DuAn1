@@ -4,6 +4,8 @@
  */
 package View;
 
+import Services.INhanVienService;
+import Services.lmpl.NhanVienService;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -13,12 +15,14 @@ import javax.swing.JOptionPane;
  * @author anhtu
  */
 public class DangNhap extends javax.swing.JPanel {
+    private final INhanVienService service;
     private boolean isHidden = true;
     /**
      * Creates new form DangNhap
      */
     public DangNhap() {
         initComponents();
+        service = new NhanVienService();
     }
     
     public void dangNhap(){
@@ -31,6 +35,13 @@ public class DangNhap extends javax.swing.JPanel {
     
     public void btndangnhapEven(ActionListener event){
         btn_dangnhap.addActionListener(event);
+    }
+    
+    public boolean isDangNhap(){
+        String MaNV = txt_tk.getText().trim();
+        String MatKhau = String.valueOf(txt_mk.getPassword()).trim();
+        boolean dangNhap = service.getUser(MaNV, MatKhau);
+        return dangNhap;
     }
 
     /**

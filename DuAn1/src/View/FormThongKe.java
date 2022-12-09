@@ -15,6 +15,12 @@ import ViewModels.TongKhachHang;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import Services.IThongKeTQService;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -97,6 +103,7 @@ public class FormThongKe extends javax.swing.JPanel {
         cbo_thang = new javax.swing.JComboBox<>();
         cbo_nam = new javax.swing.JComboBox<>();
         rdo_theongay = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -397,6 +404,14 @@ public class FormThongKe extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(153, 255, 204));
+        jButton1.setText("BIỂU ĐỒ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -411,7 +426,8 @@ public class FormThongKe extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(21, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,8 +437,10 @@ public class FormThongKe extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbo_nam, 0, 100, Short.MAX_VALUE)
-                            .addComponent(cbo_thang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                            .addComponent(cbo_thang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -443,12 +461,17 @@ public class FormThongKe extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdo_thang)
                     .addComponent(cbo_thang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdo_nam)
-                    .addComponent(cbo_nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rdo_nam)
+                            .addComponent(cbo_nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -589,6 +612,33 @@ public class FormThongKe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_timtenKeyTyped
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(banChayService.getmonth1(), "VNĐ", "Tháng 1");
+        dataset.addValue(banChayService.getmonth2(), "VNĐ", "Tháng 2");
+        dataset.addValue(banChayService.getmonth3(), "VNĐ", "Tháng 3");
+        dataset.addValue(banChayService.getmonth4(), "VNĐ", "Tháng 4");
+        dataset.addValue(banChayService.getmonth5(), "VNĐ", "Tháng 5");
+        dataset.addValue(banChayService.getmonth6(), "VNĐ", "Tháng 6");
+        dataset.addValue(banChayService.getmonth7(), "VNĐ", "Tháng 7");
+        dataset.addValue(banChayService.getmonth8(), "VNĐ", "Tháng 8");
+        dataset.addValue(banChayService.getmonth9(), "VNĐ", "Tháng 9");
+        dataset.addValue(banChayService.getmonth10(), "VNĐ", "Tháng 10");
+        dataset.addValue(banChayService.getmonth11(), "VNĐ", "Tháng 11");
+        dataset.addValue(banChayService.getmonth12(), "VNĐ", "Tháng 12");
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "BIỂU ĐỒ DOANH THU",
+                "THÁNG", "VNĐ",
+                dataset, PlotOrientation.VERTICAL, false, true, false);
+        CategoryPlot categoryPlot = new CategoryPlot();
+        categoryPlot.setRangeGridlinePaint(Color.BLACK);
+        ChartFrame chartFrame = new ChartFrame("Biều đồ", barChart); 
+        chartFrame.setVisible(true);
+        chartFrame.setSize(1000,500);
+        chartFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     private void load(){
         dfmol = (DefaultTableModel) tbl_tksp.getModel();
@@ -648,6 +698,7 @@ public class FormThongKe extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbo_nam;
     private javax.swing.JComboBox<String> cbo_thang;
     private com.toedter.calendar.JYearChooser date_year;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

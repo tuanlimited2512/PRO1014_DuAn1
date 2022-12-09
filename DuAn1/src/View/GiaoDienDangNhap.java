@@ -49,8 +49,9 @@ public class GiaoDienDangNhap extends javax.swing.JFrame {
         dangNhap.btndangnhapEven(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GiaoDienPhanMem().setVisible(true);
-                dispose();
+                if(dangNhap.isDangNhap() == true){
+                    dispose();
+                }
             }
         });
       

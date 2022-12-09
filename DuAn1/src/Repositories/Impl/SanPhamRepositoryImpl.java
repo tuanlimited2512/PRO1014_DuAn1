@@ -143,4 +143,11 @@ public class SanPhamRepositoryImpl implements ISanPhamRepository {
         return list;
     }
 
+    @Override
+    public Integer updateTrangThai() {
+        String up = "UPDATE SanPham set TrangThai = N'Hết Hàng' WHERE MaSP in (SELECT MaSP from ChiTietSP WHERE SoLuong = 0) ";
+        Integer kq = DbConnection.excuteUpdate(up);
+        return kq;
+    }
+
 }

@@ -68,7 +68,10 @@ public class FormBanHang extends javax.swing.JPanel {
     static Object[] getKH = null;
     static boolean check = false;
     
-    public FormBanHang() {
+    private String MaNV;
+    private String TenNV;
+    
+    public FormBanHang(String maNhanVien, String tenNhanVien) {
         initComponents();
         chiTietSPService = new ChiTietSPServiceImpl();
         donServices = new HoaDonServices();
@@ -81,6 +84,9 @@ public class FormBanHang extends javax.swing.JPanel {
         addCBNhanVien(iNhanVienService.getSelectSqlLV());
         boxModelMauSac = (DefaultComboBoxModel) cb_mau.getModel();
         loadHoaDon();
+        
+        MaNV = maNhanVien;
+        TenNV = tenNhanVien;
         
     }
     

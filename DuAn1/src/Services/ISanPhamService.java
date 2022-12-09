@@ -33,4 +33,5 @@ public interface ISanPhamService {
     
     ArrayList<SanPham> getAll2(String ten);
 
+    Integer updateTrangThai();
 }

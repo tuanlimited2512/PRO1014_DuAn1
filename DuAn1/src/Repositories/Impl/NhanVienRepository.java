@@ -186,4 +186,26 @@ public class NhanVienRepository implements INhanVienRepository {
         return listNV;
     }
 
+    
+    //Đang nhập
+    @Override
+    public List<NhanVien> getUser(String tk, String mk) {
+        List<NhanVien> listNV = new ArrayList<>();
+        
+        String select = "Select NhanVien.MaNV, NhanVien.HoTen, VaiTro.TenVaiTro from NhanVien "
+                + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro "
+                + "WHERE MaNV = ? AND MatKhau = ?";
+        
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, tk, mk);
+            while(rs.next()){
+                listNV.add(new NhanVien(rs.getString(1), rs.getNString(2), rs.getNString(3)));
+            }
+            return listNV;
+        } catch (SQLException ex) {
+            Logger.getLogger(NhanVienRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

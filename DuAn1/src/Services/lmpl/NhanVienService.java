@@ -9,7 +9,10 @@ import DomainModels.VaiTro;
 import Repositories.INhanVienRepository;
 import Repositories.Impl.NhanVienRepository;
 import Services.INhanVienService;
+import View.GiaoDienDangNhap;
+import View.GiaoDienPhanMem;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,4 +66,35 @@ public class NhanVienService implements INhanVienService {
         return repository.getSelectSqlLV(maNV);
     }
 
+    //Đăng nhập
+
+    @Override
+    public boolean getUser(String tk, String mk) {
+        List<NhanVien> listNV = repository.getUser(tk, mk);
+        if(tk.isEmpty()){
+            JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Bạn chưa nhập tài khoản !");
+            return false;
+        }if(mk.isEmpty()){
+            JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Bạn chưa nhập mật khẩu !");
+            return false;
+        }
+        
+        if(listNV != null){
+            for(NhanVien nv : listNV){
+                if(nv.getMaVaiTro().equalsIgnoreCase("Quản lý")){
+                    JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Đăng nhập thành công !", "Quản lý", JOptionPane.PLAIN_MESSAGE);
+                    new GiaoDienPhanMem(nv.getTen(), nv.getMa(), nv.getMaVaiTro()).setVisible(true);
+                    return true;
+                }else{
+                    JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Đăng nhâp thành công !", "Nhân viên", JOptionPane.PLAIN_MESSAGE);
+                    new GiaoDienPhanMem(nv.getTen(), nv.getMa(), nv.getMaVaiTro()).setVisible(true);
+                    return true;
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Tên tài khoản hoặc mật khẩu không đúng !", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+    
 }

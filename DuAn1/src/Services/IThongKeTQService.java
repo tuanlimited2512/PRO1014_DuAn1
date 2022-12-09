@@ -34,4 +34,18 @@ public interface IThongKeTQService {
     List<DoanhThu> getDT();
     List<DoanhThu> getDT_T(String thang);
     List<DoanhThu> getDT_N(String nam);
+    
+    //Biểu đồ
+    Double getmonth1();
+    Double getmonth2();
+    Double getmonth3();
+    Double getmonth4();
+    Double getmonth5();
+    Double getmonth6();
+    Double getmonth7();
+    Double getmonth8();
+    Double getmonth9();
+    Double getmonth10();
+    Double getmonth11();
+    Double getmonth12();
 }

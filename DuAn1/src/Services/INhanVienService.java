@@ -29,4 +29,7 @@ public interface INhanVienService {
     List<NhanVien> timVT(String vt);
 
     List<NhanVien> timGT(String giotinh);
+    
+    //Đăng nhập
+    boolean getUser(String tk, String mk);
 }

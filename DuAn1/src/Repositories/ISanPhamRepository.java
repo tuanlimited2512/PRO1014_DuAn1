@@ -32,5 +32,7 @@ public interface ISanPhamRepository {
     Integer xoaCTSanPham( String ma);
     
     ArrayList<SanPham> getAll2(String ten);
+    
+    Integer updateTrangThai();
 
 }

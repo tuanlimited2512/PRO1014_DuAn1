@@ -18,13 +18,25 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
      * Creates new form GiaoDienPhanMem
      */
     private JPanel panelChid;
+    
+    private String MaNV, TenNV, TenCV;
 
-    public GiaoDienPhanMem() {
+    public GiaoDienPhanMem(String tenNhanVien, String maNhanVien,  String tenChucVu) {
         initComponents(); 
         setLocationRelativeTo(null);
+        MaNV = maNhanVien;
+        lbl_tennhanvien.setText(tenNhanVien);
+        TenNV = tenNhanVien;
+        TenCV = tenChucVu;
+        GiaoDienChinh();
+    }
+    
+    
+
+    private void GiaoDienChinh() {
         setColor(btn_banhang);
         resetColor(new JPanel[]{btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
-        setpanal(new FormBanHang());
+        setpanal(new FormBanHang(MaNV, TenNV));
 
     }
 
@@ -55,7 +67,7 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_tennhanvien = new javax.swing.JLabel();
         btn_sanpham = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         btn_banhang = new javax.swing.JPanel();
@@ -81,8 +93,9 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 255, 204));
         jPanel1.setForeground(new java.awt.Color(0, 153, 153));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Tên nhân viên");
+        lbl_tennhanvien.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_tennhanvien.setForeground(new java.awt.Color(255, 0, 0));
+        lbl_tennhanvien.setText("Tên nhân viên");
 
         btn_sanpham.setBackground(new java.awt.Color(153, 255, 204));
         btn_sanpham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -325,16 +338,16 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
             .addComponent(btn_thongke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_dangxuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
+                .addGap(19, 19, 19)
+                .addComponent(lbl_tennhanvien)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(60, 60, 60)
+                .addComponent(lbl_tennhanvien)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btn_banhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_sanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,7 +389,7 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
         // TODO add your handling code here:
         setColor(btn_banhang);
         resetColor(new JPanel[]{btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
-        setpanal(new FormBanHang());
+        setpanal(new FormBanHang(MaNV, TenNV));
     }//GEN-LAST:event_btn_banhangMousePressed
 
     private void btn_sanphamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sanphamMousePressed
@@ -395,16 +408,30 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
 
     private void btn_khuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_khuyenmaiMousePressed
         // TODO add your handling code here:
-        setColor(btn_khuyenmai);
-        resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
-        setpanal(new FormKhuyenMai());
+        if(TenCV.equalsIgnoreCase("Quản lý")){
+            setColor(btn_khuyenmai);
+            resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
+            setpanal(new FormKhuyenMai());
+        }else{
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
+            GiaoDienChinh();
+            return;
+        }
+        
     }//GEN-LAST:event_btn_khuyenmaiMousePressed
 
     private void btn_nhanvienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_nhanvienMousePressed
         // TODO add your handling code here:
-        setColor(btn_nhanvien);
-        resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_khuyenmai, btn_khachhang, btn_thongke, btn_dangxuat});
-        setpanal(new FormNhanVien());
+        if(TenCV.equalsIgnoreCase("Quản lý")){
+            setColor(btn_nhanvien);
+            resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_khuyenmai, btn_khachhang, btn_thongke, btn_dangxuat});
+            setpanal(new FormNhanVien());
+        }else{
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
+            GiaoDienChinh();
+            return;
+        }
+        
     }//GEN-LAST:event_btn_nhanvienMousePressed
 
     private void btn_khachhangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_khachhangMousePressed
@@ -416,9 +443,16 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
 
     private void btn_thongkeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_thongkeMousePressed
         // TODO add your handling code here:
-        setColor(btn_thongke);
-        resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_dangxuat});
-        setpanal(new FormThongKe());
+        if(TenCV.equalsIgnoreCase("Quản lý")){
+            setColor(btn_thongke);
+            resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_khuyenmai, btn_nhanvien, btn_khachhang, btn_dangxuat});
+            setpanal(new FormThongKe());
+        }else{
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
+            GiaoDienChinh();
+            return;
+        }
+        
     }//GEN-LAST:event_btn_thongkeMousePressed
 
     private void btn_dangxuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_dangxuatMousePressed
@@ -441,37 +475,37 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GiaoDienPhanMem().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GiaoDienPhanMem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GiaoDienPhanMem().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btn_banhang;
@@ -483,7 +517,6 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
     private javax.swing.JPanel btn_sanpham;
     private javax.swing.JPanel btn_thongke;
     private javax.swing.JPanel formPhanMem;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -493,6 +526,7 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_tennhanvien;
     // End of variables declaration//GEN-END:variables
 
 }
