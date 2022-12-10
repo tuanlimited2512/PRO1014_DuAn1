@@ -22,18 +22,18 @@ public class ThongKeSPViewModelRepository implements IThongKeSPViewModelReposito
     @Override
     public List<ThongKeSPViewModel> getSelectSql() {
         List<ThongKeSPViewModel> listTKSP = new ArrayList<>();
-        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - HoaDonChiTiet.TienGiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
+        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), COUNT(*), (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
                 + "join ChiTietSP on ChiTietSP.MaSP = HoaDonChiTiet.MaSP "
                 + "join KhuyenMai on ChiTietSP.MaKM = KhuyenMai.MaKM "
                 + "join sanpham on SanPham.MaSP= ChiTietSP.MaSP "
                 + "join HoaDon on HoaDon.MaHD = HoaDonChiTiet.MaHD "
                 + "WHERE HoaDon.TinhTrang = N'Đã thanh toán' "
-                + "GROUP BY SANPHAM.TenSP, ChiTietSP.SoLuong, ChiTietSP.GiaBan, KhuyenMai.GiamGia, HoaDonChiTiet.TienGiamGia";
+                + "GROUP BY SANPHAM.TenSP, ChiTietSP.SoLuong, ChiTietSP.GiaBan ";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select);
             while(rs.next()){
-                listTKSP.add(new ThongKeSPViewModel(rs.getNString(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getDouble(5)));
+                listTKSP.add(new ThongKeSPViewModel(rs.getNString(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4)));
             }
             return listTKSP;
         } catch (SQLException ex) {
@@ -45,18 +45,18 @@ public class ThongKeSPViewModelRepository implements IThongKeSPViewModelReposito
     @Override
     public List<ThongKeSPViewModel> timNam(String nam) {
         List<ThongKeSPViewModel> listTKSP = new ArrayList<>();
-        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - HoaDonChiTiet.TienGiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
+        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), COUNT(*), (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
                 + "join ChiTietSP on ChiTietSP.MaSP = HoaDonChiTiet.MaSP "
                 + "join KhuyenMai on ChiTietSP.MaKM = KhuyenMai.MaKM "
                 + "join sanpham on SanPham.MaSP= ChiTietSP.MaSP "
                 + "join HoaDon on HoaDon.MaHD = HoaDonChiTiet.MaHD "
                 + "WHERE HoaDon.TinhTrang = N'Đã thanh toán' AND YEAR(HoaDon.NgayTao) = ? "
-                + "GROUP BY SANPHAM.TenSP, ChiTietSP.SoLuong, ChiTietSP.GiaBan, KhuyenMai.GiamGia, HoaDonChiTiet.TienGiamGia";
+                + "GROUP BY SANPHAM.TenSP, ChiTietSP.SoLuong, ChiTietSP.GiaBan";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, nam);
             while(rs.next()){
-                listTKSP.add(new ThongKeSPViewModel(rs.getNString(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getDouble(5)));
+                listTKSP.add(new ThongKeSPViewModel(rs.getNString(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4)));
             }
             return listTKSP;
         } catch (SQLException ex) {
@@ -68,19 +68,19 @@ public class ThongKeSPViewModelRepository implements IThongKeSPViewModelReposito
     @Override
     public List<ThongKeSPViewModel> timTen(String ten) {
         List<ThongKeSPViewModel> listTKSP = new ArrayList<>();
-        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), ChiTietSP.GiaBan, ChiTietSP.GiaBan - HoaDonChiTiet.TienGiamGia, (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
+        String select = "Select sanpham.TenSP, SUM(HoaDonChiTiet.SoLuong), COUNT(*), (Sum(HoaDonChiTiet.DonGia * HoaDonChiTiet.SoLuong)-Sum(HoaDonChiTiet.TienGiamGia* HoaDonChiTiet.SoLuong))  from HoaDonChiTiet "
                 + "join ChiTietSP on ChiTietSP.MaSP = HoaDonChiTiet.MaSP "
                 + "join KhuyenMai on ChiTietSP.MaKM = KhuyenMai.MaKM "
                 + "join sanpham on SanPham.MaSP= ChiTietSP.MaSP "
                 + "join HoaDon on HoaDon.MaHD = HoaDonChiTiet.MaHD "
                 + "WHERE HoaDon.TinhTrang = N'Đã thanh toán' AND SanPham.TenSP LIKE ? "
-                + "GROUP BY SANPHAM.TenSP, ChiTietSP.SoLuong, ChiTietSP.GiaBan, KhuyenMai.GiamGia, HoaDonChiTiet.TienGiamGia";
+                + "GROUP BY SANPHAM.TenSP, ChiTietSP.SoLuong, ChiTietSP.GiaBan";
 
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, ten);
             while(rs.next()){
-                listTKSP.add(new ThongKeSPViewModel(rs.getNString(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getDouble(5)));
+                listTKSP.add(new ThongKeSPViewModel(rs.getNString(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4)));
             }
             return listTKSP;
         } catch (SQLException ex) {

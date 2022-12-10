@@ -276,7 +276,7 @@ public class FormThongKe extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Sản phẩm", "Số lượng", "Giá cao nhất", "Giá thấp nhất", "Doanh thu"
+                "Sản phẩm", "Số lượng đã bán", "Số lượt mua", "Doanh thu"
             }
         ));
         jScrollPane3.setViewportView(tbl_tksp);

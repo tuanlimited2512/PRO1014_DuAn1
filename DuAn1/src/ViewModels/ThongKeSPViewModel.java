@@ -10,17 +10,17 @@ package ViewModels;
  */
 public class ThongKeSPViewModel {
     String ten;
-    int soluong;
-    double giacao, giathap, doanhthu;
+    int soluongban;
+    int soluotmua;
+    double doanhthu;
 
     public ThongKeSPViewModel() {
     }
 
-    public ThongKeSPViewModel(String ten, int soluong, double giacao, double giathap, double doanhthu) {
+    public ThongKeSPViewModel(String ten, int soluongban, int soluotmua, double doanhthu) {
         this.ten = ten;
-        this.soluong = soluong;
-        this.giacao = giacao;
-        this.giathap = giathap;
+        this.soluongban = soluongban;
+        this.soluotmua = soluotmua;
         this.doanhthu = doanhthu;
     }
 
@@ -32,28 +32,20 @@ public class ThongKeSPViewModel {
         this.ten = ten;
     }
 
-    public int getSoluong() {
-        return soluong;
+    public int getSoluongban() {
+        return soluongban;
     }
 
-    public void setSoluong(int soluong) {
-        this.soluong = soluong;
+    public void setSoluongban(int soluongban) {
+        this.soluongban = soluongban;
     }
 
-    public double getGiacao() {
-        return giacao;
+    public int getSoluotmua() {
+        return soluotmua;
     }
 
-    public void setGiacao(double giacao) {
-        this.giacao = giacao;
-    }
-
-    public double getGiathap() {
-        return giathap;
-    }
-
-    public void setGiathap(double giathap) {
-        this.giathap = giathap;
+    public void setSoluotmua(int soluotmua) {
+        this.soluotmua = soluotmua;
     }
 
     public double getDoanhthu() {
@@ -63,8 +55,8 @@ public class ThongKeSPViewModel {
     public void setDoanhthu(double doanhthu) {
         this.doanhthu = doanhthu;
     }
-    
+
     public Object[] toDataRow(){
-        return new Object[]{ten, soluong, giacao, giathap, doanhthu};
+        return new Object[]{ten, soluongban, soluotmua, doanhthu};
     }
 }
