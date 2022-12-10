@@ -91,9 +91,8 @@ public class NhanVienService implements INhanVienService {
                     return true;
                 }
             }
-        }else{
-            JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Tên tài khoản hoặc mật khẩu không đúng !", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
         }
+        JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Tên tài khoản hoặc mật khẩu không đúng !", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
         return false;
     }
     
