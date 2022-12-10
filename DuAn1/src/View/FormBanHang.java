@@ -172,9 +172,6 @@ public class FormBanHang extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         lbl_TienThua = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         btn_huy = new javax.swing.JButton();
         btn_lamMoi = new javax.swing.JButton();
         btn_ThanhToan = new javax.swing.JButton();
@@ -510,12 +507,6 @@ public class FormBanHang extends javax.swing.JPanel {
 
         jLabel22.setText("VNĐ");
 
-        jLabel23.setText("Ghi chú:");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane5.setViewportView(jTextArea1);
-
         btn_huy.setBackground(new java.awt.Color(153, 255, 204));
         btn_huy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bill.png"))); // NOI18N
         btn_huy.setText("Hủy hóa đơn");
@@ -605,13 +596,7 @@ public class FormBanHang extends javax.swing.JPanel {
                                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(btn_lamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lbl_tienkhachdua, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5)
-                        .addGap(99, 99, 99))))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(btn_ThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -656,11 +641,7 @@ public class FormBanHang extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addComponent(lbl_TienThua)
                     .addComponent(jLabel22))
-                .addGap(27, 27, 27)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(129, 129, 129)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_huy)
                     .addComponent(btn_lamMoi))
@@ -1848,7 +1829,6 @@ public class FormBanHang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1863,9 +1843,7 @@ public class FormBanHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_TienThua;
     private javax.swing.JLabel lbl_giamGia;
     private javax.swing.JLabel lbl_thanhToan;
