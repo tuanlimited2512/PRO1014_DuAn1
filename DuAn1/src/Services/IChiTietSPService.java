@@ -33,4 +33,8 @@ public interface IChiTietSPService {
     Integer upDateSLKhiAnThayDoiSL(String ma, int soLuong, int soLuongTD);
 
     Integer getSoLuong(String maSp);
+    
+    List<ChiTietSPViewModel> getAll(String barcode);
+    
+    Integer upDateSLKhiThemTrongBarcode(String ma, int soLuong);
 }

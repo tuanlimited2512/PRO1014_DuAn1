@@ -23,6 +23,14 @@ public class ChiTietSPViewModel {
     public ChiTietSPViewModel() {
     }
 
+    public ChiTietSPViewModel(String maSP, String tenSP, double donGia, String giamGia, Integer soLuongTon) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.donGia = donGia;
+        this.giamGia = giamGia;
+        this.soLuongTon = soLuongTon;
+    }
+
     public ChiTietSPViewModel(String maSP, String tenSP, double donGia, String giamGia, String mauSac, String tenNSX, String kichThuoc, double trongLuong, Integer soLuongTon) {
         this.maSP = maSP;
         this.tenSP = tenSP;

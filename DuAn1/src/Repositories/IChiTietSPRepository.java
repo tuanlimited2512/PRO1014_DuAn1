@@ -28,7 +28,12 @@ public interface IChiTietSPRepository {
     
     Integer upDateSLKhiAnXoa(String ma,int soLuong);
     
+    Integer upDateSLKhiThemTrongBarcode(String ma,int soLuong);
+    
     Integer upDateSLKhiAnThayDoiSL(String ma,int soLuong,int soLuongTD);
     
     Integer getSoLuong(String maSp);
+    
+    List<ChiTietSPViewModel> getAll(String barcode);
+    
 }

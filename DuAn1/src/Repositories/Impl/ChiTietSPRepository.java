@@ -167,4 +167,30 @@ public class ChiTietSPRepository implements IChiTietSPRepository {
         return soLuong;
     }
 
+    @Override
+    public List<ChiTietSPViewModel> getAll(String barcode) {
+        List<ChiTietSPViewModel> li = new ArrayList<>();
+        String sql = "Select ChiTietSP.MaSP,TenSP,GiaBan,GiamGia,SoLuong from ChiTietSP,SanPham,KhuyenMai\n"
+                + "where ChiTietSP.MaSP= SanPham.MaSP \n"
+                + "and ChiTietSP.MaKM=KhuyenMai.MaKM\n"
+                + "and BarCode=?";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql, barcode);
+            while (rs.next()) {
+                li.add(new ChiTietSPViewModel(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getInt(5)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietSPRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return li;
+    }
+
+    @Override
+    public Integer upDateSLKhiThemTrongBarcode(String ma, int soLuong) {
+        String sql2 = "update ChiTietSP set SoLuong = ((select SoLuong from ChiTietSP where MaSP=?) - ?) where MaSP=?";
+        Integer row = DbConnection.excuteUpdate(sql2, ma, soLuong, ma);
+        return row;
+    }
+
 }

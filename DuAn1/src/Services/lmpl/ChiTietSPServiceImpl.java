@@ -79,4 +79,14 @@ public class ChiTietSPServiceImpl implements IChiTietSPService {
         return chiTietRePo.getSoLuong(maSp);
     }
 
+    @Override
+    public List<ChiTietSPViewModel> getAll(String barcode) {
+        return chiTietRePo.getAll(barcode);
+    }
+
+    @Override
+    public Integer upDateSLKhiThemTrongBarcode(String ma, int soLuong) {
+        return chiTietRePo.upDateSLKhiThemTrongBarcode(ma, soLuong);
+    }
+
 }

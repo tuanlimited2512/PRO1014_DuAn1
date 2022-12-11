@@ -17,6 +17,8 @@ public interface IHoaDonRepository {
     
     Integer updateDaTT(String ma);
     
+    Integer updateChuaTTDu(String ma);
+    
     ArrayList<HoaDon> get();
     
     Integer updateHuy(String ma);

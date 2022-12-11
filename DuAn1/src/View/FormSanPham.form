@@ -107,6 +107,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel4MouseEntered"/>
+              </Events>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -157,10 +160,10 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel8" linkSize="1" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" linkSize="1" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel11" linkSize="1" alignment="0" pref="81" max="32767" attributes="0"/>
+                                      <Component id="jLabel12" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -196,8 +199,16 @@
                               <Component id="txt_soLuong" linkSize="3" max="32767" attributes="0"/>
                               <Component id="txt_barcode" linkSize="3" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="btnQuetMa" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -289,6 +300,7 @@
                               <Component id="jLabel5" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_barcode" linkSize="4" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnQuetMa" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -588,6 +600,16 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="S&#x1ed1; L&#x1b0;&#x1ee3;ng :"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnQuetMa">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Images/qr.png"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuetMaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

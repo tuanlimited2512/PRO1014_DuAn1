@@ -104,7 +104,7 @@ Create table ChiTietSP(
 	GiaNhap decimal(20, 0),
 	GiaBan decimal(20, 0),
 	SoLuong int,
-	BarCode int not null unique,
+	BarCode Nvarchar(100) not null unique,
 	MoTa nvarchar(100),
 	primary key(MaSP)
 )
@@ -112,7 +112,7 @@ go
 Create table Serial(
 	MaSerial UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	TinhTrang nvarchar(50),
-	MaSP UNIQUEIDENTIFIER foreign key references ChiTietSP(MaSP)
+	MaSP nvarchar(50) foreign key references ChiTietSP(MaSP)
 )
 go
 Create table KhachHang(

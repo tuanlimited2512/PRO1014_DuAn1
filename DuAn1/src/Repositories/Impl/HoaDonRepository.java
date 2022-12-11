@@ -88,4 +88,11 @@ public class HoaDonRepository implements IHoaDonRepository {
         return row;
     }
 
+    @Override
+    public Integer updateChuaTTDu(String ma) {
+        String sql = " update HoaDon set TinhTrang=N'Chưa Thanh Toán Đủ' where MaHD=?";
+        Integer row = DbConnection.excuteUpdate(sql, ma);
+        return row;
+    }
+
 }
