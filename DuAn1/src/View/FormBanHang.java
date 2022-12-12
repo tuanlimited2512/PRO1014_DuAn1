@@ -6,6 +6,7 @@ package View;
 
 import DomainModels.KhachHang;
 import DomainModels.NhanVien;
+import DomainModels.SerialDaBan;
 import Repositories.IHoaDonChiTietRepository;
 import Services.IChiTietSPService;
 import Services.IGioHangServices;
@@ -13,12 +14,16 @@ import Services.IHoaDonChiTietServices;
 import Services.IHoaDonServices;
 import Services.IKhachHangService;
 import Services.INhanVienService;
+import Services.ISerialDaBanServices;
+import Services.ISerialServices;
 import Services.lmpl.ChiTietSPServiceImpl;
 import Services.lmpl.GioHangServies;
 import Services.lmpl.HoaDonChiTietServices;
 import Services.lmpl.HoaDonServices;
 import Services.lmpl.KhachHangServiceImpl;
 import Services.lmpl.NhanVienService;
+import Services.lmpl.SerialDaBanServices;
+import Services.lmpl.SerialServices;
 import ViewModels.ChiTietSPViewModel;
 import ViewModels.GioHangViewModel;
 import java.util.ArrayList;
@@ -58,6 +63,8 @@ public class FormBanHang extends javax.swing.JPanel {
     private final IGioHangServices gioHang;
     private final INhanVienService iNhanVienService;
     private final IKhachHangService khachHangService;
+    private final ISerialDaBanServices serialDaBanServices;
+    private final ISerialServices serialServices;
     public DefaultComboBoxModel boxModelMauSac;
     public DefaultComboBoxModel boxModelNV;
     DefaultTableModel defaultTableModel;
@@ -81,6 +88,8 @@ public class FormBanHang extends javax.swing.JPanel {
         gioHang = new GioHangServies();
         iNhanVienService = new NhanVienService();
         khachHangService = new KhachHangServiceImpl();
+        serialDaBanServices = new SerialDaBanServices();
+        serialServices = new SerialServices();
         loadData();
         addCBChucVu();
         addCBNhanVien(iNhanVienService.getSelectSqlLV());
@@ -749,24 +758,65 @@ public class FormBanHang extends javax.swing.JPanel {
 
         ArrayList<String> li = donChiTietServices.getMaSP(ma);
 
+//        for (int i = 0; i < luuTam.size(); i++) {
+//            int dem = 0;
+//            for (int j = 0; j < li.size(); j++) {
+//                if (luuTam.get(i).getMaSP().equals(li.get(j))) {
+//                    dem++;
+//                }
+//            }
+//            if (dem == 0) {
+//                HoaDonChiTiet chiTiet = new HoaDonChiTiet();
+//                chiTiet.setMaHD(ma);
+//                chiTiet.setDonGia(luuTam.get(i).getDonGia());
+//                chiTiet.setSoLuong(luuTam.get(i).getSoLuong());
+//                chiTiet.setMaSP(luuTam.get(i).getMaSP());
+//                chiTiet.setTienGiam(luuTam.get(i).getGiamGia());
+//                if (donChiTietServices.them(chiTiet) != null) {
+//                    System.out.println("them lần 2 thành công");
+//                }
+//            }
+//        }
+        if (donChiTietServices.xoa(ma) != null) {
+            System.out.println("xoa HDCT tc");
+        } else {
+            System.out.println("xoa HDCT ko tc");
+        }
         for (int i = 0; i < luuTam.size(); i++) {
-            int dem = 0;
-            for (int j = 0; j < li.size(); j++) {
-                if (luuTam.get(i).getMaSP().equals(li.get(j))) {
-                    dem++;
+            HoaDonChiTiet chiTiet = new HoaDonChiTiet();
+            chiTiet.setMaHD(ma);
+            chiTiet.setDonGia(luuTam.get(i).getDonGia());
+            chiTiet.setSoLuong(luuTam.get(i).getSoLuong());
+            chiTiet.setMaSP(luuTam.get(i).getMaSP());
+//            chiTiet.setTienGiam(luuTam.get(i).getGiamGia());
+            if (luuTam.get(i).getGiamGia().endsWith("VNĐ")) {
+                char[] chars = luuTam.get(i).getGiamGia().toCharArray();
+                char[] chars1 = new char[chars.length - 3];
+                for (int k = 0; k < chars.length - 3; k++) {
+                    chars1[k] = chars[k];
+
                 }
-            }
-            if (dem == 0) {
-                HoaDonChiTiet chiTiet = new HoaDonChiTiet();
-                chiTiet.setMaHD(ma);
-                chiTiet.setDonGia(luuTam.get(i).getDonGia());
-                chiTiet.setSoLuong(luuTam.get(i).getSoLuong());
-                chiTiet.setMaSP(luuTam.get(i).getMaSP());
-                chiTiet.setTienGiam(luuTam.get(i).getGiamGia());
-                if (donChiTietServices.them(chiTiet) != null) {
-                    System.out.println("them lần 2 thành công");
+                String str = new String(chars1);
+                chiTiet.setTienGiam(str);
+            } else if (luuTam.get(i).getGiamGia().endsWith("%")) {
+                double donGia2 = luuTam.get(i).getDonGia();
+                char[] chars = luuTam.get(i).getGiamGia().toCharArray();
+                char[] chars1 = new char[chars.length - 1];
+                for (int l = 0; l < chars.length - 1; l++) {
+                    chars1[l] = chars[l];
+
                 }
+                String str = new String(chars1);
+                int giaGiam = Integer.parseInt(str);
+                double thanhTienCua1SP = donGia2 - ((donGia2 * (100 - giaGiam)) / 100);
+                chiTiet.setTienGiam(String.valueOf(thanhTienCua1SP));
+            } else {
+                chiTiet.setTienGiam("0");
             }
+            if (donChiTietServices.them(chiTiet) != null) {
+                System.out.println("them lần 2 thành công");
+            }
+
         }
 
         if (donServices.updateDaTT(ma) != null) {
@@ -781,6 +831,32 @@ public class FormBanHang extends javax.swing.JPanel {
         }
         if (donServices.updateThanhTien(ma, hd2) != null) {
             System.out.println("update thanhTien ok");
+        }
+
+        for (int i = 0; i < luuTam.size(); i++) {
+            ArrayList<String> li1 = donChiTietServices.getMaHDCT(ma, luuTam.get(i).getMaSP());            
+            int soLuong = luuTam.get(i).getSoLuong();
+            for (int j = 0; j < soLuong; j++) {
+                ArrayList<String> li2 = serialServices.getMa(luuTam.get(i).getMaSP());               
+                SerialDaBan serialDaBan = new SerialDaBan();
+                serialDaBan.setMaSerial(li2.get(0));
+                serialDaBan.setTinhTrang("Đã Bán");
+                serialDaBan.setMaHDCT(li1.get(0));
+                if (serialDaBanServices.them(serialDaBan) != null) {
+                    System.out.println("Thêm serial đã bán ok");
+                } else {
+                    System.out.println("Thêm serial đã bán !ok");
+
+                }
+
+                if (serialServices.xoaKhiDaBan(li2.get(0)) != null) {
+                    System.out.println("xoá serial đã bán ok");
+                } else {
+                    System.out.println("xoá serial đã bán !ok");
+
+                }
+            }
+//
         }
         xuatHoaDon();
 
@@ -1444,9 +1520,13 @@ public class FormBanHang extends javax.swing.JPanel {
                 thanhTien = soLuong * donGia;
 
             }
+            GioHangViewModel gh = new GioHangViewModel();
+            gh.setThanhTien(thanhTien);
             tbl_gioHang.setValueAt(thanhTien, i, 4);
+            luuTam.get(i).setThanhTien(thanhTien);
             thayDoi_lblHoaDon();
         }
+
     }//GEN-LAST:event_tbl_hoadonMouseClicked
 
     private void btn_huyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_huyActionPerformed
@@ -1704,6 +1784,7 @@ public class FormBanHang extends javax.swing.JPanel {
                 double giaGiam = Double.parseDouble(str);
                 double thanhTien = dg - giaGiam;
                 gh.setThanhTien(thanhTien);
+                lbl_giamGia.setText(String.valueOf(giaGiam));
             } else if (giamGia.endsWith("%")) { // giảm theo %
                 char[] chars = giamGia.toCharArray();
                 char[] chars1 = new char[chars.length - 1];
@@ -1716,6 +1797,7 @@ public class FormBanHang extends javax.swing.JPanel {
                 double giaGiam = Double.parseDouble(str);
                 double thanhTien = dg * ((100 - giaGiam) / 100);
                 gh.setThanhTien(thanhTien);
+
             } else {// không được giảm
                 gh.setThanhTien(gh.getDonGia());
             }
@@ -1728,9 +1810,10 @@ public class FormBanHang extends javax.swing.JPanel {
             // xet lbl_thanhTien trên Hoá Đơn
             lbl_tongThanhTien.setText(donGia);
             //xét lbl giảm giá trên hoá đơn
-            if (giamGia.endsWith("VNĐ")) {
-                lbl_giamGia.setText(giamGia);
-            } else if (giamGia.endsWith("%")) {
+//            if (giamGia.endsWith("VNĐ")) {
+//                lbl_giamGia.setText(Double);
+//            } else 
+            if (giamGia.endsWith("%")) {
                 double gg1 = gh.getDonGia() - gh.getThanhTien();
                 double gg2 = Math.round(gg1);
                 lbl_giamGia.setText(String.valueOf(gg2));
@@ -1793,6 +1876,7 @@ public class FormBanHang extends javax.swing.JPanel {
                     }
 
                     tbl_gioHang.setValueAt(luuTam.get(j).getThanhTien(), j, 4);
+                    System.out.println("thanh tien la " + luuTam.get(j).getThanhTien());
                     dem = 1;
                     break;
                 }
@@ -1840,7 +1924,12 @@ public class FormBanHang extends javax.swing.JPanel {
                 defaultTableModel = (DefaultTableModel) tbl_gioHang.getModel();
                 defaultTableModel.setRowCount(0);
                 for (GioHangViewModel gioHangViewModel : luuTam) {
-                    defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getGiamGia(), gioHangViewModel.getThanhTien()});
+                    defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(),
+                        gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(),
+                        gioHangViewModel.getGiamGia(), gioHangViewModel.getThanhTien()});
+                }
+                for (GioHangViewModel gioHangViewModel : luuTam) {
+                    System.out.println(gioHangViewModel);
                 }
 
             }

@@ -43,4 +43,14 @@ public class HoaDonChiTietServices implements IHoaDonChiTietServices {
         return hoaDonChiTiet.getMaSP(maHD);
     }
 
+    @Override
+    public ArrayList<String> getMaHDCT(String maHD, String maSP) {
+        return hoaDonChiTiet.getMaHDCT(maHD, maSP);
+    }
+
+    @Override
+    public Integer xoa(String maHD) {
+        return hoaDonChiTiet.xoa(maHD);
+    }
+
 }

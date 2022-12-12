@@ -5,16 +5,22 @@
 package Services;
 
 import DomainModels.Serial;
+import java.util.ArrayList;
 
 /**
  *
  * @author Dell Inpriron 5515
  */
 public interface ISerialServices {
+
     Integer them(Serial serial);
-    
+
     Integer xoa(String maSP);
-    
-    Integer xoaKhiUpdate( String maSP);
-    
+
+    Integer xoaKhiUpdate(String maSP);
+
+    ArrayList<String> getMa(String maSP);
+
+    Integer xoaKhiDaBan(String maSerial);
+
 }

@@ -19,6 +19,10 @@ public interface IHoaDonChiTietRepository {
     
     Integer xoa( String maHD,String maSP);
     
+    Integer xoa( String maHD);
+    
     ArrayList<String> getMaSP(String maHD);
+    
+    ArrayList<String> getMaHDCT(String maHD,String maSP);
     
 }

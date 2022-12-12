@@ -7,6 +7,10 @@ package Repositories.Impl;
 import DomainModels.Serial;
 import Repositories.ISerialRepository;
 import Utilities.DbConnection;
+import java.util.ArrayList;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,9 +34,31 @@ public class SerialRepository implements ISerialRepository {
     }
 
     @Override
-    public Integer xoaKhiUpdate( String maSP) {
+    public Integer xoaKhiUpdate(String maSP) {
         String sql = "DELETE Serial WHERE MaSerial in (select top 1 MaSerial from Serial where MaSP = ? and TinhTrang = N'Còn Hàng')";
         Integer row = DbConnection.excuteUpdate(sql, maSP);
+        return row;
+    }
+
+    @Override
+    public ArrayList<String> getMa(String maSP) {
+        ArrayList<String> li = new ArrayList<>();
+        String sql = "select top 1 MaSerial from Serial where MaSP=? and TinhTrang =N'Còn Hàng'";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql, maSP);
+            while (rs.next()) {
+                li.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SerialRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return li;
+    }
+
+    @Override
+    public Integer xoaKhiDaBan(String maSerial) {
+        String sql = "DELETE Serial WHERE MaSerial=?";
+        Integer row = DbConnection.excuteUpdate(sql, maSerial);
         return row;
     }
 

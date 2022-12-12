@@ -5,6 +5,7 @@
 package Repositories;
 
 import DomainModels.Serial;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,5 +18,9 @@ public interface ISerialRepository {
     Integer xoa(String maSP);
     
     Integer xoaKhiUpdate(String maSP);
+    
+    ArrayList<String> getMa(String maSP);
+    
+    Integer xoaKhiDaBan(String maSerial);
     
 }

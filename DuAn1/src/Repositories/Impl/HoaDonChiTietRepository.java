@@ -57,4 +57,27 @@ public class HoaDonChiTietRepository implements IHoaDonChiTietRepository {
 
     }
 
+    @Override
+    public ArrayList<String> getMaHDCT(String maHD, String maSP) {
+        String sql = "select MaHoaDonCT from HoaDonChiTiet where MaHD=? and MaSP=?";
+        ArrayList<String> li = new ArrayList<>();
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(sql, maHD, maSP);
+            while (rs.next()) {
+                li.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonChiTietRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return li;
+    }
+
+    @Override
+    public Integer xoa(String maHD) {
+        String sql = "delete HoaDonChiTiet where MaHD=? ";
+        Integer row = DbConnection.excuteUpdate(sql, maHD);
+        return row;
+    }
+
 }
