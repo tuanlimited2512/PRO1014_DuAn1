@@ -224,16 +224,12 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        boolean isValide = true;
+
         String ten = txtTenDSP.getText();
         if (ten.trim().isEmpty()) {
-            msgTen.setText("Tên không được để trống!");
-            msgTen.setForeground(Color.red);
-            isValide = false;
+            JOptionPane.showMessageDialog(this, "Tên không được để trống!");
+            return;
         } else {
-            msgTen.setText("");
-        }
-        if (isValide == true) {
             DongSP cpu = new DongSP(null, ten);
             JOptionPane.showMessageDialog(this, service.add(cpu));
             listDSP = service.getAll();
@@ -243,17 +239,11 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        boolean isValide = true;
         String ma = txtMaDSP.getText();
         String ten = txtTenDSP.getText();
         if (ten.trim().isEmpty()) {
-            msgTen.setText("Tên không được để trống!");
-            msgTen.setForeground(Color.red);
-            isValide = false;
+            JOptionPane.showMessageDialog(this,"Tên không được để trống!");
         } else {
-            msgTen.setText("");
-        }
-        if (isValide == true) {
             DongSP dsp = new DongSP(null, ten);
             JOptionPane.showMessageDialog(this, service.update(dsp, ma));
             listDSP = service.getAll();

@@ -465,31 +465,39 @@ public class FormKhachHang extends javax.swing.JPanel {
 
         int index = tbl_khachhang.getSelectedRow();
         KhachHang kh = khachHangService.getSelectSql().get(index);
-
-        kh.setMa(txt_makh.getText());
-        khachHangService.delete(kh);
-        JOptionPane.showMessageDialog(this, "Xóa thành công");
-        load();
-        clearF();
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, "Chọn khách hàng muốn sửa");
+        } else {
+            int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                kh.setMa(txt_makh.getText());
+                khachHangService.delete(kh);
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                load();
+                clearF();
+            }
+        }
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
+        if (tbl_khachhang.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Chọn khách hàng muốn sửa");
+        } else {
+            int index = tbl_khachhang.getSelectedRow();
+            KhachHang kh = khachHangService.getSelectSql().get(index);
 
-        int index = tbl_khachhang.getSelectedRow();
-        KhachHang kh = khachHangService.getSelectSql().get(index);
-
-        kh.setMa(txt_makh.getText());
-        kh.setTen(txt_tenkh.getText());
-        kh.setSdt(txt_sdt.getText());
-        kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
-        kh.setEmail(txt_email.getText());
-        kh.setDiachi(tar_diachi.getText());
-        khachHangService.update(kh);
-        JOptionPane.showMessageDialog(this, "Sửa thành công");
-        load();
-        clearF();
-
+            kh.setMa(txt_makh.getText());
+            kh.setTen(txt_tenkh.getText());
+            kh.setSdt(txt_sdt.getText());
+            kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
+            kh.setEmail(txt_email.getText());
+            kh.setDiachi(tar_diachi.getText());
+            khachHangService.update(kh);
+            JOptionPane.showMessageDialog(this, "Sửa thành công");
+            load();
+            clearF();
+        }
     }//GEN-LAST:event_btn_suaActionPerformed
 
     private void tbl_khachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangMouseClicked

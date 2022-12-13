@@ -741,22 +741,25 @@ public class FormBanHang extends javax.swing.JPanel {
 
     private void btn_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThanhToanActionPerformed
         // TODO add your handling code here:
-        if (txt_tienKhachDua.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Khách Hàng cần Thanh Toán");
-            return;
-        }
-        if (chiTietSPService.kiemTraLaSo(txt_tienKhachDua.getText()) == false) {
-            JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ");
-            return;
-        }
-        String ma = txt_maHoaDon1.getText();
-        for (int i = 0; i < luuTam.size(); i++) {
-            if (donChiTietServices.upDate(luuTam.get(i).getSoLuong(), ma, luuTam.get(i).getMaSP()) != null) {
-                System.out.println("update sl thanhcong");
+        if(tbl_hoadon.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Chọn hóa đơn muốn thanh toán");
+        } else {
+            if (txt_tienKhachDua.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Khách Hàng cần Thanh Toán");
+                return;
             }
-        }
+            if (chiTietSPService.kiemTraLaSo(txt_tienKhachDua.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ");
+                return;
+            }
+            String ma = txt_maHoaDon1.getText();
+            for (int i = 0; i < luuTam.size(); i++) {
+                if (donChiTietServices.upDate(luuTam.get(i).getSoLuong(), ma, luuTam.get(i).getMaSP()) != null) {
+                    System.out.println("update sl thanhcong");
+                }
+            }
 
-        ArrayList<String> li = donChiTietServices.getMaSP(ma);
+            ArrayList<String> li = donChiTietServices.getMaSP(ma);
 
 //        for (int i = 0; i < luuTam.size(); i++) {
 //            int dem = 0;
@@ -777,95 +780,96 @@ public class FormBanHang extends javax.swing.JPanel {
 //                }
 //            }
 //        }
-        if (donChiTietServices.xoa(ma) != null) {
-            System.out.println("xoa HDCT tc");
-        } else {
-            System.out.println("xoa HDCT ko tc");
-        }
-        for (int i = 0; i < luuTam.size(); i++) {
-            HoaDonChiTiet chiTiet = new HoaDonChiTiet();
-            chiTiet.setMaHD(ma);
-            chiTiet.setDonGia(luuTam.get(i).getDonGia());
-            chiTiet.setSoLuong(luuTam.get(i).getSoLuong());
-            chiTiet.setMaSP(luuTam.get(i).getMaSP());
-//            chiTiet.setTienGiam(luuTam.get(i).getGiamGia());
-            if (luuTam.get(i).getGiamGia().endsWith("VNĐ")) {
-                char[] chars = luuTam.get(i).getGiamGia().toCharArray();
-                char[] chars1 = new char[chars.length - 3];
-                for (int k = 0; k < chars.length - 3; k++) {
-                    chars1[k] = chars[k];
-
-                }
-                String str = new String(chars1);
-                chiTiet.setTienGiam(str);
-            } else if (luuTam.get(i).getGiamGia().endsWith("%")) {
-                double donGia2 = luuTam.get(i).getDonGia();
-                char[] chars = luuTam.get(i).getGiamGia().toCharArray();
-                char[] chars1 = new char[chars.length - 1];
-                for (int l = 0; l < chars.length - 1; l++) {
-                    chars1[l] = chars[l];
-
-                }
-                String str = new String(chars1);
-                int giaGiam = Integer.parseInt(str);
-                double thanhTienCua1SP = donGia2 - ((donGia2 * (100 - giaGiam)) / 100);
-                chiTiet.setTienGiam(String.valueOf(thanhTienCua1SP));
+            if (donChiTietServices.xoa(ma) != null) {
+                System.out.println("xoa HDCT tc");
             } else {
-                chiTiet.setTienGiam("0");
+                System.out.println("xoa HDCT ko tc");
             }
-            if (donChiTietServices.them(chiTiet) != null) {
-                System.out.println("them lần 2 thành công");
-            }
+            for (int i = 0; i < luuTam.size(); i++) {
+                HoaDonChiTiet chiTiet = new HoaDonChiTiet();
+                chiTiet.setMaHD(ma);
+                chiTiet.setDonGia(luuTam.get(i).getDonGia());
+                chiTiet.setSoLuong(luuTam.get(i).getSoLuong());
+                chiTiet.setMaSP(luuTam.get(i).getMaSP());
+//            chiTiet.setTienGiam(luuTam.get(i).getGiamGia());
+                if (luuTam.get(i).getGiamGia().endsWith("VNĐ")) {
+                    char[] chars = luuTam.get(i).getGiamGia().toCharArray();
+                    char[] chars1 = new char[chars.length - 3];
+                    for (int k = 0; k < chars.length - 3; k++) {
+                        chars1[k] = chars[k];
 
-        }
+                    }
+                    String str = new String(chars1);
+                    chiTiet.setTienGiam(str);
+                } else if (luuTam.get(i).getGiamGia().endsWith("%")) {
+                    double donGia2 = luuTam.get(i).getDonGia();
+                    char[] chars = luuTam.get(i).getGiamGia().toCharArray();
+                    char[] chars1 = new char[chars.length - 1];
+                    for (int l = 0; l < chars.length - 1; l++) {
+                        chars1[l] = chars[l];
 
-        if (donServices.updateDaTT(ma) != null) {
-            JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công");
-        }
-
-        HoaDon hd2 = new HoaDon();
-        hd2.setNgayThanhToan(new Date());
-        hd2.setThanhTien(Double.parseDouble(lbl_thanhToan.getText()));
-        if (donServices.updateNgayTT(ma, hd2) != null) {
-            System.out.println("update ngayTT ok");
-        }
-        if (donServices.updateThanhTien(ma, hd2) != null) {
-            System.out.println("update thanhTien ok");
-        }
-
-        for (int i = 0; i < luuTam.size(); i++) {
-            ArrayList<String> li1 = donChiTietServices.getMaHDCT(ma, luuTam.get(i).getMaSP());            
-            int soLuong = luuTam.get(i).getSoLuong();
-            for (int j = 0; j < soLuong; j++) {
-                ArrayList<String> li2 = serialServices.getMa(luuTam.get(i).getMaSP());               
-                SerialDaBan serialDaBan = new SerialDaBan();
-                serialDaBan.setMaSerial(li2.get(0));
-                serialDaBan.setTinhTrang("Đã Bán");
-                serialDaBan.setMaHDCT(li1.get(0));
-                if (serialDaBanServices.them(serialDaBan) != null) {
-                    System.out.println("Thêm serial đã bán ok");
+                    }
+                    String str = new String(chars1);
+                    int giaGiam = Integer.parseInt(str);
+                    double thanhTienCua1SP = donGia2 - ((donGia2 * (100 - giaGiam)) / 100);
+                    chiTiet.setTienGiam(String.valueOf(thanhTienCua1SP));
                 } else {
-                    System.out.println("Thêm serial đã bán !ok");
-
+                    chiTiet.setTienGiam("0");
+                }
+                if (donChiTietServices.them(chiTiet) != null) {
+                    System.out.println("them lần 2 thành công");
                 }
 
-                if (serialServices.xoaKhiDaBan(li2.get(0)) != null) {
-                    System.out.println("xoá serial đã bán ok");
-                } else {
-                    System.out.println("xoá serial đã bán !ok");
-
-                }
             }
+
+            if (donServices.updateDaTT(ma) != null) {
+                JOptionPane.showMessageDialog(this, "Thanh Toán Thành Công");
+            }
+
+            HoaDon hd2 = new HoaDon();
+            hd2.setNgayThanhToan(new Date());
+            hd2.setThanhTien(Double.parseDouble(lbl_thanhToan.getText()));
+            if (donServices.updateNgayTT(ma, hd2) != null) {
+                System.out.println("update ngayTT ok");
+            }
+            if (donServices.updateThanhTien(ma, hd2) != null) {
+                System.out.println("update thanhTien ok");
+            }
+
+            for (int i = 0; i < luuTam.size(); i++) {
+                ArrayList<String> li1 = donChiTietServices.getMaHDCT(ma, luuTam.get(i).getMaSP());
+                int soLuong = luuTam.get(i).getSoLuong();
+                for (int j = 0; j < soLuong; j++) {
+                    ArrayList<String> li2 = serialServices.getMa(luuTam.get(i).getMaSP());
+                    SerialDaBan serialDaBan = new SerialDaBan();
+                    serialDaBan.setMaSerial(li2.get(0));
+                    serialDaBan.setTinhTrang("Đã Bán");
+                    serialDaBan.setMaHDCT(li1.get(0));
+                    if (serialDaBanServices.them(serialDaBan) != null) {
+                        System.out.println("Thêm serial đã bán ok");
+                    } else {
+                        System.out.println("Thêm serial đã bán !ok");
+
+                    }
+
+                    if (serialServices.xoaKhiDaBan(li2.get(0)) != null) {
+                        System.out.println("xoá serial đã bán ok");
+                    } else {
+                        System.out.println("xoá serial đã bán !ok");
+
+                    }
+                }
 //
+            }
+            xuatHoaDon();
+
+            xoaTat();
+            loadHoaDon();
+
+            clear_hoaDon();
+            tbl_bangSanPham.setRowSelectionInterval(0, 0);
         }
-        xuatHoaDon();
-
-        xoaTat();
-        loadHoaDon();
-
-        clear_hoaDon();
-        tbl_bangSanPham.setRowSelectionInterval(0, 0);
-
+        
     }//GEN-LAST:event_btn_ThanhToanActionPerformed
 
     void xuatHoaDon() {
@@ -1130,7 +1134,7 @@ public class FormBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn cần chọn 1 sản phẩm trong giỏ");
             return;
         }
-        int p = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá sản phẩm này ?");
+        int p = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá sản phẩm này ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
         if (p == JOptionPane.YES_OPTION) {
             String ma = luuTam.get(row).getMaSP();
             int soLuong = luuTam.get(row).getSoLuong();
@@ -1154,14 +1158,15 @@ public class FormBanHang extends javax.swing.JPanel {
             for (GioHangViewModel gioHangViewModel : luuTam) {
                 defaultTableModel.addRow(new Object[]{gioHangViewModel.getTenSP(), gioHangViewModel.getSoLuong(), gioHangViewModel.getDonGia(), gioHangViewModel.getGiamGia(), gioHangViewModel.getThanhTien()});
             }
+            thayDoi_lblHoaDon();
         }
 
-        thayDoi_lblHoaDon();
+        
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_xoaTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaTatActionPerformed
         // TODO add your handling code here:
-        int i = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá tất các sản phẩm trong giỏ hàng ?");
+        int i = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá tất các sản phẩm trong giỏ hàng ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
         if (i == JOptionPane.YES_OPTION) {
             for (int j = 0; j < luuTam.size(); j++) {
                 String ma = luuTam.get(j).getMaSP();
@@ -1185,14 +1190,14 @@ public class FormBanHang extends javax.swing.JPanel {
                 }
             }
             xoaTat();
-
+            JOptionPane.showMessageDialog(this, "Xoá thành công ");
+            lbl_giamGia.setText("0");
+            lbl_thanhToan.setText("0");
+            lbl_tongThanhTien.setText("0");
+            lbl_TienThua.setText("0");
+            txt_tienKhachDua.setText("");
         }
-        JOptionPane.showMessageDialog(this, "Xoá thành công ");
-        lbl_giamGia.setText("0");
-        lbl_thanhToan.setText("0");
-        lbl_tongThanhTien.setText("0");
-        lbl_TienThua.setText("0");
-        txt_tienKhachDua.setText("");
+        
     }//GEN-LAST:event_btn_xoaTatActionPerformed
 
     void xoaTat() {

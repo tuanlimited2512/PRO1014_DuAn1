@@ -230,46 +230,66 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-         String ten = txt_tenram.getText();
-        String dungLuong = txt_dungluong.getText();
-        String moTa=txt_moTa.getText();
-        RAM ram = new RAM(null, ten, dungLuong, moTa);
-        JOptionPane.showMessageDialog(this, _RAMService.add(ram));
-        listRAM=_RAMService.getAll();
-        loadData(listRAM);
-        txt_maram.setText("");
-        txt_tenram.setText("");
-        txt_dungluong.setText("");
-        txt_moTa.setText("");
+        if(txt_tenram.getText().equals("") || txt_dungluong.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Thông tin không được để trống");
+        }else {
+            String ten = txt_tenram.getText();
+            String dungLuong = txt_dungluong.getText();
+            String moTa = txt_moTa.getText();
+            RAM ram = new RAM(null, ten, dungLuong, moTa);
+            JOptionPane.showMessageDialog(this, _RAMService.add(ram));
+            listRAM = _RAMService.getAll();
+            loadData(listRAM);
+            txt_maram.setText("");
+            txt_tenram.setText("");
+            txt_dungluong.setText("");
+            txt_moTa.setText("");
+        }
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-         String ma=txt_maram.getText();
-        String ten = txt_tenram.getText();
-        String dungLuong = txt_dungluong.getText();
-        String moTa=txt_moTa.getText();
-        RAM ram = new RAM(null, ten, dungLuong, moTa);
-        JOptionPane.showMessageDialog(this, _RAMService.update(ram, ma));
-        listRAM=_RAMService.getAll();
-        loadData(listRAM);
-        txt_maram.setText("");
-        txt_tenram.setText("");
-        txt_dungluong.setText("");
-        txt_moTa.setText("");
+        if(tblThuocTinhRAM.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Chọn RAM muốn sửa");
+        }else{
+            if (txt_tenram.getText().equals("") || txt_dungluong.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Thông tin không được để trống");
+            } else {
+                String ma = txt_maram.getText();
+                String ten = txt_tenram.getText();
+                String dungLuong = txt_dungluong.getText();
+                String moTa = txt_moTa.getText();
+                RAM ram = new RAM(null, ten, dungLuong, moTa);
+                JOptionPane.showMessageDialog(this, _RAMService.update(ram, ma));
+                listRAM = _RAMService.getAll();
+                loadData(listRAM);
+                txt_maram.setText("");
+                txt_tenram.setText("");
+                txt_dungluong.setText("");
+                txt_moTa.setText("");
+            }
+        }
+         
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        if (tblThuocTinhRAM.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Chọn RAM muốn sửa");
+        } else {
+            int luachon = JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Xóa Không ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (luachon == JOptionPane.YES_OPTION) {
                 String ma = txt_maram.getText();
-        JOptionPane.showMessageDialog(this, _RAMService.delete(ma));
-        listRAM=_RAMService.getAll();
-        loadData(listRAM);
-        txt_maram.setText("");
-        txt_tenram.setText("");
-        txt_dungluong.setText("");
-        txt_moTa.setText("");
-
+                JOptionPane.showMessageDialog(this, _RAMService.delete(ma));
+                listRAM = _RAMService.getAll();
+                loadData(listRAM);
+                txt_maram.setText("");
+                txt_tenram.setText("");
+                txt_dungluong.setText("");
+                txt_moTa.setText("");
+            }
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

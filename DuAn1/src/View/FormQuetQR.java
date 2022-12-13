@@ -73,7 +73,6 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
         txt_soLuongTon = new javax.swing.JTextField();
         txt_donGia = new javax.swing.JTextField();
         txt_khuyenMai = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -128,41 +127,43 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Mã Sản Phẩm: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Tên Sản Phẩm: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Số Lượng Tồn: ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Đơn Giá: ");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Khuyến Mại: ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 540, -1, -1));
 
         txt_ma.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jPanel1.add(txt_ma, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 431, 310, 30));
+        txt_ma.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txt_ma, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 270, 30));
 
         txt_ten.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jPanel1.add(txt_ten, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 310, 30));
+        txt_ten.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txt_ten, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 270, 30));
 
         txt_soLuongTon.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jPanel1.add(txt_soLuongTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 310, 30));
+        txt_soLuongTon.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txt_soLuongTon, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 270, 30));
 
         txt_donGia.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jPanel1.add(txt_donGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, 310, 30));
+        txt_donGia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txt_donGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, 270, 30));
 
         txt_khuyenMai.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jPanel1.add(txt_khuyenMai, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 630, 310, 30));
-
-        jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 250, 240));
+        txt_khuyenMai.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txt_khuyenMai, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 530, 270, 30));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add to cart.png"))); // NOI18N
@@ -172,7 +173,7 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 670, 170, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 650, 160, 30));
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cancel.png"))); // NOI18N
@@ -182,13 +183,14 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 670, 120, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 650, 160, 30));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Số Lượng: ");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
 
         txt_soLuongMua.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txt_soLuongMua.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_soLuongMua.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_soLuongMuaKeyPressed(evt);
@@ -197,20 +199,20 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
                 txt_soLuongMuaKeyReleased(evt);
             }
         });
-        jPanel1.add(txt_soLuongMua, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 680, 310, 30));
+        jPanel1.add(txt_soLuongMua, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 530, 270, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Thành tiền: ");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 740, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
 
         lbl_thanhTien.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         lbl_thanhTien.setForeground(new java.awt.Color(255, 51, 51));
         lbl_thanhTien.setText("0");
-        jPanel1.add(lbl_thanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 730, 240, 30));
+        jPanel1.add(lbl_thanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 580, 230, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel12.setText("VND");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 730, 30, 30));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 580, 30, 30));
 
         lbl_soLuong.setBackground(new java.awt.Color(255, 0, 0));
         lbl_soLuong.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -218,7 +220,7 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
         lbl_soLuong.setText(" ");
         jPanel1.add(lbl_soLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 720, 310, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 840));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 750));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -229,21 +231,24 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String barcode = result_field.getText();
-        List<ChiTietSPViewModel> li = chiTietSPService.getAll(barcode);
-        if (li.size() > 0) {
-            txt_ma.setText(li.get(0).getMaSP());
-            txt_ten.setText(li.get(0).getTenSP());
-            txt_soLuongTon.setText(String.valueOf(li.get(0).getSoLuongTon()));
-            txt_donGia.setText(String.valueOf(li.get(0).getDonGia()));
-            txt_khuyenMai.setText(li.get(0).getGiamGia());
-
+        if(result_field.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Bạn chưa quét mã BarCode");
         } else {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm");
-            return;
+            String barcode = result_field.getText();
+            List<ChiTietSPViewModel> li = chiTietSPService.getAll(barcode);
+            if (li.size() > 0) {
+                txt_ma.setText(li.get(0).getMaSP());
+                txt_ten.setText(li.get(0).getTenSP());
+                txt_soLuongTon.setText(String.valueOf(li.get(0).getSoLuongTon()));
+                txt_donGia.setText(String.valueOf(li.get(0).getDonGia()));
+                txt_khuyenMai.setText(li.get(0).getGiamGia());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm");
+                return;
+            }
         }
-
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txt_soLuongMuaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_soLuongMuaKeyPressed
@@ -390,6 +395,7 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
 
             }
             FormBanHang.checkQuetMa = true;
+            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công");
         }
 
 
@@ -404,7 +410,7 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
     Boolean kiemTra() {
         if (txt_ma.getText().equals("") || txt_ten.getText().equals("") || txt_soLuongTon.getText().equals("")
                 || txt_donGia.getText().equals("") || txt_khuyenMai.getText().equals("") || txt_soLuongMua.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Thêm không thành công . Cần nhập đủ thông tin.");
+            JOptionPane.showMessageDialog(this, "Cần nhập đủ thông tin.");
             return false;
         }
         if (chiTietSPService.kiemTraLaSo(txt_soLuongMua.getText()) == false) {
@@ -502,7 +508,6 @@ public class FormQuetQR extends javax.swing.JFrame implements Runnable, ThreadFa
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

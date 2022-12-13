@@ -525,63 +525,128 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        NhanVien nv = new NhanVien();
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "\\d{10}";
+        String checkMK = ".{6,}";
+        
+        if(txt_ma.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Mã không được để trống");
+        }else if(nhanVienService.Check(txt_ma.getText()) != null){
+            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại, không thể thêm");
+        }else if(txt_ten.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Tên không được để trống");
+        }else if(date_ngaySinh.getDate() == null){
+            JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống");
+        }else if(txt_dienthoai.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Điện thoại không được để trống");
+        }else if(!txt_dienthoai.getText().matches(checkDT)){
+            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng");
+        }else if(txt_diachi.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
+        }else if(txt_email.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Email không được để trống");
+        }else if(!txt_email.getText().matches(checkEmail)){
+            JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
+        }else if(txt_mk.getPassword().equals("")){
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+        }else if(!String.valueOf(txt_mk.getPassword()).matches(checkMK)){
+            JOptionPane.showMessageDialog(this, "Mật khẩu ít nhất 6 ký tự");
+        } else {
+            NhanVien nv = new NhanVien();
 
-        nv.setMa(txt_ma.getText());
-        nv.setTen(txt_ten.getText());
-        nv.setNgaySinh(sdf.format(date_ngaySinh.getDate()));
-        nv.setGioiTinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
-        nv.setDiaChi(txt_diachi.getText());
-        nv.setSdt(txt_dienthoai.getText());
-        nv.setEmail(txt_email.getText());
-        nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
-        nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
-        if(rdo_hd.isSelected() == true){
-            nv.setTrangThai("Đang làm việc");
-        }else{
-            nv.setTrangThai("Nghỉ việc");
+            nv.setMa(txt_ma.getText());
+            nv.setTen(txt_ten.getText());
+            nv.setNgaySinh(sdf.format(date_ngaySinh.getDate()));
+            nv.setGioiTinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
+            nv.setDiaChi(txt_diachi.getText());
+            nv.setSdt(txt_dienthoai.getText());
+            nv.setEmail(txt_email.getText());
+            nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
+            nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
+            if (rdo_hd.isSelected() == true) {
+                nv.setTrangThai("Đang làm việc");
+            } else {
+                nv.setTrangThai("Nghỉ việc");
+            }
+            nhanVienService.insert(nv, (String) cbo_vaitro.getSelectedItem());
+            load();
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            clearF();
         }
-        nhanVienService.insert(nv, (String) cbo_vaitro.getSelectedItem());
-        load();
-        JOptionPane.showMessageDialog(this, "Thêm thành công");
-        clearF();
 
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         // TODO add your handling code here:
         int index = tbl_nhanvien_lamviec.getSelectedRow();
-        NhanVien nv = nhanVienService.getSelectSqlLV().get(index);
-        nv.setMa(txt_ma.getText());
-        nhanVienService.delete(nv);
-        clearF();
-        JOptionPane.showMessageDialog(this, "Xóa thành công");      
-        load();
+        if(index < 0){
+            JOptionPane.showMessageDialog(this, "Chọn nhân viên muốn xóa");
+        }else{
+            int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                NhanVien nv = nhanVienService.getSelectSqlLV().get(index);
+                nv.setMa(txt_ma.getText());
+                nhanVienService.delete(nv);
+                clearF();
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                load();
+            }
+        }
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "\\d{10}";
+        String checkMK = ".{6,}";
+        
         int index = tbl_nhanvien_lamviec.getSelectedRow();
-        NhanVien nv = nhanVienService.getSelectSqlLV().get(index);
-
-        nv.setTen(txt_ten.getText());
-        nv.setNgaySinh(sdf.format(date_ngaySinh.getDate()));
-        nv.setGioiTinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
-        nv.setDiaChi(txt_diachi.getText());
-        nv.setSdt(txt_dienthoai.getText());
-        nv.setEmail(txt_email.getText());
-        nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
-        nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
-        if(rdo_hd.isSelected() == true){
-            nv.setTrangThai("Đang làm việc");
+        if(index < 0){
+            JOptionPane.showMessageDialog(this, "Chọn nhân viên muốn sửa");
         }else{
-            nv.setTrangThai("Nghỉ việc");
+            if (txt_ten.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên không được để trống");
+            } else if (date_ngaySinh.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống");
+            } else if (txt_dienthoai.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Điện thoại không được để trống");
+            } else if (!txt_dienthoai.getText().matches(checkDT)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng");
+            } else if (txt_diachi.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
+            } else if (txt_email.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Email không được để trống");
+            } else if (!txt_email.getText().matches(checkEmail)) {
+                JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
+            } else if (txt_mk.getPassword().equals("")) {
+                JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+            } else if (!String.valueOf(txt_mk.getPassword()).matches(checkMK)) {
+                JOptionPane.showMessageDialog(this, "Mật khẩu ít nhất 6 ký tự");
+            } else {
+                int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
+                if (i == 0) {
+                    NhanVien nv = nhanVienService.getSelectSqlLV().get(index);
+                    nv.setTen(txt_ten.getText());
+                    nv.setNgaySinh(sdf.format(date_ngaySinh.getDate()));
+                    nv.setGioiTinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
+                    nv.setDiaChi(txt_diachi.getText());
+                    nv.setSdt(txt_dienthoai.getText());
+                    nv.setEmail(txt_email.getText());
+                    nv.setMatKhau(String.valueOf(txt_mk.getPassword()));
+                    nv.setMaVaiTro((String) cbo_vaitro.getSelectedItem());
+                    if (rdo_hd.isSelected() == true) {
+                        nv.setTrangThai("Đang làm việc");
+                    } else {
+                        nv.setTrangThai("Nghỉ việc");
+                    }
+                    nv.setMa(txt_ma.getText());
+                    nhanVienService.update(nv, (String) cbo_vaitro.getSelectedItem());
+                    clearF();
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    load();
+                }
+            }  
         }
-        nv.setMa(txt_ma.getText());
-        nhanVienService.update(nv, (String) cbo_vaitro.getSelectedItem());   
-        clearF();  
-        JOptionPane.showMessageDialog(this, "Sửa thành công");
-        load();
 
     }//GEN-LAST:event_btn_suaActionPerformed
 

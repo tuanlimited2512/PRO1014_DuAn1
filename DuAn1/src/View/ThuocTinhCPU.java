@@ -251,24 +251,15 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        boolean isValide = true;
         String ten = txtTenCPU.getText();
-        if (ten.trim().isEmpty()) {
-            msgTen.setText("Tên không được để trống!");
-            msgTen.setForeground(Color.red);
-            isValide = false;
-        } else {
-            msgTen.setText("");
-        }
         String moTa = txtMoTa.getText();
-        if (moTa.trim().isEmpty()) {
-            msgMoTa.setText("Mô tả không được để trống!");
-            msgMoTa.setForeground(Color.red);
-            isValide = false;
-        } else {
-            msgMoTa.setText("");
-        }
-        if (isValide == true) {
+        if (ten.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên không được để trống!");
+            return;
+        }else if (moTa.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mô tả không được để trống!");
+            return;
+        }else{
             CPU cpu = new CPU(null, ten, moTa);
             JOptionPane.showMessageDialog(this, service.add(cpu));
             listCPU = service.getAll();
@@ -278,44 +269,46 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        boolean isValide = true;
         String ma = txtMaCPU.getText();
         String ten = txtTenCPU.getText();
-        if (ten.trim().isEmpty()) {
-            msgTen.setText("Tên không được để trống!");
-            msgTen.setForeground(Color.red);
-            isValide = false;
-        } else {
-            msgTen.setText("");
-        }
         String moTa = txtMoTa.getText();
-        if (moTa.trim().isEmpty()) {
-            msgMoTa.setText("Mô tả không được để trống!");
-            msgMoTa.setForeground(Color.red);
-            isValide = false;
+        if(tableThuocTinhCPU.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(this, "Chọn CPU muốn sửa");
         } else {
-            msgMoTa.setText("");
+            if (ten.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Tên không được để trống!");
+                return;
+            } else if (moTa.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Mô tả không được để trống!");
+                return;
+            } else {
+                CPU cpu = new CPU(null, ten, moTa);
+                JOptionPane.showMessageDialog(this, service.update(cpu, ma));
+                listCPU = service.getAll();
+                loadData(listCPU);
+                lamMoi();
+            }
         }
-        if (isValide == true) {
-            CPU cpu = new CPU(null, ten, moTa);
-            JOptionPane.showMessageDialog(this, service.update(cpu, ma));
-            listCPU = service.getAll();
-            loadData(listCPU);
-            lamMoi();
-        }
+        
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int index = tableThuocTinhCPU.getSelectedRow();
         if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Không có dữ liệu !!!");
+            JOptionPane.showMessageDialog(this, "Chọn CPU muốn xóa");
             return;
+        } else {
+            int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                String ma = txtMaCPU.getText();
+                JOptionPane.showMessageDialog(this, service.delete(ma));
+                listCPU = service.getAll();
+                loadData(listCPU);
+                lamMoi();
+            }
         }
-        String ma = txtMaCPU.getText();
-        JOptionPane.showMessageDialog(this, service.delete(ma));
-        listCPU = service.getAll();
-        loadData(listCPU);
-        lamMoi();
+        
+        
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed

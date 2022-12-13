@@ -31,4 +31,6 @@ public interface INhanVienRepository {
     List<NhanVien> timGT(String giotinh);
     //đăng nhập
     List<NhanVien> getUser(String tk, String mk);
+    
+    String Check(String ma);
 }

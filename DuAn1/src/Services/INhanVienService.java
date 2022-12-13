@@ -32,4 +32,6 @@ public interface INhanVienService {
     
     //Đăng nhập
     boolean getUser(String tk, String mk);
+    
+    String Check(String ma);
 }

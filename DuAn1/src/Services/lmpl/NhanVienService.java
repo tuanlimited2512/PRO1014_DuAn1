@@ -95,5 +95,10 @@ public class NhanVienService implements INhanVienService {
         JOptionPane.showMessageDialog(new GiaoDienDangNhap(), "Tên tài khoản hoặc mật khẩu không đúng !", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
         return false;
     }
+
+    @Override
+    public String Check(String ma) {
+        return repository.Check(ma);
+    }
     
 }

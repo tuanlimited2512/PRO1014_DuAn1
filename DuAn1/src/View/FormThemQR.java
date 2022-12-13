@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -125,9 +126,14 @@ public class FormThemQR extends javax.swing.JFrame implements Runnable, ThreadFa
 
     private void btnXuatAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatAnhActionPerformed
         // TODO add your handling code here:
-        webcam.close();
-        ImageUtils.createBarCodeImage(result_field.getText(), result_field.getText());
-        lbl_barcode.setIcon(ImageUtils.resizeImg(ImageUtils.read("BarCode", result_field.getText() + ".png"), lbl_barcode));
+        if(result_field.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Bạn chưa quét mã BarCode");
+        }else{
+            webcam.close();
+            ImageUtils.createBarCodeImage(result_field.getText(), result_field.getText());
+            lbl_barcode.setIcon(ImageUtils.resizeImg(ImageUtils.read("BarCode", result_field.getText() + ".png"), lbl_barcode));
+        }
+        
     }//GEN-LAST:event_btnXuatAnhActionPerformed
 
     /**

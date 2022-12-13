@@ -93,7 +93,7 @@ public class ThuocTinhNSX extends javax.swing.JPanel {
         if(index < 0){
             JOptionPane.showMessageDialog(this, "Chọn Dòng Để Xóa");
         }else{
-            int luachon = JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Xóa Không ?", "Thông Báo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int luachon = JOptionPane.showConfirmDialog(this, "Bạn Có Chắc Chắn Muốn Xóa Không ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(luachon == JOptionPane.YES_OPTION){
                 String delete = insx.delete(txtmansx.getText().trim());
                 listnsx = insx.getAllnsx();

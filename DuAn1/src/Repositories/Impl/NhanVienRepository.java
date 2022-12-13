@@ -207,5 +207,23 @@ public class NhanVienRepository implements INhanVienRepository {
         }
         return null;
     }
+    
+    @Override
+    public String Check(String ma){
+            String box =null;
+             String select = "select MaNV  from nhanvien where MaNV = ? ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, ma);
+            while(rs.next()){
+                box=rs.getString(1);
+            }
+            return box;
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return null;
+       
+    }
 
 }

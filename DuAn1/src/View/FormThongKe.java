@@ -15,6 +15,7 @@ import ViewModels.TongKhachHang;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import Services.IThongKeTQService;
+import java.text.DecimalFormat;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -29,6 +30,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class FormThongKe extends javax.swing.JPanel {
     private final IThongKeSPViewModelService service;
     private final IThongKeTQService banChayService;
+    DecimalFormat df = new DecimalFormat("#, ###");
     /**
      * Creates new form FormThongKe
      */
@@ -62,7 +64,7 @@ public class FormThongKe extends javax.swing.JPanel {
         }
         
         for(DoanhThu dt : banChayService.getDT()){
-            lbl_doanhthu.setText(String.valueOf(dt.getDoanhThu()));
+            lbl_doanhthu.setText(df.format(dt.getDoanhThu()));
         }
         load();
 
@@ -550,7 +552,7 @@ public class FormThongKe extends javax.swing.JPanel {
         }
         
         for(DoanhThu dt : banChayService.getDT()){
-            lbl_doanhthu.setText(String.valueOf(dt.getDoanhThu()));
+            lbl_doanhthu.setText(df.format(dt.getDoanhThu()));
         }
     }//GEN-LAST:event_rdo_theongayActionPerformed
 
@@ -682,13 +684,13 @@ public class FormThongKe extends javax.swing.JPanel {
     
     private void doanhthu_t() {
         for (DoanhThu dt : banChayService.getDT_T((String) cbo_thang.getSelectedItem())) {
-            lbl_doanhthu.setText(String.valueOf(dt.getDoanhThu()));
+            lbl_doanhthu.setText(df.format(dt.getDoanhThu()));
         }
     }
     
     private void doanhthu_n(){
         for(DoanhThu dt : banChayService.getDT_N((String) cbo_nam.getSelectedItem())){
-            lbl_doanhthu.setText(String.valueOf(dt.getDoanhThu()));
+            lbl_doanhthu.setText(df.format(dt.getDoanhThu()));
         }
     }
 
