@@ -408,16 +408,9 @@ public class GiaoDienPhanMem extends javax.swing.JFrame {
 
     private void btn_khuyenmaiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_khuyenmaiMousePressed
         // TODO add your handling code here:
-        if(TenCV.equalsIgnoreCase("Quản lý")){
-            setColor(btn_khuyenmai);
-            resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
-            setpanal(new FormKhuyenMai());
-        }else{
-            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập !");
-            GiaoDienChinh();
-            return;
-        }
-        
+        setColor(btn_khuyenmai);
+        resetColor(new JPanel[]{btn_banhang, btn_sanpham, btn_hoadon, btn_nhanvien, btn_khachhang, btn_thongke, btn_dangxuat});
+        setpanal(new FormKhuyenMai());
     }//GEN-LAST:event_btn_khuyenmaiMousePressed
 
     private void btn_nhanvienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_nhanvienMousePressed
