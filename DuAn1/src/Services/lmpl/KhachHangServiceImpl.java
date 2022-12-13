@@ -59,13 +59,13 @@ public class KhachHangServiceImpl implements IKhachHangService {
     }
 
     @Override
-    public ArrayList<String> trungMa() {
-        return repository.trungMa();
+    public List<KhachHang> getSelectSql1(String maKH) {
+        return repository.getSelectSql1(maKH);
     }
 
     @Override
-    public List<KhachHang> getSelectSql1(String maKH) {
-        return repository.getSelectSql1(maKH);
+    public String Check(String ma) {
+        return repository.Check(ma);
     }
 
 }

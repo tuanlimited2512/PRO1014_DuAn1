@@ -140,24 +140,6 @@ public class KhachHangRepository implements IKhachHangRepository {
     }
 
     @Override
-    public ArrayList<String> trungMa() {
-        String sql = "Select MaKH from KhachHang";
-        ArrayList<String> li = new ArrayList<>();
-
-        try {
-            ResultSet rs = DbConnection.getDataFromQuery(sql);
-            while (rs.next()) {
-                li.add(rs.getString(1));
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(HoaDonRepository.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        return li;
-    }
-
-    @Override
     public List<KhachHang> getSelectSql1(String maKH) {
         List<KhachHang> listKH = new ArrayList<>();
         String select = "select MaKH, TenKH, SDT, GioiTinh, Email, DiaChi from KhachHang where MaKH=?";
@@ -171,6 +153,24 @@ public class KhachHangRepository implements IKhachHangRepository {
             Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    @Override
+    public String Check(String ma){
+            String box =null;
+             String select = "select MaKH  from KhachHang where MaKH = ? ";
+        try {
+            ResultSet rs = DbConnection.getDataFromQuery(select, ma);
+            while(rs.next()){
+                box=rs.getString(1);
+            }
+            return box;
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return null;
+       
     }
 
 }

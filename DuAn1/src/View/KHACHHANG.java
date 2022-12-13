@@ -339,42 +339,108 @@ public class KHACHHANG extends javax.swing.JFrame {
     private void btn_lammoi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lammoi1ActionPerformed
         // TODO add your handling code here:
         clearF();
+        load();
+        txt_makh.setEnabled(true);
     }//GEN-LAST:event_btn_lammoi1ActionPerformed
 
     private void btn_xoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoa1ActionPerformed
         // TODO add your handling code here:
-
         int index = tbl_khachhang.getSelectedRow();
         KhachHang kh = khachHangService.getSelectSql().get(index);
-
-        kh.setMa(txt_makh.getText());
-        khachHangService.delete(kh);
-        JOptionPane.showMessageDialog(this, "Xóa thành công");
-        load();
-        clearF();
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, "Chọn khách hàng muốn sửa");
+        } else {
+            int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                kh.setMa(txt_makh.getText());
+                khachHangService.delete(kh);
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                load();
+                clearF();
+            }
+        }
     }//GEN-LAST:event_btn_xoa1ActionPerformed
 
     private void btn_sua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sua1ActionPerformed
         // TODO add your handling code here:
-
         int index = tbl_khachhang.getSelectedRow();
-        KhachHang kh = khachHangService.getSelectSql().get(index);
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "0\\d{9}";
+            
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, "Chọn khách hàng muốn sửa");
+        } else {
+            if (txt_makh.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
+                return;
+            }else if (txt_tenkh.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+                return;
+            } else if (txt_sdt.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+                return;
+            } else if (!txt_sdt.getText().matches(checkDT)) {
+                JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
+                return;
+            } else if (txt_email.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+                return;
+            } else if (!txt_email.getText().matches(checkEmail)) {
+                JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
+                return;
+            } else if (tar_diachi.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+                return;
+            } else {
+                int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
+                if (i == JOptionPane.YES_OPTION) {
+                    KhachHang kh = khachHangService.getSelectSql().get(index);
 
-        kh.setMa(txt_makh.getText());
-        kh.setTen(txt_tenkh.getText());
-        kh.setSdt(txt_sdt.getText());
-        kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
-        kh.setEmail(txt_email.getText());
-        kh.setDiachi(tar_diachi.getText());
-        khachHangService.update(kh);
-        JOptionPane.showMessageDialog(this, "Sửa thành công");
-        load();
-        clearF();
+                    kh.setMa(txt_makh.getText());
+                    kh.setTen(txt_tenkh.getText());
+                    kh.setSdt(txt_sdt.getText());
+                    kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
+                    kh.setEmail(txt_email.getText());
+                    kh.setDiachi(tar_diachi.getText());
+                    khachHangService.update(kh);
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    load();
+                    clearF();
+                }
+            }
+        }
     }//GEN-LAST:event_btn_sua1ActionPerformed
 
     private void btn_them1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_them1ActionPerformed
         // TODO add your handling code here:
-        if (kiemTra()) {
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "0\\d{9}";
+        
+        if (txt_makh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
+            return;
+        }else if(khachHangService.Check(txt_makh.getText()) != null){
+            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Đã Tồn Tại, Không Thể Thêm.");
+            return;
+        }else if (txt_tenkh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+            return;
+        }else if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+            return;
+        }else if(!txt_sdt.getText().matches(checkDT)){
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
+            return;
+        }else if (txt_email.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+            return;
+        }else if(!txt_email.getText().matches(checkEmail)){
+            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
+            return;
+        }else if (tar_diachi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+            return;
+        }else{
             KhachHang kh = new KhachHang();
 
             kh.setMa(txt_makh.getText());
@@ -415,7 +481,7 @@ public class KHACHHANG extends javax.swing.JFrame {
 
     private void tbl_khachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachhangMouseClicked
         // TODO add your handling code here:
-
+        txt_makh.setEnabled(false);
         btn_chon.setEnabled(true);
         
         int row = tbl_khachhang.getSelectedRow();
@@ -479,39 +545,6 @@ public class KHACHHANG extends javax.swing.JFrame {
         txt_email.setText("");
         tar_diachi.setText("");
         buttonGroup1.clearSelection();
-    }
-
-    Boolean kiemTra() {
-        if (txt_makh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
-            return false;
-        }
-        String maKH = txt_makh.getText();
-        ArrayList<String> list = khachHangService.trungMa();
-        for (String string : list) {
-            if (maKH.equals(string)) {
-                JOptionPane.showMessageDialog(this, "Mã Trùng.Bạn cần thêm 1 mã khác.");
-                return false;
-            }
-        }
-        if (txt_tenkh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
-            return false;
-        }
-        if (txt_email.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
-            return false;
-        }
-        if (txt_sdt.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
-            return false;
-        }
-        if (tar_diachi.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
-            return false;
-        }
-
-        return true;
     }
     /**
      * @param args the command line arguments

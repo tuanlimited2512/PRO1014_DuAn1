@@ -30,5 +30,5 @@ public interface IKhachHangRepository {
 
     List<KhachHang> timSDT(String sdt);
 
-    ArrayList<String> trungMa();
+    String Check(String ma);
 }

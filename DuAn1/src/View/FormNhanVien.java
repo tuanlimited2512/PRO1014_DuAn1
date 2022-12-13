@@ -154,6 +154,7 @@ public class FormNhanVien extends javax.swing.JPanel {
 
         rdo_nam.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdo_nam);
+        rdo_nam.setSelected(true);
         rdo_nam.setText("Nam");
 
         rdo_nu.setBackground(new java.awt.Color(255, 255, 255));
@@ -162,6 +163,7 @@ public class FormNhanVien extends javax.swing.JPanel {
 
         rdo_hd.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup2.add(rdo_hd);
+        rdo_hd.setSelected(true);
         rdo_hd.setText("Đang làm việc");
 
         rdo_khd.setBackground(new java.awt.Color(255, 255, 255));
@@ -597,7 +599,7 @@ public class FormNhanVien extends javax.swing.JPanel {
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
         String checkEmail = "\\w+@\\w+\\.\\w+";
-        String checkDT = "\\d{10}";
+        String checkDT = "0\\d{9}";
         String checkMK = ".{6,}";
         
         int index = tbl_nhanvien_lamviec.getSelectedRow();
@@ -652,8 +654,9 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
         // TODO add your handling code here:
+        txt_ma.setEnabled(true);
         clearF();
-
+        load();
     }//GEN-LAST:event_btn_newActionPerformed
 
 
@@ -673,6 +676,7 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void tbl_nhanvien_lamviecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_nhanvien_lamviecMouseClicked
         // TODO add your handling code here:
+        txt_ma.setEnabled(false);
         int index = tbl_nhanvien_lamviec.getSelectedRow();
         NhanVien nv = nhanVienService.getSelectSqlLV().get(index);
 
@@ -777,8 +781,8 @@ public class FormNhanVien extends javax.swing.JPanel {
         txt_email.setText("");
         txt_mk.setText("");
         cbo_vaitro.setSelectedItem(1);
-        buttonGroup1.clearSelection();
-        buttonGroup2.clearSelection();
+        rdo_nam.setSelected(true);
+        rdo_hd.setSelected(true);
     }
 
 
