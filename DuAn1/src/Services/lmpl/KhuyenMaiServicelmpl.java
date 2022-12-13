@@ -53,10 +53,5 @@ public class KhuyenMaiServicelmpl implements IKhuyenMaiService{
     public Integer updateTrangThai() {
         return repository.updateTrangThai();
     }
-
-    @Override
-    public Integer updateMaKM() {
-        return repository.updateMaKM();
-    }
     
 }

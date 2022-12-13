@@ -28,13 +28,12 @@ public class FormKhuyenMai extends javax.swing.JPanel {
     public FormKhuyenMai() {
         initComponents();
         khuyenMaiService = new KhuyenMaiServicelmpl();
+        khuyenMaiService.updateTrangThai();
         load();
         loadSP();
         Date dateNow = new Date();
         System.out.println(sdf.format(dateNow));
         
-        khuyenMaiService.updateTrangThai();
-        khuyenMaiService.updateMaKM();
     }
     
     private void load(){
@@ -464,7 +463,7 @@ public class FormKhuyenMai extends javax.swing.JPanel {
 
                 khuyenMaiService.update(km);
                 load();
-                JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi sản phẩm thành công");
+                JOptionPane.showMessageDialog(this, "Sửa khuyến mãi sản phẩm thành công");
             }
         }
         

@@ -20,5 +20,4 @@ public interface IKhuyenMaiService {
     Integer updateCTSP(String tenKM, String MaSP);
     
     Integer updateTrangThai();
-    Integer updateMaKM();
 }
