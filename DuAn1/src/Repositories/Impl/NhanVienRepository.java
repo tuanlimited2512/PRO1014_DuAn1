@@ -192,9 +192,9 @@ public class NhanVienRepository implements INhanVienRepository {
     public List<NhanVien> getUser(String tk, String mk) {
         List<NhanVien> listNV = new ArrayList<>();
         
-        String select = "Select NhanVien.MaNV, NhanVien.HoTen, VaiTro.TenVaiTro from NhanVien "
+        String select = "Select NhanVien.Email, NhanVien.HoTen, VaiTro.TenVaiTro from NhanVien "
                 + "join VaiTro on VaiTro.MaVaiTro=NhanVien.MaVaiTro "
-                + "WHERE MaNV = ? AND MatKhau = ?";
+                + "WHERE Email = ? AND MatKhau = ?";
         
         try {
             ResultSet rs = DbConnection.getDataFromQuery(select, tk, mk);

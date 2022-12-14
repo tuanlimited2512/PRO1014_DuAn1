@@ -72,7 +72,7 @@ public class DangNhap extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
         jLabel1.setText("ĐĂNG NHẬP");
 
-        jLabel2.setText("Mã nhân viên");
+        jLabel2.setText("Email");
 
         jLabel3.setText("Mật khẩu");
 
