@@ -8,6 +8,7 @@ import DomainModels.KhachHang;
 import Services.IKhachHangService;
 import Services.lmpl.KhachHangServiceImpl;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -411,37 +412,41 @@ public class FormKhachHang extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        String checkEmail = "\\w+@\\w+\\.\\w+";
-        String checkDT = "0\\d{9}";
-        
-        if (txt_makh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
-            return;
-        }else if(khachHangService.Check(txt_makh.getText()) != null){
-            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Đã Tồn Tại, Không Thể Thêm.");
-            return;
-        }else if (txt_tenkh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
-            return;
-        }else if (txt_sdt.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
-            return;
-        }else if(!txt_sdt.getText().matches(checkDT)){
-            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
-            return;
-        }else if (txt_email.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
-            return;
-        }else if(!txt_email.getText().matches(checkEmail)){
-            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
-            return;
-        }else if (tar_diachi.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
-            return;
-        }else{
+//        String checkEmail = "\\w+@\\w+\\.\\w+";
+//        String checkDT = "0\\d{9}";
+
+//        if (txt_makh.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
+//            return;
+//        }else if(khachHangService.Check(txt_makh.getText()) != null){
+//            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Đã Tồn Tại, Không Thể Thêm.");
+//            return;
+//        }else 
+//        if (txt_tenkh.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (txt_sdt.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (!txt_sdt.getText().matches(checkDT)) {
+//            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
+//            return;
+//        } else if (txt_email.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (!txt_email.getText().matches(checkEmail)) {
+//            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
+//            return;
+//        } else if (tar_diachi.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+//            return;
+//        } else {
+        if (kiemTra()) {
             KhachHang kh = new KhachHang();
 
-            kh.setMa(txt_makh.getText());
+            Random rd = new Random();
+            String ma = "KH" + rd.nextInt();
+            kh.setMa(ma);
             kh.setTen(txt_tenkh.getText());
             kh.setSdt(txt_sdt.getText());
             kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
@@ -452,10 +457,36 @@ public class FormKhachHang extends javax.swing.JPanel {
             load();
             clearF();
         }
+//        }
 
 
     }//GEN-LAST:event_btn_themActionPerformed
 
+    Boolean kiemTra() {
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "0\\d{9}";
+
+        if (txt_tenkh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+            return false;
+        } else if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+            return false;
+        } else if (!txt_sdt.getText().matches(checkDT)) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
+            return false;
+        } else if (txt_email.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+            return false;
+        } else if (!txt_email.getText().matches(checkEmail)) {
+            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
+            return false;
+        } else if (tar_diachi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+            return false;
+        }
+        return true;
+    }
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         // TODO add your handling code here:
 
@@ -480,14 +511,14 @@ public class FormKhachHang extends javax.swing.JPanel {
         int index = tbl_khachhang.getSelectedRow();
         String checkEmail = "\\w+@\\w+\\.\\w+";
         String checkDT = "0\\d{9}";
-            
+
         if (index < 0) {
             JOptionPane.showMessageDialog(this, "Chọn khách hàng muốn sửa");
         } else {
             if (txt_makh.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
                 return;
-            }else if (txt_tenkh.getText().equals("")) {
+            } else if (txt_tenkh.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
                 return;
             } else if (txt_sdt.getText().equals("")) {

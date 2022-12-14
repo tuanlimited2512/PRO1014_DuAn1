@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -35,7 +36,7 @@ public class FormNhanVien extends javax.swing.JPanel {
      * Creates new form FormNhanVien
      */
     DefaultTableModel dfmol = new DefaultTableModel();
-    
+
     DefaultComboBoxModel dfcombo = new DefaultComboBoxModel();
     DefaultComboBoxModel dfcombo_tim = new DefaultComboBoxModel();
 
@@ -63,10 +64,10 @@ public class FormNhanVien extends javax.swing.JPanel {
             dfcombo.addElement(vt.getTenVaiTro());
         }
     }
-    
-    private void showComBoTim(List<VaiTro> ListVT){
+
+    private void showComBoTim(List<VaiTro> ListVT) {
         dfcombo_tim = (DefaultComboBoxModel) cbo_timVaiTro.getModel();
-        for(VaiTro vt : ListVT){
+        for (VaiTro vt : ListVT) {
             dfcombo_tim.addElement(vt.getTenVaiTro());
         }
     }
@@ -527,36 +528,39 @@ public class FormNhanVien extends javax.swing.JPanel {
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
-        String checkEmail = "\\w+@\\w+\\.\\w+";
-        String checkDT = "\\d{10}";
-        String checkMK = ".{6,}";
-        
-        if(txt_ma.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Mã không được để trống");
-        }else if(nhanVienService.Check(txt_ma.getText()) != null){
-            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại, không thể thêm");
-        }else if(txt_ten.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Tên không được để trống");
-        }else if(date_ngaySinh.getDate() == null){
-            JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống");
-        }else if(txt_dienthoai.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Điện thoại không được để trống");
-        }else if(!txt_dienthoai.getText().matches(checkDT)){
-            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng");
-        }else if(txt_diachi.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
-        }else if(txt_email.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Email không được để trống");
-        }else if(!txt_email.getText().matches(checkEmail)){
-            JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
-        }else if(txt_mk.getPassword().equals("")){
-            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
-        }else if(!String.valueOf(txt_mk.getPassword()).matches(checkMK)){
-            JOptionPane.showMessageDialog(this, "Mật khẩu ít nhất 6 ký tự");
-        } else {
-            NhanVien nv = new NhanVien();
+//        String checkEmail = "\\w+@\\w+\\.\\w+";
+//        String checkDT = "\\d{10}";
+//        String checkMK = ".{6,}";
 
-            nv.setMa(txt_ma.getText());
+//        if (txt_ma.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Mã không được để trống");
+//        } else if (nhanVienService.Check(txt_ma.getText()) != null) {
+//            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại, không thể thêm");
+//        } else 
+//        if (txt_ten.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Tên không được để trống");
+//        } else if (date_ngaySinh.getDate() == null) {
+//            JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống");
+//        } else if (txt_dienthoai.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Điện thoại không được để trống");
+//        } else if (!txt_dienthoai.getText().matches(checkDT)) {
+//            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng");
+//        } else if (txt_diachi.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
+//        } else if (txt_email.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Email không được để trống");
+//        } else if (!txt_email.getText().matches(checkEmail)) {
+//            JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
+//        } else if (txt_mk.getPassword().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+//        } else if (!String.valueOf(txt_mk.getPassword()).matches(checkMK)) {
+//            JOptionPane.showMessageDialog(this, "Mật khẩu ít nhất 6 ký tự");
+//        } else {
+        if (kiemTra()) {
+            NhanVien nv = new NhanVien();
+            Random rd = new Random();
+            String ma = "NV" + rd.nextInt();
+            nv.setMa(ma);
             nv.setTen(txt_ten.getText());
             nv.setNgaySinh(sdf.format(date_ngaySinh.getDate()));
             nv.setGioiTinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
@@ -575,15 +579,50 @@ public class FormNhanVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Thêm thành công");
             clearF();
         }
+//        }
 
     }//GEN-LAST:event_btn_themActionPerformed
 
+    Boolean kiemTra() {
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "\\d{10}";
+        String checkMK = ".{6,}";
+        if (txt_ten.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên không được để trống");
+            return false;
+        } else if (date_ngaySinh.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống");
+            return false;
+        } else if (txt_dienthoai.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Điện thoại không được để trống");
+            return false;
+        } else if (!txt_dienthoai.getText().matches(checkDT)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng");
+            return false;
+        } else if (txt_diachi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
+            return false;
+        } else if (txt_email.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Email không được để trống");
+            return false;
+        } else if (!txt_email.getText().matches(checkEmail)) {
+            JOptionPane.showMessageDialog(this, "Email không đúng định dạng");
+            return false;
+        } else if (txt_mk.getPassword().equals("")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+            return false;
+        } else if (!String.valueOf(txt_mk.getPassword()).matches(checkMK)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu ít nhất 6 ký tự");
+            return false;
+        }
+        return true;
+    }
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         // TODO add your handling code here:
         int index = tbl_nhanvien_lamviec.getSelectedRow();
-        if(index < 0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(this, "Chọn nhân viên muốn xóa");
-        }else{
+        } else {
             int i = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không ?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 NhanVien nv = nhanVienService.getSelectSqlLV().get(index);
@@ -601,11 +640,11 @@ public class FormNhanVien extends javax.swing.JPanel {
         String checkEmail = "\\w+@\\w+\\.\\w+";
         String checkDT = "0\\d{9}";
         String checkMK = ".{6,}";
-        
+
         int index = tbl_nhanvien_lamviec.getSelectedRow();
-        if(index < 0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(this, "Chọn nhân viên muốn sửa");
-        }else{
+        } else {
             if (txt_ten.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Tên không được để trống");
             } else if (date_ngaySinh.getDate() == null) {
@@ -647,7 +686,7 @@ public class FormNhanVien extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Sửa thành công");
                     load();
                 }
-            }  
+            }
         }
 
     }//GEN-LAST:event_btn_suaActionPerformed
@@ -658,7 +697,6 @@ public class FormNhanVien extends javax.swing.JPanel {
         clearF();
         load();
     }//GEN-LAST:event_btn_newActionPerformed
-
 
 
     private void lbl_showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_showMouseClicked
@@ -719,8 +757,8 @@ public class FormNhanVien extends javax.swing.JPanel {
             for (NhanVien nv : nhanVienService.timVT((String) cbo_timVaiTro.getSelectedItem())) {
                 dfmol.addRow(nv.toDataRow());
             }
-        } 
-        
+        }
+
     }//GEN-LAST:event_cbo_timVaiTroActionPerformed
 
     private void cbo_timgtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_timgtActionPerformed
@@ -734,8 +772,8 @@ public class FormNhanVien extends javax.swing.JPanel {
             for (NhanVien nv : nhanVienService.timGT((String) cbo_timgt.getSelectedItem())) {
                 dfmol.addRow(nv.toDataRow());
             }
-        } 
-        
+        }
+
     }//GEN-LAST:event_cbo_timgtActionPerformed
 
     private void txt_timsdtInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txt_timsdtInputMethodTextChanged

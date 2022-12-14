@@ -190,7 +190,7 @@ public class FormSanPham extends javax.swing.JPanel {
         txtHeDH.setText(listSP.get(index).getHeDieuHanh());
         txtTrongLuong.setText(String.valueOf(listSP.get(index).getTrongLuong()));
         txtMauSac.setText(listSP.get(index).getMauSac());
-        if (listSP.get(index).getTrangThai().equals("Còn hàng")) {
+        if (listSP.get(index).getTrangThai().equals("Còn Hàng")) {
             radConHang.setSelected(true);
         }
         if (listSP.get(index).getTrangThai().equals("Hết Hàng")) {
@@ -966,10 +966,10 @@ public class FormSanPham extends javax.swing.JPanel {
         sp.setGiaBan(Double.parseDouble(txt_giaBan.getText()));
         sp.setSoLuong(Integer.parseInt(txt_soLuong.getText()));
         sp.setBarCode(txt_barcode.getText());
-        if (radConHang.isSelected()) {
+        if (Integer.parseInt(txt_soLuong.getText())>0) {
             sp.setTrangThai("Còn Hàng");
         }
-        if (radHetHang.isSelected()) {
+        if (Integer.parseInt(txt_soLuong.getText())<=0) {
             sp.setTrangThai("Hết Hàng");
         }
         sp.setMoTa(txtMoTa.getText());
@@ -1028,6 +1028,7 @@ public class FormSanPham extends javax.swing.JPanel {
         boxModelMauSac.removeAllElements();
         cb_mauSac.addItem("All");
         addCBMauSac();
+        lamMoi();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -1058,10 +1059,10 @@ public class FormSanPham extends javax.swing.JPanel {
             sp.setGiaBan(Double.parseDouble(txt_giaBan.getText()));
             sp.setSoLuong(Integer.parseInt(txt_soLuong.getText()));
             sp.setBarCode(txt_barcode.getText());
-            if (radConHang.isSelected()) {
+            if (Integer.parseInt(txt_soLuong.getText())>0) {
                 sp.setTrangThai("Còn Hàng");
             }
-            if (radHetHang.isSelected()) {
+            if (Integer.parseInt(txt_soLuong.getText())==0) {
                 sp.setTrangThai("Hết Hàng");
             }
             int dem = 0;
@@ -1098,6 +1099,7 @@ public class FormSanPham extends javax.swing.JPanel {
             boxModelMauSac.removeAllElements();
             cb_mauSac.addItem("All");
             addCBMauSac();
+            lamMoi();
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -1139,7 +1141,7 @@ public class FormSanPham extends javax.swing.JPanel {
             return false;
         }
         try {
-            if (Integer.parseInt(txtTrongLuong.getText()) <= 0) {
+            if (Double.parseDouble(txtTrongLuong.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "Trọng lượng không hợp lệ ");
                 return false;
             }
@@ -1156,7 +1158,7 @@ public class FormSanPham extends javax.swing.JPanel {
             return false;
         }
         try {
-            if (Integer.parseInt(txt_giaNhap.getText()) <= 0) {
+            if (Double.parseDouble(txt_giaNhap.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "Giá nhập không hợp lệ ");
                 return false;
             }
@@ -1169,7 +1171,7 @@ public class FormSanPham extends javax.swing.JPanel {
             return false;
         }
         try {
-            if (Integer.parseInt(txt_giaBan.getText()) <= Integer.parseInt(txt_giaNhap.getText())) {
+            if (Double.parseDouble(txt_giaBan.getText()) <= Double.parseDouble(txt_giaNhap.getText())) {
                 JOptionPane.showMessageDialog(this, "Giá bán phải lớn hơn giá nhập");
                 return false;
             }
@@ -1182,7 +1184,7 @@ public class FormSanPham extends javax.swing.JPanel {
             return false;
         }
         try {
-            if (Integer.parseInt(txt_soLuong.getText()) <= 0) {
+            if (Double.parseDouble(txt_soLuong.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ ");
                 return false;
             }
@@ -1195,7 +1197,7 @@ public class FormSanPham extends javax.swing.JPanel {
             return false;
         }
         try {
-            if (Integer.parseInt(txt_barcode.getText()) <= 0) {
+            if (Long.parseLong(txt_barcode.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "BarCode không hợp lệ ");
                 return false;
             }

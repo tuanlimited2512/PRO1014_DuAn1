@@ -741,11 +741,15 @@ public class FormBanHang extends javax.swing.JPanel {
 
     private void btn_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThanhToanActionPerformed
         // TODO add your handling code here:
-        if(tbl_hoadon.getSelectedRow() < 0){
+        if (tbl_hoadon.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Chọn hóa đơn muốn thanh toán");
         } else {
             if (txt_tienKhachDua.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Khách Hàng cần Thanh Toán");
+                return;
+            }
+            if (Double.parseDouble(txt_tienKhachDua.getText()) <= 0 || Double.parseDouble(txt_tienKhachDua.getText()) < Double.parseDouble(lbl_thanhToan.getText())) {
+                JOptionPane.showMessageDialog(this, "Số tiền khách hàng cần Thanh Toán là " + lbl_thanhToan.getText());
                 return;
             }
             if (chiTietSPService.kiemTraLaSo(txt_tienKhachDua.getText()) == false) {
@@ -869,7 +873,7 @@ public class FormBanHang extends javax.swing.JPanel {
             clear_hoaDon();
             tbl_bangSanPham.setRowSelectionInterval(0, 0);
         }
-        
+
     }//GEN-LAST:event_btn_ThanhToanActionPerformed
 
     void xuatHoaDon() {
@@ -939,8 +943,10 @@ public class FormBanHang extends javax.swing.JPanel {
         XWPFParagraph xWPFParagraph8 = document.createParagraph();
         run = xWPFParagraph8.createRun();
         run.setText("Ngày lập : " + new Date());
+        
+        String tenHD = txt_maHoaDon1.getText();
 
-        File f = new File("D://hoaDon.docx");
+        File f = new File("D://"+tenHD+".docx");
         try {
             FileOutputStream fos = new FileOutputStream(f);
             XWPFParagraph xWPFParagraph13 = document.createParagraph();
@@ -1161,7 +1167,7 @@ public class FormBanHang extends javax.swing.JPanel {
             thayDoi_lblHoaDon();
         }
 
-        
+
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_xoaTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaTatActionPerformed
@@ -1197,7 +1203,7 @@ public class FormBanHang extends javax.swing.JPanel {
             lbl_TienThua.setText("0");
             txt_tienKhachDua.setText("");
         }
-        
+
     }//GEN-LAST:event_btn_xoaTatActionPerformed
 
     void xoaTat() {

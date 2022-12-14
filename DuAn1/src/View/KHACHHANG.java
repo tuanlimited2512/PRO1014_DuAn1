@@ -8,6 +8,7 @@ import DomainModels.KhachHang;
 import Services.IKhachHangService;
 import Services.lmpl.KhachHangServiceImpl;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -366,14 +367,14 @@ public class KHACHHANG extends javax.swing.JFrame {
         int index = tbl_khachhang.getSelectedRow();
         String checkEmail = "\\w+@\\w+\\.\\w+";
         String checkDT = "0\\d{9}";
-            
+
         if (index < 0) {
             JOptionPane.showMessageDialog(this, "Chọn khách hàng muốn sửa");
         } else {
             if (txt_makh.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
                 return;
-            }else if (txt_tenkh.getText().equals("")) {
+            } else if (txt_tenkh.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
                 return;
             } else if (txt_sdt.getText().equals("")) {
@@ -413,37 +414,40 @@ public class KHACHHANG extends javax.swing.JFrame {
 
     private void btn_them1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_them1ActionPerformed
         // TODO add your handling code here:
-        String checkEmail = "\\w+@\\w+\\.\\w+";
-        String checkDT = "0\\d{9}";
-        
-        if (txt_makh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
-            return;
-        }else if(khachHangService.Check(txt_makh.getText()) != null){
-            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Đã Tồn Tại, Không Thể Thêm.");
-            return;
-        }else if (txt_tenkh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
-            return;
-        }else if (txt_sdt.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
-            return;
-        }else if(!txt_sdt.getText().matches(checkDT)){
-            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
-            return;
-        }else if (txt_email.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
-            return;
-        }else if(!txt_email.getText().matches(checkEmail)){
-            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
-            return;
-        }else if (tar_diachi.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
-            return;
-        }else{
-            KhachHang kh = new KhachHang();
+//        String checkEmail = "\\w+@\\w+\\.\\w+";
+//        String checkDT = "0\\d{9}";
 
-            kh.setMa(txt_makh.getText());
+//        if (txt_makh.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (khachHangService.Check(txt_makh.getText()) != null) {
+//            JOptionPane.showMessageDialog(this, "Mã Khách Hàng Đã Tồn Tại, Không Thể Thêm.");
+//            return;
+//        } else 
+//        if (txt_tenkh.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (txt_sdt.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (!txt_sdt.getText().matches(checkDT)) {
+//            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
+//            return;
+//        } else if (txt_email.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+//            return;
+//        } else if (!txt_email.getText().matches(checkEmail)) {
+//            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
+//            return;
+//        } else if (tar_diachi.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+//            return;
+//        } else {
+        if (kiemTra()) {
+            KhachHang kh = new KhachHang();
+            Random rd = new Random();
+            String ma = "KH" + rd.nextInt();
+            kh.setMa(ma);
             kh.setTen(txt_tenkh.getText());
             kh.setSdt(txt_sdt.getText());
             kh.setGioitinh(rdo_nam.isSelected() ? "Nam" : "Nữ");
@@ -454,8 +458,33 @@ public class KHACHHANG extends javax.swing.JFrame {
             load();
             clearF();
         }
+//        }
     }//GEN-LAST:event_btn_them1ActionPerformed
 
+    Boolean kiemTra() {
+        String checkEmail = "\\w+@\\w+\\.\\w+";
+        String checkDT = "0\\d{9}";
+        if (txt_tenkh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên Khách Hàng Không Được Trống.");
+            return false;
+        } else if (txt_sdt.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Khách Hàng Không Được Trống.");
+            return false;
+        } else if (!txt_sdt.getText().matches(checkDT)) {
+            JOptionPane.showMessageDialog(this, "Số Điện Thoại Không Đúng Định Dạng.");
+            return false;
+        } else if (txt_email.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Email Khách Hàng Không Được Trống.");
+            return false;
+        } else if (!txt_email.getText().matches(checkEmail)) {
+            JOptionPane.showMessageDialog(this, "Email Không Đúng Định Dạng.");
+            return false;
+        } else if (tar_diachi.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Địa Chỉ Khách Hàng Không Được Trống.");
+            return false;
+        }
+        return true;
+    }
     private void rdo_nuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo_nuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdo_nuActionPerformed
@@ -483,17 +512,17 @@ public class KHACHHANG extends javax.swing.JFrame {
         // TODO add your handling code here:
         txt_makh.setEnabled(false);
         btn_chon.setEnabled(true);
-        
+
         int row = tbl_khachhang.getSelectedRow();
         KhachHang kh = khachHangService.getSelectSql().get(row);
-        
+
         txt_makh.setText(kh.getMa());
         txt_tenkh.setText(kh.getTen());
         txt_sdt.setText(kh.getSdt());
         txt_email.setText(kh.getEmail());
-        if(kh.getGioitinh().equals("Nam")){
+        if (kh.getGioitinh().equals("Nam")) {
             rdo_nam.setSelected(true);
-        }else{
+        } else {
             rdo_nu.setSelected(true);
         }
         tar_diachi.setText(kh.getDiachi());
@@ -546,6 +575,7 @@ public class KHACHHANG extends javax.swing.JFrame {
         tar_diachi.setText("");
         buttonGroup1.clearSelection();
     }
+
     /**
      * @param args the command line arguments
      */
