@@ -1169,8 +1169,8 @@ public class FormSanPham extends javax.swing.JPanel {
             return false;
         }
         try {
-            if (Integer.parseInt(txt_giaBan.getText()) <= 0) {
-                JOptionPane.showMessageDialog(this, "Giá bán không hợp lệ ");
+            if (Integer.parseInt(txt_giaBan.getText()) <= Integer.parseInt(txt_giaNhap.getText())) {
+                JOptionPane.showMessageDialog(this, "Giá bán phải lớn hơn giá nhập");
                 return false;
             }
         } catch (Exception e) {
