@@ -11,7 +11,6 @@ import DomainModels.NSX;
 import DomainModels.RAM;
 import DomainModels.SanPham;
 import DomainModels.Serial;
-import Repositories.IThuocTinhRamRepository;
 import Services.IChiTietSPService;
 import Services.IDongSanPhamService;
 import Services.IManHinhService;
@@ -31,7 +30,6 @@ import Services.lmpl.SanPhamServiceImpl;
 import Services.lmpl.SerialServices;
 import Services.lmpl.ThuocTinhCPUServiceImpl;
 import Services.lmpl.ThuocTinhRamService;
-import ViewModels.ChiTietSPViewModel;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -1108,6 +1106,13 @@ public class FormSanPham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Tên không được trống");
             return false;
         }
+        try {
+            if (Integer.parseInt(txtTenSp.getText()) >= 0 || Integer.parseInt(txtTenSp.getText()) < 0) {
+                JOptionPane.showMessageDialog(this, "Tên không phải là số");
+                return false;
+            }
+        } catch (Exception e) {
+        }
         if (txtNamBH.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Năm bảo hành không được trống");
             return false;
@@ -1125,7 +1130,79 @@ public class FormSanPham extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Xuất xứ không được trống");
             return false;
         }
-
+        if (txtHeDH.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Hệ điều hành không được trống");
+            return false;
+        }
+        if (txtTrongLuong.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Trọng lượng không được trống");
+            return false;
+        }
+        try {
+            if (Integer.parseInt(txtTrongLuong.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Trọng lượng không hợp lệ ");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Trọng lượng không hợp lệ");
+            return false;
+        }
+        if (txtMauSac.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Màu sắc không được trống");
+            return false;
+        }
+        if (txt_giaNhap.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Giá nhập không được trống");
+            return false;
+        }
+        try {
+            if (Integer.parseInt(txt_giaNhap.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá nhập không hợp lệ ");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Giá nhập không hợp lệ");
+            return false;
+        }
+        if (txt_giaBan.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Giá bán không được trống");
+            return false;
+        }
+        try {
+            if (Integer.parseInt(txt_giaBan.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá bán không hợp lệ ");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Giá bán không hợp lệ");
+            return false;
+        }
+        if (txt_soLuong.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Số lượng không được trống");
+            return false;
+        }
+        try {
+            if (Integer.parseInt(txt_soLuong.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ ");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ");
+            return false;
+        }
+        if (txt_barcode.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "BarCode không được trống");
+            return false;
+        }
+        try {
+            if (Integer.parseInt(txt_barcode.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "BarCode không hợp lệ ");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "BarCode không hợp lệ");
+            return false;
+        }
         return true;
     }
 
