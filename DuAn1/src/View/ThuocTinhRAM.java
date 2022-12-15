@@ -47,7 +47,15 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
         txt_moTa.setText(ram.getMoTa());
     }
     
+     private void mouse() {
+        int index = tblThuocTinhRAM.getSelectedRow();
+        txt_maram.setText(tblThuocTinhRAM.getValueAt(index, 0).toString());
+        txt_tenram.setText(tblThuocTinhRAM.getValueAt(index, 1).toString());
+        txt_dungluong.setText(tblThuocTinhRAM.getValueAt(index, 2).toString());
+        txt_moTa.setText(tblThuocTinhRAM.getValueAt(index, 3).toString());
 
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,10 +66,10 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel9 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,35 +88,35 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton5.setBackground(new java.awt.Color(153, 255, 204));
-        jButton5.setText("Thêm");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBackground(new java.awt.Color(153, 255, 204));
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(153, 255, 204));
-        jButton6.setText("Sửa");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBackground(new java.awt.Color(153, 255, 204));
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(153, 255, 204));
-        jButton7.setText("Xóa");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setBackground(new java.awt.Color(153, 255, 204));
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(153, 255, 204));
-        jButton8.setText("Làm mới");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setBackground(new java.awt.Color(153, 255, 204));
+        btnClear.setText("Làm mới");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -119,23 +127,23 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(btnThem)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(btnSua)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
+                .addComponent(btnXoa)
                 .addGap(18, 18, 18)
-                .addComponent(jButton8)
+                .addComponent(btnClear)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -159,7 +167,7 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,6 +207,11 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
                 "Mã RAM", "Tên RAM", "Dung lượng", "Mô tả"
             }
         ));
+        tblThuocTinhRAM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblThuocTinhRAMMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblThuocTinhRAM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -228,10 +241,14 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         if(txt_tenram.getText().equals("") || txt_dungluong.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Thông tin không được để trống");
+        }
+        else if(Integer.parseInt(txt_dungluong.getText())<=0){
+            JOptionPane.showMessageDialog(this, "Dung lượng phải lớn hơn 0");
+            return;
         }else {
             String ten = txt_tenram.getText();
             String dungLuong = txt_dungluong.getText();
@@ -246,16 +263,20 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
             txt_moTa.setText("");
         }
         
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         if(tblThuocTinhRAM.getSelectedRow() < 0){
             JOptionPane.showMessageDialog(this, "Chọn RAM muốn sửa");
         }else{
             if (txt_tenram.getText().equals("") || txt_dungluong.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Thông tin không được để trống");
-            } else {
+        }
+        else if(Integer.parseInt(txt_dungluong.getText())<=0){
+            JOptionPane.showMessageDialog(this, "Dung lượng phải lớn hơn 0");
+            return;
+        } else {
                 String ma = txt_maram.getText();
                 String ten = txt_tenram.getText();
                 String dungLuong = txt_dungluong.getText();
@@ -271,9 +292,9 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
             }
         }
          
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         if (tblThuocTinhRAM.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Chọn RAM muốn sửa");
@@ -290,22 +311,27 @@ public class ThuocTinhRAM extends javax.swing.JPanel {
                 txt_moTa.setText("");
             }
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         txt_maram.setText("");
         txt_tenram.setText("");
         txt_dungluong.setText("");
         txt_moTa.setText("");
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void tblThuocTinhRAMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThuocTinhRAMMouseClicked
+        // TODO add your handling code here:
+        mouse();
+    }//GEN-LAST:event_tblThuocTinhRAMMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
