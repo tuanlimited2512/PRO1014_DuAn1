@@ -95,6 +95,8 @@ public class ThuocTinhCPU extends javax.swing.JPanel {
 
         jLabel6.setText("Mô tả");
 
+        txtMaCPU.setEditable(false);
+
         msgTen.setText(" ");
 
         txtMoTa.setColumns(20);

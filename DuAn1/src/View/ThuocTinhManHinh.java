@@ -23,7 +23,7 @@ public class ThuocTinhManHinh extends javax.swing.JPanel {
     private DefaultTableModel tablemodel;
     private IManHinhService imh;
     private ArrayList<ManHinh> listmh;
-
+    private final String checkso = "((0)/[0-9])";
     public ThuocTinhManHinh() {
         initComponents();
         imh = new ManHinhServiceImpl();
@@ -45,7 +45,23 @@ public class ThuocTinhManHinh extends javax.swing.JPanel {
                 || txtKichThuoc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Thông tin không để trống");
             return false;
+        }try {
+            if(Integer.parseInt(txtTen.getText())>=0 || Integer.parseInt(txtTen.getText())<0){
+                JOptionPane.showMessageDialog(this, "Tên không phải là số");
+                return false;
+            }
+        } catch (Exception e) {
         }
+        try {
+            if(Integer.parseInt(txtKichThuoc.getText())<=0 ){
+                 JOptionPane.showMessageDialog(this, "Kích thước phải lớn hơn 0 ");
+                return false;
+            }
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(this, "Kích thước phải lớn hơn 0");
+            return false;
+        }
+
         return true;
     }
 

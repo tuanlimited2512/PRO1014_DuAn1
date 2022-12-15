@@ -121,6 +121,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaDSP">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTenDSP">
         </Component>

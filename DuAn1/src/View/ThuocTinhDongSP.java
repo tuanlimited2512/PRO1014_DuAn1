@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
+
 import DomainModels.DongSP;
 import Services.IDongSanPhamService;
 import Services.lmpl.DongSanPhamServiceImpl;
@@ -23,31 +24,31 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
     private DefaultTableModel dtm = new DefaultTableModel();
     private ArrayList<DongSP> listDSP = new ArrayList<>();
     private IDongSanPhamService service = new DongSanPhamServiceImpl();
-    
+
     public ThuocTinhDongSP() {
         initComponents();
         txtMaDSP.setEnabled(false);
         tableDongSP.setModel(dtm);
-        String [] headers = {"Mã", "Tên"};
+        String[] headers = {"Mã", "Tên"};
         dtm.setColumnIdentifiers(headers);
         listDSP = service.getAll();
         loadData(listDSP);
     }
-    
-    private void loadData(ArrayList<DongSP> list){
+
+    private void loadData(ArrayList<DongSP> list) {
         dtm.setRowCount(0);
         for (DongSP dsp : list) {
             dtm.addRow(dsp.toDataRow());
         }
     }
-    
-    private void fillData(int index){
+
+    private void fillData(int index) {
         DongSP dsp = listDSP.get(index);
         txtMaDSP.setText(dsp.getMaDSP());
         txtTenDSP.setText(dsp.getTenDSP());
     }
-    
-    private void lamMoi (){
+
+    private void lamMoi() {
         txtMaDSP.setText("");
         txtTenDSP.setText("");
     }
@@ -84,6 +85,8 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
         jLabel4.setText("Mã DSP");
 
         jLabel5.setText("Tên DSP");
+
+        txtMaDSP.setEditable(false);
 
         msgTen.setText(" ");
 
@@ -242,7 +245,7 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
         String ma = txtMaDSP.getText();
         String ten = txtTenDSP.getText();
         if (ten.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Tên không được để trống!");
+            JOptionPane.showMessageDialog(this, "Tên không được để trống!");
         } else {
             DongSP dsp = new DongSP(null, ten);
             JOptionPane.showMessageDialog(this, service.update(dsp, ma));
@@ -258,11 +261,16 @@ public class ThuocTinhDongSP extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không có dữ liệu !!!");
             return;
         }
-        String ma = txtMaDSP.getText();
-        JOptionPane.showMessageDialog(this, service.delete(ma));
-        listDSP = service.getAll();
-        loadData(listDSP);
-        lamMoi();
+        int luachon = JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không?", "PHẦN MỀM QUẢN LÝ BÁN HÀNG", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (luachon == JOptionPane.YES_OPTION) {
+            String ma = txtMaDSP.getText();
+            JOptionPane.showMessageDialog(this, service.delete(ma));
+            listDSP = service.getAll();
+            loadData(listDSP);
+            lamMoi();
+        } else {
+
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
